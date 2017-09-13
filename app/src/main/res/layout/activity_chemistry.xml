@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/torch"
+    tools:context="com.example.hp1.myfinalproject.classes.Chemistry"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/tv_VEB_School"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:text="VEB School" />
+
+    <ImageView
+        android:id="@+id/table_of_elements"
+        android:layout_width="match_parent"
+        android:layout_height="197dp"
+        app:srcCompat="@drawable/table_of_elements"
+        android:layout_weight="0.06" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

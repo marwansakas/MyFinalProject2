@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/torch"
+    android:columnCount="2"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.example.hp1.myfinalproject.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/imvProfPic"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        app:srcCompat="@drawable/nopicture" />
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btexplinations"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_column="1"
+                android:layout_row="0"
+                android:text="Explinations" />
+
+            <Button
+                android:id="@+id/bttests"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_column="1"
+                android:layout_gravity="left|top"
+                android:layout_row="0"
+                android:text="Tests" />
+
+            <Button
+                android:id="@+id/btvolenteer"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_column="1"
+                android:layout_row="0"
+                android:text="Volenteer" />
+
+            <Button
+                android:id="@+id/bthomework"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_column="1"
+                android:layout_gravity="right|top"
+                android:layout_row="0"
+                android:text="HomeWork" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>

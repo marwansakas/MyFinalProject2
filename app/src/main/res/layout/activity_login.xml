@@ -1,0 +1,65 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/GridLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="1"
+    android:background="@drawable/torch"
+    tools:context="com.example.hp1.myfinalproject.Login">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_column="0"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginBottom="70dp"
+        android:layout_row="0"
+        android:text="UserName:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_column="0"
+        android:layout_gravity="left|center_vertical"
+        android:layout_row="0"    
+        android:text="Password:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/etpass"
+        style="@android:style/Widget.Material.Light.EditText"
+        android:layout_column="0"
+        android:layout_gravity="right|center_vertical"
+        android:layout_row="0"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="password">
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/etuser"
+        android:layout_width="198dp"
+        android:layout_column="0"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginBottom="70dp"
+        android:layout_row="0"
+        android:ems="10"
+        android:hint="username" />
+
+    <Button
+        android:id="@+id/btlogin"
+        android:layout_column="0"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="150dp"
+        android:layout_row="0"
+        android:text="Login" />
+
+    <Button
+        android:id="@+id/btregister"
+        android:layout_column="0"
+        android:layout_gravity="right|bottom"
+        android:layout_row="0"
+        android:text="Register" />
+
+</GridLayout>

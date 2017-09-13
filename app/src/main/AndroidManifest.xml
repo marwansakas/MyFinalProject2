@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.hp1.myfinalproject">
+
+    <uses-permission android:name="com.android.alarm.permision.SET_ALARM" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".Explanation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Volunteer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Tests"
+            android:label="@string/title_activity_tests"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Register"
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
+        <activity
+            android:name=".Homework_Add"
+            android:label="@string/title_activity_home_work"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HomeWork"
+            android:label="@string/title_activity_homework__show"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".classes.Math"
+            android:label="@string/title_activity_math"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".classes.Arabic"
+            android:label="@string/title_activity_arabic"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".classes.English"
+            android:label="@string/title_activity_english"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".classes.Computer_Sience"
+            android:label="@string/title_activity_computer__sience"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".classes.Hebrew"
+            android:label="@string/title_activity_hebrew"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".classes.Biology"
+            android:label="@string/title_activity_biology"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".classes.Chemistry"
+            android:label="@string/title_activity_chemistry"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".classes.History"
+            android:label="@string/title_activity_history"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Test_Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".math_stuff.root_calculator"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".classes.Sports"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".Profile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".classes.Madaneyat"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Madaneyat_Video"
+            android:theme="@style/AppTheme" ></activity>
+        <receiver android:name=".Notifacation_reciever" android:enabled="true">
+            <intent-filter>
+                <action android:name="singh.ajit.action.DISPLAY_NOTIFICATION"/>
+            </intent-filter>
+        </receiver>
+
+
+    </application>
+
+</manifest>

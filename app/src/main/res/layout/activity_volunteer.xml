@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/torch"
+    tools:context="com.example.hp1.myfinalproject.Volunteer"
+    android:weightSum="1">
+
+    <ListView
+        android:id="@+id/LvVolenteers_done"
+        android:layout_width="match_parent"
+        android:layout_height="236dp"
+        android:layout_weight="0.91"></ListView>
+
+    <Button
+        android:id="@+id/btAdd_Volenteer"
+        android:layout_width="74dp"
+        android:layout_height="wrap_content"
+        android:text="+" />
+
+</LinearLayout>

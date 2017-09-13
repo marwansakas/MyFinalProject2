@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/torch"
+    tools:context="com.example.hp1.myfinalproject.classes.Sports"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/etkg"
+            android:layout_width="151dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="kg"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/etmeters"
+            android:layout_width="159dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:ems="10"
+            android:hint="m"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.56"
+        app:srcCompat="@drawable/size2" />
+
+    <TextView
+        android:id="@+id/tvBMI_Resualt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BMI=???"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <Button
+        android:id="@+id/btCalc"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.02"
+        android:text="Calculat" />
+</LinearLayout>
