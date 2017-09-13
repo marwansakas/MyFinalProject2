@@ -101,11 +101,11 @@ public class DataBaseRegister extends SQLiteOpenHelper {
             return -1;
         }
 
-        public void updateRegisterData(String id/* String firt_name, String last_name, String username, String password, String specialty, int engpoints, int mathpoints, int grade */,byte[] image)
+        public void updateRegisterData(String id, String firt_name, String last_name, String username, String password, String specialty, int engpoints, int mathpoints, int grade ,byte[] image)
         {
             SQLiteDatabase db=this.getWritableDatabase();
             ContentValues contentValues=new ContentValues();
-           /* contentValues.put(COl_1, id);
+           contentValues.put(COl_1, id);
             contentValues.put(COL_2,firt_name);
             contentValues.put(COL_3,last_name);
             contentValues.put(COL_4,username);
@@ -113,9 +113,9 @@ public class DataBaseRegister extends SQLiteOpenHelper {
             contentValues.put(COL_6,specialty);
             contentValues.put(COl_7,engpoints+"");
             contentValues.put(COl_8,mathpoints+"");
-            contentValues.put(COL_9,grade+"");*/
+            contentValues.put(COL_9,grade+"");
             contentValues.put(COL_10,image);
-            db.update(TABLE_NAME,contentValues,"ID=?",null);
+            db.update(TABLE_NAME,contentValues,"USERNAME=?",new String[]{username});
         }
 
 

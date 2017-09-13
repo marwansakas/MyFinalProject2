@@ -78,11 +78,11 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 			AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
 			Calendar calendar=Calendar.getInstance();
 			calendar.set(Calendar.HOUR_OF_DAY,9);
-			calendar.set(Calendar.MINUTE,12);
-			calendar.set(Calendar.SECOND,0);
+            calendar.set(Calendar.MINUTE,12);
+            calendar.set(Calendar.SECOND,0);
 			Intent intent1=new Intent("singh.ajit.action.DISPLAY_NOTIFICATION");
 			PendingIntent pendingIntent=PendingIntent.getBroadcast(this,NOTIFICATION_CODE,intent1,PendingIntent.FLAG_UPDATE_CURRENT);
-			alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+			alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis()+AlarmManager.INTERVAL_HALF_DAY,pendingIntent);
 		}
 
 	}

@@ -28,8 +28,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     Uri imageUri;
     DataBaseRegister db;
     TextView tv;
+    Intent intent;
     Cursor res;
-    String _id;
+    String _id,firstName,lastName,userName,Password,takhassos,engpoint,mathpoints,grade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         db=new DataBaseRegister(this);
         res=db.getAllData();
         StringBuffer stringBuffer=new StringBuffer();
-        Intent intent=getIntent();
+        intent=getIntent();
         if(res!=null&&res.getCount()>0)
         while (res.moveToNext())
             if(res.getString(3).equals(intent.getStringExtra("username from mainActivity")))
@@ -51,19 +52,28 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                 stringBuffer.append("id: "+res.getString(0)+"\n");
                 _id=res.getString(0);
                 stringBuffer.append("first name: "+res.getString(1)+"\n");
+                firstName=res.getString(1);
                 stringBuffer.append("last name: "+res.getString(2)+"\n");
+                lastName=res.getString(2);
                 stringBuffer.append("username: "+res.getString(3)+"\n");
+                userName=res.getString(3);
                 stringBuffer.append("password: "+res.getString(4)+"\n");
+                Password=res.getString(4);
                 stringBuffer.append("takhassos: "+res.getString(5)+"\n");
+                takhassos=res.getString(5);
                 stringBuffer.append("eng points: "+res.getString(6)+"\n");
+                engpoint=res.getString(6);
                 stringBuffer.append("math points: "+res.getString(7)+"\n");
+                mathpoints=res.getString(7);
                 stringBuffer.append("grade: "+res.getString(8));
+                grade=res.getString(8);
                 tv.setText(stringBuffer.toString());
                 Bitmap b = BitmapFactory.decodeByteArray(res.getBlob(9),0,res.getBlob(9).length);
                 imageView.setImageBitmap(b);
             }
             res.moveToFirst();
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -91,10 +101,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                 Bitmap b = drawable.getBitmap();
                 ByteArrayOutputStream bs = new ByteArrayOutputStream();
                 b.compress(Bitmap.CompressFormat.PNG, 50, bs);
-                i.putExtra("byteArray", bs.toByteArray());
+                byte[] imageInByte=bs.toByteArray();
+                i.putExtra("byteArray", imageInByte);
                 i.putExtra("boolean",true);
-                db.updateRegisterData(_id
-                        ,bs.toByteArray());
+                db.updateRegisterData(_id,firstName,lastName,userName,Password,takhassos,Integer.parseInt(engpoint),Integer.parseInt(mathpoints),Integer.parseInt(grade),imageInByte);
+                i.putExtra("username from register",intent.getStringExtra("username from mainActivity"));
                 startActivity(i);
 
             }

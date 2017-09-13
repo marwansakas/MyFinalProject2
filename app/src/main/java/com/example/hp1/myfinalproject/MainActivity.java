@@ -2,6 +2,7 @@ package com.example.hp1.myfinalproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	Button btexplination,bttests,btvolenteer,bthomework;
 	ImageView imb;
 	Intent intent;
-    
+    DataBaseRegister dbRegister;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +37,18 @@ public class MainActivity extends Activity implements OnClickListener{
 		bttests.setOnClickListener(this);
 		btvolenteer.setOnClickListener(this);
 		bthomework.setOnClickListener(this);
-				imb.setOnClickListener(this);
+		imb.setOnClickListener(this);
+		dbRegister=new DataBaseRegister(this);
 		Intent intent=getIntent();
-		if(intent.getBooleanExtra("boolean",false))//to check if we got information to change information
-		{
-			Bitmap b = BitmapFactory.decodeByteArray(
-					getIntent().getByteArrayExtra("byteArray"),0,getIntent()
-							.getByteArrayExtra("byteArray").length);//to turn the byte[] we got in intent back to bitmap
-			imb.setImageBitmap(b);//to set image as the bitmap
-		}
+		Cursor res=dbRegister.getAllData();
+		if(res!=null&&res.getCount()>0)
+			while (res.moveToNext())
+				if(res.getString(3).equals(intent.getStringExtra("username from register")))
+				{
+					Bitmap b = BitmapFactory.decodeByteArray(res.getBlob(9),0,res.getBlob(9).length);
+					imb.setImageBitmap(b);
+				}
+
 	}
 
 	@Override

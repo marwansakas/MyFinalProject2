@@ -30,6 +30,7 @@ public class Homework_Add extends Activity implements OnClickListener{
 	private TextView mDisplayDate;
 	private DatePickerDialog.OnDateSetListener mDatesetListener;
 	int year=0,month=0,day=0;
+	int selectDay,selectMonth,selectYear;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +50,10 @@ public class Homework_Add extends Activity implements OnClickListener{
 				month+=1;
 				Log.d(TAG,"onDateSet: mm/dd/yyy:"+day+"/"+month+"/"+year);
 				mDisplayDate.setText("Date:"+day+"/"+month+"/"+year);
+				selectDay=day;
+				selectYear=year;
+				selectMonth=month;
+
 			}
 		};
 	}
@@ -69,7 +74,7 @@ public class Homework_Add extends Activity implements OnClickListener{
 		if((!ettheDs.getText().toString().equals(""))&&year!=0&&day!=0&&month!=0&&(!s.getSelectedItem().toString().equals("Choose a subject")))
 		{
 			Intent i = new Intent(this,HomeWork.class);
-			i.putExtra("day", day).putExtra("month",month+1).putExtra("year", year);
+			i.putExtra("day", selectDay).putExtra("month",selectMonth).putExtra("year", selectYear);
 			i.putExtra("Ds", ettheDs.getText().toString());
 			i.putExtra("sub", s.getSelectedItem().toString());
 			i.putExtra("is_there", true);

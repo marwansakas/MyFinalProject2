@@ -85,7 +85,9 @@ public class Register extends Activity implements OnClickListener,RadioGroup.OnC
 			}else
 			{
 				myDb.insertData(Id,First,Last,User,Pass,TT,Integer.parseInt(engpoints),Integer.parseInt(mathpoints),Integer.parseInt(Grade),image);//to insert to the SQLite
-				startActivity(new Intent(this,MainActivity.class));//to start activity
+				Intent intent=new Intent(this,MainActivity.class);
+				intent.putExtra("username from register",User);
+				startActivity(intent);//to start activity
 			}
 	}
 	else
