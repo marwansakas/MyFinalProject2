@@ -31,10 +31,12 @@ public class Homework_Add extends Activity implements OnClickListener{
 	private DatePickerDialog.OnDateSetListener mDatesetListener;
 	int year=0,month=0,day=0;
 	int selectDay,selectMonth,selectYear;
+	DataBaseHomeWork myDb;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_homework__show);
+		myDb=new DataBaseHomeWork(this);
 		ettheDs=(EditText)findViewById(R.id.editText2);
 		btadd=(Button)findViewById(R.id.btAdd);
 		btadd.setOnClickListener(this);
@@ -73,12 +75,14 @@ public class Homework_Add extends Activity implements OnClickListener{
 		if(v==btadd)
 		if((!ettheDs.getText().toString().equals(""))&&year!=0&&day!=0&&month!=0&&(!s.getSelectedItem().toString().equals("Choose a subject")))
 		{
+
 			Intent i = new Intent(this,HomeWork.class);
 			i.putExtra("day", selectDay).putExtra("month",selectMonth).putExtra("year", selectYear);
 			i.putExtra("Ds", ettheDs.getText().toString());
 			i.putExtra("sub", s.getSelectedItem().toString());
 			i.putExtra("is_there", true);
 
+			myDb.insertDataToHomeWork("madrya123",s.getSelectedItem().toString(),ettheDs.getText().toString(),selectDay+"",selectMonth+"",selectYear+"");
 			startActivity(i);
 		}
 	}

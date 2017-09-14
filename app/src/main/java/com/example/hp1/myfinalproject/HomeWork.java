@@ -27,8 +27,6 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	Button btplus;
 	wazefe wazefe;
 	DataBaseHomeWork myDb;
-	String subject,details,day,month,year;
-	String Id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,22 +55,6 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 				adapter.notifyDataSetChanged();
 				}
 			}
-
-
-		if(f){
-			wazefe=new wazefe(intent.getStringExtra("sub"), intent.getStringExtra("Ds"),new Date(intent.getIntExtra("day", 0),intent.getIntExtra("month", 0),intent.getIntExtra("year", 0)));
-			arrsubjects.add(wazefe);
-			subject=wazefe.getSubject();
-			details=wazefe.getDetails();
-			day=Integer.toString(wazefe.getD().getDay());
-			month=Integer.toString(wazefe.getD().getMonth());
-			year=Integer.toString(wazefe.getD().getYear());
-			Boolean result=myDb.insertDataToHomeWork(intent.getStringExtra("username from mainActivity"),subject,details,day,month,year);
-			if(result)
-				Toast.makeText(this,"yes",Toast.LENGTH_SHORT).show();
-			adapter.notifyDataSetChanged();
-		}
-		f=false;
 		if(arrsubjects.size()>0)
 		{
 			AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
@@ -89,8 +71,7 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	@Override
 	public void onClick(View v) {
 		if(v==btplus)
-		startActivity(new Intent(this,Homework_Add.class)
-		);
+		startActivity(new Intent(this,Homework_Add.class));
 	}
 
 	@Override
