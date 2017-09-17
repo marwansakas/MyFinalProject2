@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.R;
 
@@ -20,7 +21,7 @@ public class Chemistry extends Activity implements AdapterView.OnItemSelectedLis
 	TextView tvVEB;
 	ImageView imb;
 	Spinner spinner;
-	String[] chemicalSymbols={"H","He"
+	String[] chemicalSymbols={"   ","H","He"
 			,"Li","Be","B","C","N","O","F","Ne"
 			,"Na","Mg","Al","Si","P","S","Ci","Ar"
 			,"K","Ca","Se","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se","Br","Kr"
@@ -52,11 +53,11 @@ public class Chemistry extends Activity implements AdapterView.OnItemSelectedLis
 
 	@Override
 	public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-		if(i>0)
+		if(0<i&&i<chemicalInformation.length)
 		{
 			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 			alertDialog.setTitle(chemicalSymbols[i]);
-			alertDialog.setMessage(chemicalInformation[i]);
+			alertDialog.setMessage(chemicalInformation[i-1]);
 			alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
 					new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
@@ -65,6 +66,8 @@ public class Chemistry extends Activity implements AdapterView.OnItemSelectedLis
 				});
 			alertDialog.show();
 		}
+		else
+			Toast.makeText(this,"be sure to check the next update if they are added",Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

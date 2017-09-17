@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class HomeWork extends Activity implements OnClickListener,AdapterView.OnItemLongClickListener{
 
@@ -27,11 +26,13 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	Button btplus;
 	wazefe wazefe;
 	DataBaseHomeWork myDb;
+	public static Activity homeworkActivity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_homework);
+		homeworkActivity=this;
 		myDb = new DataBaseHomeWork(this.getBaseContext());
 		Intent intent=getIntent();
 		lvsubjects=(ListView)findViewById(R.id.listView1);
@@ -71,7 +72,8 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	@Override
 	public void onClick(View v) {
 		if(v==btplus)
-		startActivity(new Intent(this,Homework_Add.class));
+			startActivity(new Intent(this,Homework_Add.class));
+
 	}
 
 	@Override

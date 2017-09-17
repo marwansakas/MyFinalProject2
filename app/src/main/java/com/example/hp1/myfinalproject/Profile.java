@@ -78,7 +78,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
-        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK)
+        {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(photo);
         }else
@@ -92,7 +93,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v==imageView){
-       SelectImage();
+            SelectImage();
         }else
             if(v==btsave)
             {
@@ -109,7 +110,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                 startActivity(i);
 
             }
-
+        finish();
     }
 
     public void openGallery(){

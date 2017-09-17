@@ -33,6 +33,8 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
     EditText etplace, etactivity, ethours;
     TextView tvDate;
     private DatePickerDialog.OnDateSetListener mDatesetListener;
+    DataBaseVolunteerFarde volunteerFarde;
+    Rows volunteer_note;
     int year = 0, month = 0, day = 0;
 
     @Override
@@ -107,7 +109,7 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
                 i.putExtra("month", month);//to put month in the intent
                 i.putExtra("year", year);//to put year in the intent
                 i.putExtra("is There", true);//to prove that ther is an intent
-                volunteerActivity.finish();//to finish the volunteer activity that was before the one we will start
+                volunteerActivity.finish();
                 startActivity(i);//to start activity
                 finish();//to finish this activity
             }

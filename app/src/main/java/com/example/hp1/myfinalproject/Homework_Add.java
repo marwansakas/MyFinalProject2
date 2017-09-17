@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import static com.example.hp1.myfinalproject.HomeWork.homeworkActivity;
+
 public class Homework_Add extends Activity implements OnClickListener{
 	EditText ettheDs;
 	Button btadd;
@@ -67,7 +69,6 @@ public class Homework_Add extends Activity implements OnClickListener{
 			year=cal.get(Calendar.YEAR);
 			month=cal.get(Calendar.MONTH);
 			day=cal.get(Calendar.DAY_OF_MONTH);
-
 			DatePickerDialog dialog=new DatePickerDialog(Homework_Add.this,android.R.style.Theme_Holo_Light_DarkActionBar,mDatesetListener,year,month,day);
 			dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 			dialog.show();
@@ -77,13 +78,15 @@ public class Homework_Add extends Activity implements OnClickListener{
 		{
 
 			Intent i = new Intent(this,HomeWork.class);
-			i.putExtra("day", selectDay).putExtra("month",selectMonth).putExtra("year", selectYear);
+			/*i.putExtra("day", selectDay).putExtra("month",selectMonth).putExtra("year", selectYear);
 			i.putExtra("Ds", ettheDs.getText().toString());
 			i.putExtra("sub", s.getSelectedItem().toString());
-			i.putExtra("is_there", true);
+			i.putExtra("is_there", true);*/
 
 			myDb.insertDataToHomeWork("madrya123",s.getSelectedItem().toString(),ettheDs.getText().toString(),selectDay+"",selectMonth+"",selectYear+"");
 			startActivity(i);
+			homeworkActivity.finish();
+			finish();
 		}
 	}
 }

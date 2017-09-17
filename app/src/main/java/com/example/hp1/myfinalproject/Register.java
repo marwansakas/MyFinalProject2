@@ -88,10 +88,12 @@ public class Register extends Activity implements OnClickListener,RadioGroup.OnC
 				Intent intent=new Intent(this,MainActivity.class);
 				intent.putExtra("username from register",User);
 				startActivity(intent);//to start activity
+				finish();
 			}
 	}
 	else
 		Toast.makeText(getApplicationContext(),"Please fill all the required information",Toast.LENGTH_SHORT).show();//to tell the user to fill all the required information
+
 	}
 
 	@Override

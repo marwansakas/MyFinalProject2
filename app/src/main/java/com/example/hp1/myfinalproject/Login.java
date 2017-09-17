@@ -41,8 +41,9 @@ public class Login extends Activity implements OnClickListener{
 				Intent intent=new Intent(this,MainActivity.class);
 				intent.putExtra("username from register",etuser.getText().toString());
 				startActivity(intent);//to start MainActivity
+				finish();
 		}
 		}
-		
+
 	}
 }

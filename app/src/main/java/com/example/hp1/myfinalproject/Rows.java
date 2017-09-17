@@ -17,6 +17,8 @@ public class Rows {
         this.bmp = bmp;
     }
 
+
+
     public String getPlace() {
         return place;
     }

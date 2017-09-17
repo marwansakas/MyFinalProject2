@@ -23,7 +23,7 @@ import com.example.hp1.myfinalproject.classes.Madaneyat;
 import com.example.hp1.myfinalproject.classes.Math;
 import com.example.hp1.myfinalproject.classes.Sports;
 
-public class Explanation extends Activity implements OnItemLongClickListener{
+public class Explanation extends Activity implements AdapterView.OnItemClickListener{
 ListView lvsubjects;
 ArrayAdapter<String> adapter;
 ArrayList arrsubjects= new ArrayList<String>();
@@ -33,7 +33,7 @@ ArrayList arrsubjects= new ArrayList<String>();
 		setContentView(R.layout.activity_explination);
 		adapter=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,arrsubjects);
 		lvsubjects=(ListView)findViewById(R.id.lvexplinasions);
-		lvsubjects.setOnItemLongClickListener(this);
+		lvsubjects.setOnItemClickListener(this);
 		lvsubjects.setAdapter(adapter);
 		adapter.add("Math");
 		adapter.add("Arabic");
@@ -48,20 +48,20 @@ ArrayList arrsubjects= new ArrayList<String>();
 	}
 
 	
+
+
 	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 		Intent[] i={new Intent(this,Math.class),
-					new Intent(this,Arabic.class),
-					new Intent(this,English.class),
-					new Intent(this,Computer_Sience.class),
-					new Intent(this,Hebrew.class),
-					new Intent(this,Biology.class),
-					new Intent(this,Chemistry.class),
-					new Intent(this,History.class),
-					new Intent(this,Sports.class),
-					new Intent(this,Madaneyat.class)};
+				new Intent(this,Arabic.class),
+				new Intent(this,English.class),
+				new Intent(this,Computer_Sience.class),
+				new Intent(this,Hebrew.class),
+				new Intent(this,Biology.class),
+				new Intent(this,Chemistry.class),
+				new Intent(this,History.class),
+				new Intent(this,Sports.class),
+				new Intent(this,Madaneyat.class)};
 		startActivity(i[position]);
-		Toast.makeText(getApplicationContext(),position+"",Toast.LENGTH_SHORT).show();
-		return true;
 	}
 }
