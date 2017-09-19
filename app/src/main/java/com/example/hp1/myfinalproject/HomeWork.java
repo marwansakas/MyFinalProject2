@@ -16,6 +16,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class HomeWork extends Activity implements OnClickListener,AdapterView.OnItemLongClickListener{
 
 	public static final int NOTIFICATION_CODE=100;
@@ -27,10 +33,12 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	wazefe wazefe;
 	DataBaseHomeWork myDb;
 	public static Activity homeworkActivity;
+	DatabaseReference databaseReference;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		databaseReference= FirebaseDatabase.getInstance().getReference();
 		setContentView(R.layout.activity_homework);
 		homeworkActivity=this;
 		myDb = new DataBaseHomeWork(this.getBaseContext());
@@ -69,6 +77,29 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 		}
 
 	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		databaseReference.addValueEventListener(new ValueEventListener() {
+			@Override
+			public void onDataChange(DataSnapshot dataSnapshot) {
+				for(DataSnapshot homeWorkDataSnapShot: dataSnapshot.getChildren())
+				{
+					wazefe wazefe=homeWorkDataSnapShot.getValue(wazefe.class);
+					arrsubjects.add(wazefe);
+					adapter.notifyDataSetChanged();
+
+				}
+			}
+
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
+
+			}
+		});
+	}
+
 	@Override
 	public void onClick(View v) {
 		if(v==btplus)

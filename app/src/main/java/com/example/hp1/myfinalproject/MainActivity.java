@@ -15,17 +15,28 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.hp1.myfinalproject.classes.Madaneyat;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends Activity implements OnClickListener{
 	Button btexplination,bttests,btvolenteer,bthomework;
 	ImageView imb;
 	Intent intent;
     DataBaseRegister dbRegister;
+    DatabaseReference databaseReference;
+	FirebaseAuth firebaseAuth;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		firebaseAuth=FirebaseAuth.getInstance();
+		databaseReference = FirebaseDatabase.getInstance().getReference();
 		intent=getIntent();//to get the information for this intent
 		btexplination=(Button)findViewById(R.id.btexplinations);
 		bttests=(Button)findViewById(R.id.bttests);
@@ -39,7 +50,6 @@ public class MainActivity extends Activity implements OnClickListener{
 		bthomework.setOnClickListener(this);
 		imb.setOnClickListener(this);
 		dbRegister=new DataBaseRegister(this);
-		Intent intent=getIntent();
 		Cursor res=dbRegister.getAllData();
 		if(res!=null&&res.getCount()>0)
 			while (res.moveToNext())
@@ -50,6 +60,13 @@ public class MainActivity extends Activity implements OnClickListener{
 				}
 
 	}
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(intent.getBooleanExtra("checking for user",false))
+            saveUSerInformation();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {//to create an options menu
@@ -64,12 +81,14 @@ public class MainActivity extends Activity implements OnClickListener{
     public boolean onOptionsItemSelected(MenuItem item)//to make the iteams for the options menu
     {
         switch (item.getItemId()) {
-			case R.id.support:
-				startActivity(new Intent(this, Madaneyat.class));
+			case R.id.logOut:
+				firebaseAuth.signOut();
+				startActivity(new Intent(this,Login.class));
 				return true;
 			case R.id.suggestion:
 				startActivity(new Intent(this, Explanation.class));
 				return true;
+
 		}
 		return super.onOptionsItemSelected(item);
     }
@@ -102,4 +121,10 @@ public class MainActivity extends Activity implements OnClickListener{
 					}
 
 	}
+    public void saveUSerInformation(){
+        Bundle bundle=intent.getExtras();
+        InformationRegistered informationRegistered=(InformationRegistered)bundle.getSerializable("information Registered");
+        FirebaseUser user=firebaseAuth.getCurrentUser();
+        databaseReference.child(user.getUid()).setValue(informationRegistered);
+    }
 }

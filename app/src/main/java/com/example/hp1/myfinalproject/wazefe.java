@@ -4,6 +4,8 @@ public class wazefe  {
 String subject,details;
 Date d;
 
+public wazefe(){}
+
 public wazefe(String subject, String details, Date d) {
 	super();
 	this.subject = subject;

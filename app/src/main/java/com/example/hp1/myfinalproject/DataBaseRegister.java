@@ -16,7 +16,7 @@ public class DataBaseRegister extends SQLiteOpenHelper {
     private static final String COl_1="ID";
     private static final String COL_2="FIRST_NAME";
     private static final String COL_3="LAST_NAME";
-    private static final String COL_4="USERNAME";
+    private static final String COL_4="EMAIL";
     private static final String COL_5="PASSWORD";
     private static final String COL_6="SPECIALTY";
     private static final String COl_7="ENGPOINTS";
@@ -32,7 +32,7 @@ public class DataBaseRegister extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_NAME + " (ID INTEGER ,FIRST_NAME TEXT ,LAST_NAME TEXT ,USERNAME TEXT ,PASSWORD TEXT ,SPECIALTY TEXT ,ENGPOINTS INTEGER ,MATHPOINTS INTEGER ,GRADE INTEGER ,PROF_PIC BLOB)");
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_NAME + " (ID INTEGER ,FIRST_NAME TEXT ,LAST_NAME TEXT ,EMAIL TEXT ,PASSWORD TEXT ,SPECIALTY TEXT ,ENGPOINTS INTEGER ,MATHPOINTS INTEGER ,GRADE INTEGER ,PROF_PIC BLOB)");
     }
 
     @Override
@@ -47,14 +47,14 @@ public class DataBaseRegister extends SQLiteOpenHelper {
         return  db.rawQuery("SELECT * FROM "+TABLE_NAME,null);
     }
 
-    public boolean insertData(String id, String firt_name, String last_name, String username, String password, String specialty, int engpoints, int mathpoints, int grade ,byte[] image)
+    public boolean insertData(String id, String firt_name, String last_name, String Email, String password, String specialty, int engpoints, int mathpoints, int grade ,byte[] image)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COl_1, id);
         contentValues.put(COL_2,firt_name);
         contentValues.put(COL_3,last_name);
-        contentValues.put(COL_4,username);
+        contentValues.put(COL_4,Email);
         contentValues.put(COL_5,password);
         contentValues.put(COL_6,specialty);
         contentValues.put(COl_7,engpoints+"");
@@ -71,7 +71,7 @@ public class DataBaseRegister extends SQLiteOpenHelper {
         }
     }
 
-        public int search_nomatch(String id, String username, String password)
+        public int search_nomatch(String id, String Email, String password)
         {
             SQLiteDatabase db = this.getWritableDatabase();
             Cursor res = db.rawQuery("Select * from " + TABLE_NAME,null);
@@ -80,7 +80,7 @@ public class DataBaseRegister extends SQLiteOpenHelper {
                     if(id.equals(res.getString(0)))
                         return 1;
                     else
-                        if(username.equals(res.getString(3)))
+                        if(Email.equals(res.getString(3)))
                             return 2;
                     else
                         if(password.equals(res.getString(4)))
@@ -89,33 +89,33 @@ public class DataBaseRegister extends SQLiteOpenHelper {
             return 0;
         }
 
-        public int check_login(String username,String password)
+        public int check_login(String Email,String password)
         {
             SQLiteDatabase db = this.getWritableDatabase();
             Cursor res = db.rawQuery("Select * from " + TABLE_NAME,null);
             if(res!=null&&res.getCount()>0)
                 while (res.moveToNext()){
-                   if(username.equals(res.getString(3))&&password.equals(res.getString(4)))
+                   if(Email.equals(res.getString(3))&&password.equals(res.getString(4)))
                        return 0;
                 }
             return -1;
         }
 
-        public void updateRegisterData(String id, String firt_name, String last_name, String username, String password, String specialty, int engpoints, int mathpoints, int grade ,byte[] image)
+        public void updateRegisterData(String id, String firt_name, String last_name, String Email, String password, String specialty, int engpoints, int mathpoints, int grade ,byte[] image)
         {
             SQLiteDatabase db=this.getWritableDatabase();
             ContentValues contentValues=new ContentValues();
            contentValues.put(COl_1, id);
             contentValues.put(COL_2,firt_name);
             contentValues.put(COL_3,last_name);
-            contentValues.put(COL_4,username);
+            contentValues.put(COL_4,Email);
             contentValues.put(COL_5,password);
             contentValues.put(COL_6,specialty);
             contentValues.put(COl_7,engpoints+"");
             contentValues.put(COl_8,mathpoints+"");
             contentValues.put(COL_9,grade+"");
             contentValues.put(COL_10,image);
-            db.update(TABLE_NAME,contentValues,"USERNAME=?",new String[]{username});
+            db.update(TABLE_NAME,contentValues,"EMAIL=?",new String[]{Email});
         }
 
 

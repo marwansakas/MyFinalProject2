@@ -21,6 +21,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import static com.example.hp1.myfinalproject.HomeWork.homeworkActivity;
 
 public class Homework_Add extends Activity implements OnClickListener{
@@ -34,10 +39,16 @@ public class Homework_Add extends Activity implements OnClickListener{
 	int year=0,month=0,day=0;
 	int selectDay,selectMonth,selectYear;
 	DataBaseHomeWork myDb;
+	DatabaseReference databaseReference;
+    FirebaseAuth firebaseAuth;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_homework__show);
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+        firebaseAuth=FirebaseAuth.getInstance();
 		myDb=new DataBaseHomeWork(this);
 		ettheDs=(EditText)findViewById(R.id.editText2);
 		btadd=(Button)findViewById(R.id.btAdd);
@@ -82,11 +93,18 @@ public class Homework_Add extends Activity implements OnClickListener{
 			i.putExtra("Ds", ettheDs.getText().toString());
 			i.putExtra("sub", s.getSelectedItem().toString());
 			i.putExtra("is_there", true);*/
-
+			saveUSerInformation();
 			myDb.insertDataToHomeWork("madrya123",s.getSelectedItem().toString(),ettheDs.getText().toString(),selectDay+"",selectMonth+"",selectYear+"");
 			startActivity(i);
 			homeworkActivity.finish();
 			finish();
 		}
+
+
+	}
+	public void saveUSerInformation(){
+        wazefe wazefe=new wazefe(s.getSelectedItem().toString(),ettheDs.getText().toString(),new Date(selectDay,selectMonth,selectYear));
+        FirebaseUser user=firebaseAuth.getCurrentUser();
+        databaseReference.child(user.getUid()).setValue(wazefe);
 	}
 }

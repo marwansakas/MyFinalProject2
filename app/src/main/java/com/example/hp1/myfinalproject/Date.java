@@ -3,6 +3,8 @@ package com.example.hp1.myfinalproject;
 public class Date {
 int day,month,year;
 
+public Date(){}
+
 public Date(int day, int month, int year) {
 	super();
 	this.day = day;

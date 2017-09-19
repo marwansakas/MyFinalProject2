@@ -30,7 +30,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     TextView tv;
     Intent intent;
     Cursor res;
-    String _id,firstName,lastName,userName,Password,takhassos,engpoint,mathpoints,grade;
+    String _id,firstName,lastName,Email,Password,takhassos,engpoint,mathpoints,grade;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +56,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                 firstName=res.getString(1);
                 stringBuffer.append("last name: "+res.getString(2)+"\n");
                 lastName=res.getString(2);
-                stringBuffer.append("username: "+res.getString(3)+"\n");
-                userName=res.getString(3);
+                stringBuffer.append("Email: "+res.getString(3)+"\n");
+                Email=res.getString(3);
                 stringBuffer.append("password: "+res.getString(4)+"\n");
                 Password=res.getString(4);
                 stringBuffer.append("takhassos: "+res.getString(5)+"\n");
@@ -105,7 +106,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                 byte[] imageInByte=bs.toByteArray();
                 i.putExtra("byteArray", imageInByte);
                 i.putExtra("boolean",true);
-                db.updateRegisterData(_id,firstName,lastName,userName,Password,takhassos,Integer.parseInt(engpoint),Integer.parseInt(mathpoints),Integer.parseInt(grade),imageInByte);
+                db.updateRegisterData(_id,firstName,lastName,Email,Password,takhassos,Integer.parseInt(engpoint),Integer.parseInt(mathpoints),Integer.parseInt(grade),imageInByte);
                 i.putExtra("username from register",intent.getStringExtra("username from mainActivity"));
                 startActivity(i);
 
