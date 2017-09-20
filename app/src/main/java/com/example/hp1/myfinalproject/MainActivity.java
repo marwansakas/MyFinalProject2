@@ -11,8 +11,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.example.hp1.myfinalproject.classes.Madaneyat;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,12 +25,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class MainActivity extends Activity implements OnClickListener{
 	Button btexplination,bttests,btvolenteer,bthomework;
 	ImageView imb;
 	Intent intent;
+    ListView lvNews;
+    ArrayList arrNews=new ArrayList();
+    ArrayAdapter<String> adapter;
+
     DataBaseRegister dbRegister;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReferenceRegister;
 	FirebaseAuth firebaseAuth;
 
 	@Override
@@ -36,7 +44,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		firebaseAuth=FirebaseAuth.getInstance();
-		databaseReference = FirebaseDatabase.getInstance().getReference();
+		databaseReferenceRegister = FirebaseDatabase.getInstance().getReference("Registrations");
 		intent=getIntent();//to get the information for this intent
 		btexplination=(Button)findViewById(R.id.btexplinations);
 		bttests=(Button)findViewById(R.id.bttests);
@@ -44,12 +52,15 @@ public class MainActivity extends Activity implements OnClickListener{
 		bthomework=(Button)findViewById(R.id.bthomework);
 		imb=(ImageView) findViewById(R.id.imvProfPic);
 		imb.setImageResource(R.drawable.nopicture);
+		lvNews=(ListView)findViewById(R.id.lvNews);
 		btexplination.setOnClickListener(this);
 		bttests.setOnClickListener(this);
 		btvolenteer.setOnClickListener(this);
 		bthomework.setOnClickListener(this);
 		imb.setOnClickListener(this);
 		dbRegister=new DataBaseRegister(this);
+        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrNews);
+		lvNews.setAdapter(adapter);
 		Cursor res=dbRegister.getAllData();
 		if(res!=null&&res.getCount()>0)
 			while (res.moveToNext())
@@ -125,6 +136,6 @@ public class MainActivity extends Activity implements OnClickListener{
         Bundle bundle=intent.getExtras();
         InformationRegistered informationRegistered=(InformationRegistered)bundle.getSerializable("information Registered");
         FirebaseUser user=firebaseAuth.getCurrentUser();
-        databaseReference.child(user.getUid()).setValue(informationRegistered);
+		databaseReferenceRegister.child(user.getUid()).setValue(informationRegistered);
     }
 }

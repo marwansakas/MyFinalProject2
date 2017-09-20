@@ -16,6 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,64 +34,45 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	ArrayList arrsubjects= new ArrayList();
 	Button btplus;
 	wazefe wazefe;
-	DataBaseHomeWork myDb;
 	public static Activity homeworkActivity;
-	DatabaseReference databaseReference;
+	DatabaseReference databaseReferenceHomework,databaseReferenceSubHomework;
+	FirebaseUser firebaseUser;
+    DatabaseReference reference;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		databaseReference= FirebaseDatabase.getInstance().getReference();
 		setContentView(R.layout.activity_homework);
-		homeworkActivity=this;
-		myDb = new DataBaseHomeWork(this.getBaseContext());
-		Intent intent=getIntent();
+
+		btplus=(Button)findViewById(R.id.button1);
 		lvsubjects=(ListView)findViewById(R.id.listView1);
+
+		btplus.setOnClickListener(this);
 		lvsubjects.setOnItemLongClickListener(this);
+
+		firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+		databaseReferenceHomework= FirebaseDatabase.getInstance().getReference("Homework");
+		databaseReferenceSubHomework=databaseReferenceHomework.child(firebaseUser.getUid());
+
+		homeworkActivity=this;
 		adapter=new CustomAdapter(this,arrsubjects);
 		lvsubjects.setAdapter(adapter);
-		btplus=(Button)findViewById(R.id.button1);
-		btplus.setOnClickListener(this);
-
-		boolean f=intent.getBooleanExtra("is_there", false);
-
-		Cursor res=myDb.getAllDataFromHomeWork();
-		if(res!=null&&res.getCount()>0)
-		{
-			while (res.moveToNext()){
-		//		if(res.getString(0).equals(intent.getStringExtra("username from mainActivity"))){
-				wazefe=new wazefe(res.getString(1)
-						,res.getString(2)
-						,new Date(Integer.parseInt(res.getString(3)),Integer.parseInt(res.getString(4)),Integer.parseInt(res.getString(5))));
-				arrsubjects.add(wazefe);
-				adapter.notifyDataSetChanged();
-				}
-			}
-		if(arrsubjects.size()>0)
-		{
-			AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
-			Calendar calendar=Calendar.getInstance();
-			calendar.set(Calendar.HOUR_OF_DAY,9);
-            calendar.set(Calendar.MINUTE,12);
-            calendar.set(Calendar.SECOND,0);
-			Intent intent1=new Intent("singh.ajit.action.DISPLAY_NOTIFICATION");
-			PendingIntent pendingIntent=PendingIntent.getBroadcast(this,NOTIFICATION_CODE,intent1,PendingIntent.FLAG_UPDATE_CURRENT);
-			alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis()+AlarmManager.INTERVAL_HALF_DAY,pendingIntent);
-		}
-
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-		databaseReference.addValueEventListener(new ValueEventListener() {
+		databaseReferenceSubHomework.addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(DataSnapshot dataSnapshot) {
 				for(DataSnapshot homeWorkDataSnapShot: dataSnapshot.getChildren())
 				{
-					wazefe wazefe=homeWorkDataSnapShot.getValue(wazefe.class);
-					arrsubjects.add(wazefe);
-					adapter.notifyDataSetChanged();
+						wazefe wazefe = homeWorkDataSnapShot.getValue(wazefe.class);
+						arrsubjects.add(wazefe);
+						adapter.notifyDataSetChanged();
+
+					if(arrsubjects.size()>0)
+						setNotification();
 
 				}
 			}
@@ -108,13 +92,22 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	}
 
 	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+	public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
 
-		Cursor res = myDb.getAllDataFromHomeWork();
-		res.move(position);
-		myDb.deleteData(adapter.getItem(position).getDetails());
-		arrsubjects.remove(position);
-		adapter.notifyDataSetChanged();
+
 		return true;
+	}
+
+
+	public void setNotification(){
+		AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
+		Calendar calendar=Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY,9);
+		calendar.set(Calendar.MINUTE,12);
+		calendar.set(Calendar.SECOND,0);
+		Intent intent1=new Intent("singh.ajit.action.DISPLAY_NOTIFICATION");
+		PendingIntent pendingIntent=PendingIntent.getBroadcast(HomeWork.this,NOTIFICATION_CODE,intent1,PendingIntent.FLAG_UPDATE_CURRENT);
+		alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis()+AlarmManager.INTERVAL_HALF_DAY,pendingIntent);
+
 	}
 }

@@ -90,10 +90,11 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                 && !(alame.getText().toString().equals(""))
                 && !(ID.getText().toString().equals("")))//to check if the inputted all the information
         {
+            Pass = Password.getText().toString();
+            if(Pass.length()>=6){
             First = First_Name.getText().toString();
             Last = Last_Name.getText().toString();
             EmailString = Email.getText().toString();
-            Pass = Password.getText().toString();
             Grade = alame.getText().toString();
             Id = ID.getText().toString();//to turn all the information to string
             int find = myDb.search_nomatch(Id, EmailString, Pass);
@@ -109,7 +110,6 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(Register.this, "yes", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(Register.this, MainActivity.class);
                                     Bundle bundle = new Bundle();
                                     InformationRegistered informationRegistered = new InformationRegistered(Id, First, Last, EmailString, Pass, TT, Integer.parseInt(engpoints), Integer.parseInt(mathpoints), Integer.parseInt(Grade));
@@ -121,12 +121,12 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                                 }
                             }
                         });
-                InformationRegistered informationRegistered = new InformationRegistered(Id, First, Last, EmailString, Pass, TT, Integer.parseInt(engpoints), Integer.parseInt(mathpoints), Integer.parseInt(Grade));
 
                 intent.putExtra("username from register", EmailString);
 
-
+                }
             }
+
         } else
             Toast.makeText(getApplicationContext(), "Please fill all the required information", Toast.LENGTH_SHORT).show();//to tell the user to fill all the required information
 

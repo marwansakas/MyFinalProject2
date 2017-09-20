@@ -29,15 +29,19 @@ public class Login extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        intent = new Intent(this, MainActivity.class);
-        progressDialog = new ProgressDialog(this);
-        firebaseAuth = FirebaseAuth.getInstance();
+
         btregister = (Button) findViewById(R.id.btregister);//to set what buttons they are by thier id
         btlogin = (Button) findViewById(R.id.btlogin);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etpass = (EditText) findViewById(R.id.etpass);
         btlogin.setOnClickListener(this);//to make the button clickable
         btregister.setOnClickListener(this);
+
+        intent = new Intent(this, MainActivity.class);
+
+        progressDialog = new ProgressDialog(this);
+        firebaseAuth = FirebaseAuth.getInstance();
+
         mydb_register = new DataBaseRegister(this);//to initialize the sql
     }
 
@@ -46,14 +50,7 @@ public class Login extends Activity implements OnClickListener {
         if (v == btregister) {
             startActivity(new Intent(this, Register.class));//to start activity Register
         } else {
-            /*if(mydb_register.check_login(etEmail.getText().toString(),etpass.getText().toString())==-1)
-				Toast.makeText(getApplicationContext(),"username or password are wrong",Toast.LENGTH_SHORT).show();//to check if the user exists in the database
-			else{
-				Intent intent=new Intent(this,MainActivity.class);
-				intent.putExtra("username from register",etEmail.getText().toString());
-				startActivity(intent);//to start MainActivity
 
-				finish();*/
             if (!(etpass.getText().toString().equals("")) && !(etEmail.getText().toString().equals(""))) {
                 progressDialog.setMessage("Checking for user...");
                 progressDialog.show();
@@ -68,6 +65,8 @@ public class Login extends Activity implements OnClickListener {
                             }
                         });
             }
+            else
+                Toast.makeText(Login.this,"Could not login",Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -17,6 +17,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.ByteArrayOutputStream;
 
 public class Profile extends AppCompatActivity implements View.OnClickListener{
@@ -31,7 +36,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     Intent intent;
     Cursor res;
     String _id,firstName,lastName,Email,Password,takhassos,engpoint,mathpoints,grade;
-
+    DatabaseReference databaseReferenceProfile;
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         db=new DataBaseRegister(this);
         res=db.getAllData();
         StringBuffer stringBuffer=new StringBuffer();
+        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations");
         intent=getIntent();
         if(res!=null&&res.getCount()>0)
         while (res.moveToNext())
