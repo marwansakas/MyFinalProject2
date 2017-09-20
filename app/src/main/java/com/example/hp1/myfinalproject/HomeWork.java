@@ -33,11 +33,10 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	ArrayAdapter<wazefe> adapter;
 	ArrayList arrsubjects= new ArrayList();
 	Button btplus;
-	wazefe wazefe;
 	public static Activity homeworkActivity;
 	DatabaseReference databaseReferenceHomework,databaseReferenceSubHomework;
 	FirebaseUser firebaseUser;
-    DatabaseReference reference;
+    FirebaseAuth firebaseAuth;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +49,7 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 		btplus.setOnClickListener(this);
 		lvsubjects.setOnItemLongClickListener(this);
 
+        firebaseAuth=FirebaseAuth.getInstance();
 		firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
 		databaseReferenceHomework= FirebaseDatabase.getInstance().getReference("Homework");
 		databaseReferenceSubHomework=databaseReferenceHomework.child(firebaseUser.getUid());
@@ -93,9 +93,17 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 
 	@Override
 	public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
+        databaseReferenceSubHomework.removeValue();
+        arrsubjects.remove(position);
+        adapter.notifyDataSetChanged();
+        for(int i=0;i<arrsubjects.size();i++) {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            databaseReferenceHomework.child(user.getUid()).push().setValue(arrsubjects.get(i));
+        }
+        arrsubjects.clear();
+        adapter.notifyDataSetChanged();
 
-
-		return true;
+        return true;
 	}
 
 

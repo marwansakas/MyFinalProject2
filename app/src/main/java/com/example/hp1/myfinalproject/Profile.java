@@ -17,10 +17,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hp1.myfinalproject.math_stuff.root_calculator;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
@@ -37,12 +42,14 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     Cursor res;
     String _id,firstName,lastName,Email,Password,takhassos,engpoint,mathpoints,grade;
     DatabaseReference databaseReferenceProfile;
+    StorageReference storageReference;
     FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        storageReference= FirebaseStorage.getInstance().getReference();
         btsave=(Button)findViewById(R.id.btsave);
         btsave.setOnClickListener(this);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -94,7 +101,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         }else
             if(resultCode==RESULT_OK&&requestCode==PICK_IMAGE)
             {
-                imageUri = data.getData();
+                imageUri=data.getData();
+                StorageReference file_path=storageReference.child("Photos").child(firebaseUser.getUid());
+                file_path.putFile(imageUri);
                 imageView.setImageURI(imageUri);
             }
     }
@@ -117,9 +126,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                 db.updateRegisterData(_id,firstName,lastName,Email,Password,takhassos,Integer.parseInt(engpoint),Integer.parseInt(mathpoints),Integer.parseInt(grade),imageInByte);
                 i.putExtra("username from register",intent.getStringExtra("username from mainActivity"));
                 startActivity(i);
+                finish();
 
             }
-        finish();
+
     }
 
     public void openGallery(){

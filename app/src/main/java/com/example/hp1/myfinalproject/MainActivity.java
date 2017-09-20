@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,8 +16,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.classes.Madaneyat;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +27,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
@@ -38,14 +44,20 @@ public class MainActivity extends Activity implements OnClickListener{
     DataBaseRegister dbRegister;
     DatabaseReference databaseReferenceRegister;
 	FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    StorageReference storageRef,file_path;
+	Uri downloadUri;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		firebaseAuth=FirebaseAuth.getInstance();
+        firebaseUser=firebaseAuth.getCurrentUser();
 		databaseReferenceRegister = FirebaseDatabase.getInstance().getReference("Registrations");
-		intent=getIntent();//to get the information for this intent
+        storageRef = FirebaseStorage.getInstance().getReference();
+		file_path=storageRef.child("Photos").child(firebaseUser.getUid());
+        intent=getIntent();//to get the information for this intent
 		btexplination=(Button)findViewById(R.id.btexplinations);
 		bttests=(Button)findViewById(R.id.bttests);
 		btvolenteer=(Button)findViewById(R.id.btvolenteer);
@@ -137,5 +149,13 @@ public class MainActivity extends Activity implements OnClickListener{
         InformationRegistered informationRegistered=(InformationRegistered)bundle.getSerializable("information Registered");
         FirebaseUser user=firebaseAuth.getCurrentUser();
 		databaseReferenceRegister.child(user.getUid()).setValue(informationRegistered);
+        Uri uri=Uri.parse("android.resource://com.example.hp1.myfinalproject/"+R.drawable.nopicture);
+
+        file_path.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(getApplication(),"yes",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
