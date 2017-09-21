@@ -9,6 +9,8 @@ public class Rows {
     Date date;
     Bitmap bmp;
 
+    public Rows(){}
+
     public Rows(String place, String action, int hours, Date date, Bitmap bmp) {
         this.place = place;
         this.action = action;

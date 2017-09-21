@@ -36,7 +36,7 @@ public class Homework_Add extends Activity implements OnClickListener{
 	int year=0,month=0,day=0;
 	int selectDay,selectMonth,selectYear;
 
-	DatabaseReference databaseReferenceHomework,DatabaseReferenceSubHomework;
+	DatabaseReference databaseReferenceHomework;
     FirebaseAuth firebaseAuth;
 	FirebaseUser firebaseUser;
 
@@ -48,7 +48,6 @@ public class Homework_Add extends Activity implements OnClickListener{
         databaseReferenceHomework= FirebaseDatabase.getInstance().getReference("Homework");
         firebaseAuth=FirebaseAuth.getInstance();
 		firebaseUser=firebaseAuth.getCurrentUser();
-		DatabaseReferenceSubHomework=databaseReferenceHomework.child(firebaseUser.getUid());
 		ettheDs=(EditText)findViewById(R.id.editText2);
 		btadd=(Button)findViewById(R.id.btAdd);
 		btadd.setOnClickListener(this);
@@ -88,15 +87,15 @@ public class Homework_Add extends Activity implements OnClickListener{
 		{
 
 			Intent i = new Intent(this,HomeWork.class);
-			saveUSerInformation();
+			saveUserInformation();
 			startActivity(i);
 			homeworkActivity.finish();
 			finish();
 		}
 	}
-	public void saveUSerInformation(){
+
+	public void saveUserInformation(){
         wazefe wazefe=new wazefe(s.getSelectedItem().toString(),ettheDs.getText().toString(),new Date(selectDay,selectMonth,selectYear));
-        FirebaseUser user=firebaseAuth.getCurrentUser();
-        databaseReferenceHomework.child(user.getUid()).push().setValue(wazefe);
+        databaseReferenceHomework.child(firebaseUser.getUid()).push().setValue(wazefe);
 	}
 }

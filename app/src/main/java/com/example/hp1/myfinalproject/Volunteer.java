@@ -13,6 +13,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
@@ -25,7 +33,13 @@ public class Volunteer extends Activity implements View.OnClickListener{
 	Rows volunteer_note;
 	Button btAdd;
 	DataBaseVolunteerFarde volunteerFarde;
+	Rows rows;
+
 	public static Activity volunteerActivity;
+
+	DatabaseReference databaseReferenceVolunteer,databaseReferenceSubVolunteer;
+	FirebaseAuth firebaseAuth;
+	FirebaseUser firebaseUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +73,31 @@ public class Volunteer extends Activity implements View.OnClickListener{
 			arr1.add(volunteer_note);//to add volunteer_note to arr1
 			adapter.notifyDataSetChanged();//to notify adapter that something new ha been added to arr1
 		}
+		firebaseAuth=FirebaseAuth.getInstance();
+		firebaseUser=firebaseAuth.getCurrentUser();
+		databaseReferenceVolunteer= FirebaseDatabase.getInstance().getReference("Volunteer");
+		databaseReferenceSubVolunteer=databaseReferenceVolunteer.child(firebaseUser.getUid());
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		databaseReferenceSubVolunteer.addValueEventListener(new ValueEventListener() {
+			@Override
+			public void onDataChange(DataSnapshot dataSnapshot) {
+				for(DataSnapshot volunteerDataSnapShot: dataSnapshot.getChildren())
+				{
+					rows=volunteerDataSnapShot.getValue(Rows.class);//the problem is that bitmap does not have a constructor with no argument try changing to byte array
+					arr1.add(rows);
+				}
+				adapter.notifyDataSetChanged();
+			}
+
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
+
+			}
+		});
 	}
 
 	@Override

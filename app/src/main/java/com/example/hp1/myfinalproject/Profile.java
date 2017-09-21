@@ -98,10 +98,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
             if(v==btsave)
             {
                 Intent i = new Intent(this, MainActivity.class);
-                if(imageUri!=null)
-                file_path.putFile(imageUri);
-                i.putExtra("uri",imageUri.toString());//testing
-                i.putExtra("check",true);
+                if(imageUri!=null){
+                    file_path.putFile(imageUri);
+                    i.putExtra("uri",imageUri.toString());
+                    i.putExtra("check",true);
+                }
                 startActivity(i);
                 finish();
 
