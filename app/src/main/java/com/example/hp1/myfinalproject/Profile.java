@@ -1,12 +1,10 @@
 package com.example.hp1.myfinalproject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -17,7 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.hp1.myfinalproject.math_stuff.root_calculator;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,9 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+
 
 public class Profile extends AppCompatActivity implements View.OnClickListener{
 
@@ -36,13 +34,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     ImageView imageView;
     int PICK_IMAGE=100;
     Uri imageUri;
-    DataBaseRegister db;
     TextView tv;
     Intent intent;
-    Cursor res;
-    String _id,firstName,lastName,Email,Password,takhassos,engpoint,mathpoints,grade;
+
     DatabaseReference databaseReferenceProfile;
     StorageReference storageReference;
+    StorageReference file_path;
     FirebaseUser firebaseUser;
 
     @Override
@@ -50,46 +47,32 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         storageReference= FirebaseStorage.getInstance().getReference();
+        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        file_path=storageReference.child("Photos").child(firebaseUser.getUid());
         btsave=(Button)findViewById(R.id.btsave);
         btsave.setOnClickListener(this);
         imageView = (ImageView) findViewById(R.id.imageView);
         imageView.setOnClickListener(this);
         tv=(TextView)findViewById(R.id.tvRegister);
-        db=new DataBaseRegister(this);
-        res=db.getAllData();
-        StringBuffer stringBuffer=new StringBuffer();
-        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations");
         intent=getIntent();
-        if(res!=null&&res.getCount()>0)
-        while (res.moveToNext())
-            if(res.getString(3).equals(intent.getStringExtra("username from mainActivity")))
-            {
-                stringBuffer.append("id: "+res.getString(0)+"\n");
-                _id=res.getString(0);
-                stringBuffer.append("first name: "+res.getString(1)+"\n");
-                firstName=res.getString(1);
-                stringBuffer.append("last name: "+res.getString(2)+"\n");
-                lastName=res.getString(2);
-                stringBuffer.append("Email: "+res.getString(3)+"\n");
-                Email=res.getString(3);
-                stringBuffer.append("password: "+res.getString(4)+"\n");
-                Password=res.getString(4);
-                stringBuffer.append("takhassos: "+res.getString(5)+"\n");
-                takhassos=res.getString(5);
-                stringBuffer.append("eng points: "+res.getString(6)+"\n");
-                engpoint=res.getString(6);
-                stringBuffer.append("math points: "+res.getString(7)+"\n");
-                mathpoints=res.getString(7);
-                stringBuffer.append("grade: "+res.getString(8));
-                grade=res.getString(8);
-                tv.setText(stringBuffer.toString());
-                Bitmap b = BitmapFactory.decodeByteArray(res.getBlob(9),0,res.getBlob(9).length);
-                imageView.setImageBitmap(b);
+        file_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(Profile.this)
+                        .load(uri)
+                        .into(imageView);
             }
-            res.moveToFirst();
+        });
+        //}
+        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations");
+
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -102,8 +85,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
             if(resultCode==RESULT_OK&&requestCode==PICK_IMAGE)
             {
                 imageUri=data.getData();
-                StorageReference file_path=storageReference.child("Photos").child(firebaseUser.getUid());
-                file_path.putFile(imageUri);
+                file_path=storageReference.child("Photos").child(firebaseUser.getUid());
                 imageView.setImageURI(imageUri);
             }
     }
@@ -116,15 +98,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
             if(v==btsave)
             {
                 Intent i = new Intent(this, MainActivity.class);
-                BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
-                Bitmap b = drawable.getBitmap();
-                ByteArrayOutputStream bs = new ByteArrayOutputStream();
-                b.compress(Bitmap.CompressFormat.PNG, 50, bs);
-                byte[] imageInByte=bs.toByteArray();
-                i.putExtra("byteArray", imageInByte);
-                i.putExtra("boolean",true);
-                db.updateRegisterData(_id,firstName,lastName,Email,Password,takhassos,Integer.parseInt(engpoint),Integer.parseInt(mathpoints),Integer.parseInt(grade),imageInByte);
-                i.putExtra("username from register",intent.getStringExtra("username from mainActivity"));
+                if(imageUri!=null)
+                file_path.putFile(imageUri);
+                i.putExtra("uri",imageUri.toString());//testing
+                i.putExtra("check",true);
                 startActivity(i);
                 finish();
 

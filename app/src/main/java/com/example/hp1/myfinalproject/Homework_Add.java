@@ -1,10 +1,7 @@
 package com.example.hp1.myfinalproject;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.Intent;
 import java.util.Calendar;
 

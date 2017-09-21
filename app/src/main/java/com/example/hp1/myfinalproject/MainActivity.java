@@ -2,9 +2,6 @@ package com.example.hp1.myfinalproject;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,18 +28,20 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 
 public class MainActivity extends Activity implements OnClickListener{
+
 	Button btexplination,bttests,btvolenteer,bthomework;
 	ImageView imb;
 	Intent intent;
     ListView lvNews;
     ArrayList arrNews=new ArrayList();
     ArrayAdapter<String> adapter;
+	Uri passedUri;
 
-    DataBaseRegister dbRegister;
     DatabaseReference databaseReferenceRegister;
 	FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     StorageReference storageRef,file_path;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,27 +58,14 @@ public class MainActivity extends Activity implements OnClickListener{
 		btvolenteer=(Button)findViewById(R.id.btvolenteer);
 		bthomework=(Button)findViewById(R.id.bthomework);
 		imb=(ImageView) findViewById(R.id.imvProfPic);
-		imb.setImageResource(R.drawable.nopicture);
-		Glide.with(this)
-				.load(storageRef)
-				.into(imb);
 		lvNews=(ListView)findViewById(R.id.lvNews);
 		btexplination.setOnClickListener(this);
 		bttests.setOnClickListener(this);
 		btvolenteer.setOnClickListener(this);
 		bthomework.setOnClickListener(this);
 		imb.setOnClickListener(this);
-		dbRegister=new DataBaseRegister(this);
         adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrNews);
 		lvNews.setAdapter(adapter);
-		Cursor res=dbRegister.getAllData();
-		if(res!=null&&res.getCount()>0)
-			while (res.moveToNext())
-				if(res.getString(3).equals(intent.getStringExtra("username from register")))
-				{
-					Bitmap b = BitmapFactory.decodeByteArray(res.getBlob(9),0,res.getBlob(9).length);
-					imb.setImageBitmap(b);
-				}
 
 	}
 
@@ -88,6 +74,23 @@ public class MainActivity extends Activity implements OnClickListener{
         super.onStart();
         if(intent.getBooleanExtra("checking for user",false))
             saveUSerInformation();
+		if(intent.getBooleanExtra("check",false)){
+			passedUri=Uri.parse(intent.getStringExtra("uri"));
+			imb.setImageURI(passedUri);
+		}
+		else
+		{
+			file_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+				@Override
+				public void onSuccess(Uri uri) {
+					passedUri=uri;
+					Glide.with(MainActivity.this)
+							.load(uri)
+							.into(imb);
+
+				}
+			});
+		}
     }
 
 	@Override
@@ -137,7 +140,8 @@ public class MainActivity extends Activity implements OnClickListener{
                     }
 					else {
 						Intent i=new Intent(this, Profile.class);
-						i.putExtra("username from mainActivity",intent.getStringExtra("username from register"));//to transfer username to Profile
+						i.putExtra("uriFromMain",passedUri.toString());//to transfer username to Profile
+						i.putExtra("mainCheck",true);
 						startActivity(i);//to go to Profile
 
 					}
