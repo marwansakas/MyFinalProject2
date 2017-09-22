@@ -3,6 +3,8 @@ package com.example.hp1.myfinalproject;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +34,7 @@ public class Custom_Volunteer extends ArrayAdapter<Rows>{
         Date date=getItem(position).getDate();
         int hours=getItem(position).getHours();
         Bitmap bitmap;
-        bitmap=getItem(position).bmp;
+        bitmap=StringToBitMap(getItem(position).bmp);
         tvPlace=(TextView) customview.findViewById(R.id.tvplace);
         tvAction=(TextView)customview.findViewById(R.id.tvAction);
         tvDate=(TextView)customview.findViewById(R.id.tvdate);
@@ -47,4 +49,11 @@ public class Custom_Volunteer extends ArrayAdapter<Rows>{
 
         return customview;
     }
-}
+
+    public Bitmap StringToBitMap(String encodedString){
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }
+
+    }

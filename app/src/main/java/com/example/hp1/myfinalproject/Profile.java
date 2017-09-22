@@ -63,14 +63,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                         .into(imageView);
             }
         });
-        //}
         databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations");
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
     }
 

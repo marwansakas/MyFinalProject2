@@ -2,12 +2,16 @@ package com.example.hp1.myfinalproject;
 
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -128,8 +132,19 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+
+
     public void saveUserInformation(){
-        Rows rows=new Rows(strplace,stractivity,Integer.parseInt(strhours),new Date(day,month,year),paintView.mBitmap);
+
+        Rows rows=new Rows(strplace,stractivity,Integer.parseInt(strhours),new Date(day,month,year),BitMapToString(paintView.mBitmap));
         databaseReferenceVolunteer.child(firebaseUser.getUid()).push().setValue(rows);
+    }
+
+    public String BitMapToString(Bitmap bitmap){
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
     }
 }

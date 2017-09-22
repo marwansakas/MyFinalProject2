@@ -7,11 +7,11 @@ public class Rows {
     String place,action;
     int hours;
     Date date;
-    Bitmap bmp;
+    String bmp;
 
     public Rows(){}
 
-    public Rows(String place, String action, int hours, Date date, Bitmap bmp) {
+    public Rows(String place, String action, int hours, Date date, String bmp) {
         this.place = place;
         this.action = action;
         this.hours = hours;
@@ -37,7 +37,7 @@ public class Rows {
         return date;
     }
 
-    public Bitmap getBmp() {
+    public String getBmp() {
         return bmp;
     }
 
