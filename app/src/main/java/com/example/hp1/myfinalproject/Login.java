@@ -20,7 +20,6 @@ public class Login extends Activity implements OnClickListener {
 
     Button btregister, btlogin;
     EditText etEmail, etpass;
-    DataBaseRegister mydb_register;
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
     Intent intent;
@@ -34,6 +33,7 @@ public class Login extends Activity implements OnClickListener {
         btlogin = (Button) findViewById(R.id.btlogin);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etpass = (EditText) findViewById(R.id.etpass);
+
         btlogin.setOnClickListener(this);//to make the button clickable
         btregister.setOnClickListener(this);
 
@@ -41,8 +41,6 @@ public class Login extends Activity implements OnClickListener {
 
         progressDialog = new ProgressDialog(this);
         firebaseAuth = FirebaseAuth.getInstance();
-
-        mydb_register = new DataBaseRegister(this);//to initialize the sql
     }
 
     @Override
@@ -52,6 +50,7 @@ public class Login extends Activity implements OnClickListener {
         } else {
 
             if (!(etpass.getText().toString().equals("")) && !(etEmail.getText().toString().equals(""))) {
+
                 progressDialog.setMessage("Checking for user...");
                 progressDialog.show();
                 firebaseAuth.signInWithEmailAndPassword(etEmail.getText().toString(), etpass.getText().toString())

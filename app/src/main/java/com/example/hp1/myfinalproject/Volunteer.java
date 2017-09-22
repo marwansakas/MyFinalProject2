@@ -65,7 +65,6 @@ public class Volunteer extends Activity implements View.OnClickListener{
 				adapter.notifyDataSetChanged();
 			}
 
-
 			@Override
 			public void onCancelled(DatabaseError databaseError) {
 

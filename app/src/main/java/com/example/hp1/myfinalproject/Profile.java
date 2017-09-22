@@ -1,7 +1,6 @@
 package com.example.hp1.myfinalproject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,9 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.ByteArrayOutputStream;
-
-
 public class Profile extends AppCompatActivity implements View.OnClickListener{
 
     Button btsave;
@@ -35,7 +31,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     int PICK_IMAGE=100;
     Uri imageUri;
     TextView tv;
-    Intent intent;
 
     DatabaseReference databaseReferenceProfile;
     StorageReference storageReference;
@@ -46,15 +41,18 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        imageView = (ImageView) findViewById(R.id.imageView);
+        btsave=(Button)findViewById(R.id.btsave);
+        tv=(TextView)findViewById(R.id.tvRegister);
+
+        btsave.setOnClickListener(this);
+        imageView.setOnClickListener(this);
+
         storageReference= FirebaseStorage.getInstance().getReference();
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         file_path=storageReference.child("Photos").child(firebaseUser.getUid());
-        btsave=(Button)findViewById(R.id.btsave);
-        btsave.setOnClickListener(this);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        imageView.setOnClickListener(this);
-        tv=(TextView)findViewById(R.id.tvRegister);
-        intent=getIntent();
+        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations");
+
         file_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -63,13 +61,13 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                         .into(imageView);
             }
         });
-        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations");
 
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
+
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK)
         {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -98,9 +96,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                 }
                 startActivity(i);
                 finish();
-
             }
-
     }
 
     public void openGallery(){

@@ -47,47 +47,51 @@ public class MainActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		firebaseAuth=FirebaseAuth.getInstance();
-        firebaseUser=firebaseAuth.getCurrentUser();
-		databaseReferenceRegister = FirebaseDatabase.getInstance().getReference("Registrations");
-        storageRef = FirebaseStorage.getInstance().getReference();
-		file_path=storageRef.child("Photos").child(firebaseUser.getUid());
-        intent=getIntent();//to get the information for this intent
+
 		btexplination=(Button)findViewById(R.id.btexplinations);
 		bttests=(Button)findViewById(R.id.bttests);
 		btvolenteer=(Button)findViewById(R.id.btvolenteer);
 		bthomework=(Button)findViewById(R.id.bthomework);
 		imb=(ImageView) findViewById(R.id.imvProfPic);
 		lvNews=(ListView)findViewById(R.id.lvNews);
+
 		btexplination.setOnClickListener(this);
 		bttests.setOnClickListener(this);
 		btvolenteer.setOnClickListener(this);
 		bthomework.setOnClickListener(this);
 		imb.setOnClickListener(this);
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrNews);
+
+		intent=getIntent();//to get the information for this intent
+		adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrNews);
 		lvNews.setAdapter(adapter);
 
+		firebaseAuth=FirebaseAuth.getInstance();
+        firebaseUser=firebaseAuth.getCurrentUser();
+		databaseReferenceRegister = FirebaseDatabase.getInstance().getReference("Registrations");
+        storageRef = FirebaseStorage.getInstance().getReference();
+		file_path=storageRef.child("Photos").child(firebaseUser.getUid());
 	}
 
     @Override
     protected void onStart() {
         super.onStart();
+
         if(intent.getBooleanExtra("checking for user",false))
             saveUSerInformation();
+
 		if(intent.getBooleanExtra("check",false)){
 			passedUri=Uri.parse(intent.getStringExtra("uri"));
 			imb.setImageURI(passedUri);
-		}
-		else
-		{
+		}else {
 			file_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 				@Override
 				public void onSuccess(Uri uri) {
-					passedUri=uri;
-					Glide.with(MainActivity.this)
-							.load(uri)
-							.into(imb);
-
+					if(passedUri!=null) {
+						passedUri = uri;
+						Glide.with(MainActivity.this)
+								.load(uri)
+								.into(imb);
+					}
 				}
 			});
 		}
@@ -129,25 +133,21 @@ public class MainActivity extends Activity implements OnClickListener{
 			else
 				if(v==btvolenteer) {
 					Intent i = new Intent(this, Volunteer.class);
-					i.putExtra("username from mainActivity", intent.getStringExtra("username from register"));//to transfer username to Volunteer
 					startActivity(i);//to go to Volunteer
 				}
 				else
 					if(v==bthomework){
 						Intent i=new Intent(this,HomeWork.class);
-						i.putExtra("username from mainActivity",intent.getStringExtra("username from register"));//to transfer username to HomeWork
 						startActivity(i);//to go to HomeWork
                     }
 					else {
 						Intent i=new Intent(this, Profile.class);
-						i.putExtra("uriFromMain",passedUri.toString());//to transfer username to Profile
-						i.putExtra("mainCheck",true);
 						startActivity(i);//to go to Profile
-
 					}
 
 	}
     public void saveUSerInformation(){
+
         Bundle bundle=intent.getExtras();
         InformationRegistered informationRegistered=(InformationRegistered)bundle.getSerializable("information Registered");
         FirebaseUser user=firebaseAuth.getCurrentUser();

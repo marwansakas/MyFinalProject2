@@ -53,17 +53,20 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_);
-        paintView = (PaintView) findViewById(R.id.paintview);
-        DisplayMetrics metrics = new DisplayMetrics();// to initialize metrics
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        paintView.init(metrics);
         bt = (Button) findViewById(R.id.btsend);
-        bt.setOnClickListener(this);
         etplace = (EditText) findViewById(R.id.etplace);
         etactivity = (EditText) findViewById(R.id.etactivity);
         ethours = (EditText) findViewById(R.id.ethours);
         tvDate = (TextView) findViewById(R.id.tvdate);
+        paintView = (PaintView) findViewById(R.id.paintview);
+
+        DisplayMetrics metrics = new DisplayMetrics();// to initialize metrics
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        paintView.init(metrics);
+
+        bt.setOnClickListener(this);
         tvDate.setOnClickListener(this);
+
         mDatesetListener = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -72,6 +75,7 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
                 tvDate.setText("Date:" + day + "/" + month + "/" + year);//to set tvDate text as the inputted Text
             }
         };
+
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser=firebaseAuth.getCurrentUser();
         databaseReferenceVolunteer= FirebaseDatabase.getInstance().getReference("Volunteer");
@@ -108,35 +112,23 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
             dialog.show();//to show the DatePickerDialog
         }
         if (view == bt) {
+
             strplace = etplace.getText().toString();//to get etplace Text
             stractivity = etactivity.getText().toString();//to get etactivity text
             strhours=ethours.getText().toString();//to get ethours text
+
             if (!stractivity.equals("") && !strplace.equals("")&&!strhours.equals("")&&!tvDate.getText().toString().equals("Date: ??/??/??")) {//to check that all the requarments are full
-                Intent i = new Intent(this, Volunteer.class);//to set the i variable
-                Bitmap b = paintView.mBitmap;//to set the b variable
-                ByteArrayOutputStream bs = new ByteArrayOutputStream();//to set the bs variable
-                b.compress(Bitmap.CompressFormat.PNG, 50, bs);//to compress b into the bs variable
-                i.putExtra("byteArray", bs.toByteArray());//to put bs.toByteArray() into the intent
-                i.putExtra("place", strplace);//to put strplace into the intent
-                i.putExtra("activity", stractivity);//to put stractivity into the intent
-                i.putExtra("hours", parseInt(strhours));//to put strhours in the intent as a int variable
-                i.putExtra("day", day);//to put day in the intent
-                i.putExtra("month", month);//to put month in the intent
-                i.putExtra("year", year);//to put year in the intent
-                i.putExtra("is There", true);//to prove that ther is an intent
                 volunteerActivity.finish();
                 saveUserInformation();
+                Intent i = new Intent(this, Volunteer.class);//to set the i variable
                 startActivity(i);//to start activity
                 finish();//to finish this activity
             }
         }
     }
 
-
-
     public void saveUserInformation(){
-
-        Rows rows=new Rows(strplace,stractivity,Integer.parseInt(strhours),new Date(day,month,year),BitMapToString(paintView.mBitmap));
+        Rows rows=new Rows(strplace,stractivity,Integer.parseInt(strhours),new Date(day,month+1,year),BitMapToString(paintView.mBitmap));
         databaseReferenceVolunteer.child(firebaseUser.getUid()).push().setValue(rows);
     }
 

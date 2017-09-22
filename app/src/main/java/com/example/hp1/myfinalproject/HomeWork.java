@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,7 +17,6 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,14 +47,14 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 		btplus.setOnClickListener(this);
 		lvsubjects.setOnItemLongClickListener(this);
 
+		homeworkActivity=this;
+		adapter=new CustomAdapter(this,arrsubjects);
+		lvsubjects.setAdapter(adapter);
+
         firebaseAuth=FirebaseAuth.getInstance();
 		firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
 		databaseReferenceHomework= FirebaseDatabase.getInstance().getReference("Homework");
 		databaseReferenceSubHomework=databaseReferenceHomework.child(firebaseUser.getUid());
-
-		homeworkActivity=this;
-		adapter=new CustomAdapter(this,arrsubjects);
-		lvsubjects.setAdapter(adapter);
 	}
 
 	@Override
@@ -76,10 +74,8 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 
 				}
 			}
-
 			@Override
 			public void onCancelled(DatabaseError databaseError) {
-
 			}
 		});
 	}
@@ -93,21 +89,24 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 
 	@Override
 	public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
+
         databaseReferenceSubHomework.removeValue();
         arrsubjects.remove(position);
         adapter.notifyDataSetChanged();
+
         for(int i=0;i<arrsubjects.size();i++) {
             FirebaseUser user = firebaseAuth.getCurrentUser();
             databaseReferenceHomework.child(user.getUid()).push().setValue(arrsubjects.get(i));
         }
+
         arrsubjects.clear();
         adapter.notifyDataSetChanged();
-
         return true;
 	}
 
 
 	public void setNotification(){
+
 		AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
 		Calendar calendar=Calendar.getInstance();
 		calendar.set(Calendar.HOUR_OF_DAY,9);

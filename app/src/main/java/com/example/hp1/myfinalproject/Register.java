@@ -20,7 +20,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,13 +27,13 @@ import java.io.ByteArrayOutputStream;
 
 
 public class Register extends Activity implements OnClickListener, RadioGroup.OnCheckedChangeListener {
+
     Button btsubmit;
     String First, Last, EmailString, Pass, Grade, TT, engpoints, mathpoints, Id;
     RadioGroup rgtakhasos, rgmath, rgeng;
     EditText First_Name, Last_Name, Email, Password, alame, ID;
     RadioButton rbtakhasos, rbmath, rbeng;
     Intent intent;
-    DataBaseRegister myDb;
     byte[] image;
 
     ProgressDialog progressDialog;
@@ -43,38 +42,39 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
 
     String[] exists = {"id", "username", "password"};
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        progressDialog = new ProgressDialog(this);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.nopicture);//to set bitmap as no picture
-        ByteArrayOutputStream bs = new ByteArrayOutputStream();//to initialize ByteArrayOutputStream
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bs);//to compress bitmap to bs(ByteArrayOutputStream)
-        image = bs.toByteArray();//to turn the ByteArrayOutputStream to byte Array
-        myDb = new DataBaseRegister(this);//to initialize myDb
-        intent = new Intent(Register.this, MainActivity.class);
         btsubmit = (Button) findViewById(R.id.btsubmit);
-        btsubmit.setOnClickListener(this);
-        rgtakhasos = (RadioGroup) findViewById(R.id.radiogroup);
-        rgmath = (RadioGroup) findViewById(R.id.mathpoints);
-        rgeng = (RadioGroup) findViewById(R.id.englishpoints);
-        rgtakhasos.setOnCheckedChangeListener(this);
-        rgmath.setOnCheckedChangeListener(this);
-        rgeng.setOnCheckedChangeListener(this);
+
         First_Name = (EditText) findViewById(R.id.first);
         Last_Name = (EditText) findViewById(R.id.Last_Name);
         Email = (EditText) findViewById(R.id.Email);
         Password = (EditText) findViewById(R.id.Pass);
         alame = (EditText) findViewById(R.id.Grade);
+        ID = (EditText) findViewById(R.id.editText3);
+
+        rgtakhasos = (RadioGroup) findViewById(R.id.radiogroup);
+        rgmath = (RadioGroup) findViewById(R.id.mathpoints);
+        rgeng = (RadioGroup) findViewById(R.id.englishpoints);
+
         rbeng = (RadioButton) findViewById(rgeng.getCheckedRadioButtonId());
         rbmath = (RadioButton) findViewById(rgmath.getCheckedRadioButtonId());
         rbtakhasos = (RadioButton) findViewById(rgtakhasos.getCheckedRadioButtonId());
-        ID = (EditText) findViewById(R.id.editText3);
 
+
+
+        intent = new Intent(Register.this, MainActivity.class);
+
+        btsubmit.setOnClickListener(this);
+        rgtakhasos.setOnCheckedChangeListener(this);
+        rgmath.setOnCheckedChangeListener(this);
+        rgeng.setOnCheckedChangeListener(this);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        progressDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -97,11 +97,6 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
             EmailString = Email.getText().toString();
             Grade = alame.getText().toString();
             Id = ID.getText().toString();//to turn all the information to string
-            int find = myDb.search_nomatch(Id, EmailString, Pass);
-            if (find > 0) //to check if there is not another match
-            {
-                Toast.makeText(getApplicationContext(), exists[find - 1] + "already exists", Toast.LENGTH_SHORT).show();//if there is a match tell him and change what matches
-            } else {
 
                 progressDialog.setMessage("Registering user...");
                 progressDialog.show();
@@ -127,7 +122,8 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                 }
             }
 
-        } else
+        //}
+        else
             Toast.makeText(getApplicationContext(), "Please fill all the required information", Toast.LENGTH_SHORT).show();//to tell the user to fill all the required information
 
     }

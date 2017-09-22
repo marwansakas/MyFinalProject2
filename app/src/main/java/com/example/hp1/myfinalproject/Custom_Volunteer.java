@@ -21,7 +21,6 @@ public class Custom_Volunteer extends ArrayAdapter<Rows>{
 
     public Custom_Volunteer(Context context, ArrayList<Rows> RowsArrayList) {
         super(context,R.layout.custom_volunteer ,RowsArrayList);
-
     }
 
     @Override
@@ -29,21 +28,24 @@ public class Custom_Volunteer extends ArrayAdapter<Rows>{
 
         LayoutInflater sexy=LayoutInflater.from(getContext());
         View customview=sexy.inflate(R.layout.custom_volunteer,parent,false);
+
+        tvPlace=(TextView) customview.findViewById(R.id.tvplace);
+        tvAction=(TextView)customview.findViewById(R.id.tvAction);
+        tvDate=(TextView)customview.findViewById(R.id.tvdate);
+        tvHourss=(TextView)customview.findViewById(R.id.tvhours);
+        imsigneture=(ImageView) customview.findViewById(R.id.imageView3);
+
         String place=getItem(position).getPlace();
         String Thingsdone=getItem(position).getAction();
         Date date=getItem(position).getDate();
         int hours=getItem(position).getHours();
         Bitmap bitmap;
         bitmap=StringToBitMap(getItem(position).bmp);
-        tvPlace=(TextView) customview.findViewById(R.id.tvplace);
-        tvAction=(TextView)customview.findViewById(R.id.tvAction);
-        tvDate=(TextView)customview.findViewById(R.id.tvdate);
-        tvHourss=(TextView)customview.findViewById(R.id.tvhours);
-        imsigneture=(ImageView) customview.findViewById(R.id.imageView3);
+
         tvPlace.setText(place+" ");
         tvAction.setText(Thingsdone+" ");
         tvHourss.setText(hours+" ");
-        tvDate.setText(date.getDay()+"/"+date.getMonth()+1+"/"+date.getYear());
+        tvDate.setText(date.getDay()+"/"+date.getMonth()+"/"+date.getYear());
         Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 75, 75, true);
         imsigneture.setImageBitmap(scaled);
 

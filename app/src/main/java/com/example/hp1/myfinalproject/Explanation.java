@@ -24,17 +24,32 @@ import com.example.hp1.myfinalproject.classes.Math;
 import com.example.hp1.myfinalproject.classes.Sports;
 
 public class Explanation extends Activity implements AdapterView.OnItemClickListener{
-ListView lvsubjects;
-ArrayAdapter<String> adapter;
-ArrayList arrsubjects= new ArrayList<String>();
+
+	ListView lvsubjects;
+	ArrayAdapter<String> adapter;
+	ArrayList arrsubjects= new ArrayList<String>();
+
+	Intent[] i={new Intent(this,Math.class),
+			new Intent(this,Arabic.class),
+			new Intent(this,English.class),
+			new Intent(this,Computer_Sience.class),
+			new Intent(this,Hebrew.class),
+			new Intent(this,Biology.class),
+			new Intent(this,Chemistry.class),
+			new Intent(this,History.class),
+			new Intent(this,Sports.class),
+			new Intent(this,Madaneyat.class)};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_explination);
-		adapter=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,arrsubjects);
 		lvsubjects=(ListView)findViewById(R.id.lvexplinasions);
+
+		adapter=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,arrsubjects);
 		lvsubjects.setOnItemClickListener(this);
 		lvsubjects.setAdapter(adapter);
+
 		adapter.add("Math");
 		adapter.add("Arabic");
 		adapter.add("English");
@@ -46,22 +61,9 @@ ArrayList arrsubjects= new ArrayList<String>();
 		adapter.add("Sports");
 		adapter.add("Madaneyat");
 	}
-
 	
-
-
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-		Intent[] i={new Intent(this,Math.class),
-				new Intent(this,Arabic.class),
-				new Intent(this,English.class),
-				new Intent(this,Computer_Sience.class),
-				new Intent(this,Hebrew.class),
-				new Intent(this,Biology.class),
-				new Intent(this,Chemistry.class),
-				new Intent(this,History.class),
-				new Intent(this,Sports.class),
-				new Intent(this,Madaneyat.class)};
 		startActivity(i[position]);
 	}
 }

@@ -18,6 +18,8 @@ public class InformationRegistered implements Serializable{
     public int MathPoints;
     public int Grade;
 
+    public InformationRegistered(){}
+
     public InformationRegistered(String id, String firstName, String lastName, String email, String passWord, String takhassos, int engPoints, int mathPoints, int grade) {
         Id = id;
         FirstName = firstName;
