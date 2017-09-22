@@ -65,9 +65,9 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 			public void onDataChange(DataSnapshot dataSnapshot) {
 				for(DataSnapshot homeWorkDataSnapShot: dataSnapshot.getChildren())
 				{
-						wazefe wazefe = homeWorkDataSnapShot.getValue(wazefe.class);
-						arrsubjects.add(wazefe);
-						adapter.notifyDataSetChanged();
+					wazefe wazefe = homeWorkDataSnapShot.getValue(wazefe.class);
+					arrsubjects.add(wazefe);
+					adapter.notifyDataSetChanged();
 
 					if(arrsubjects.size()>0)
 						setNotification();

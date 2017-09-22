@@ -18,8 +18,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -51,7 +54,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         storageReference= FirebaseStorage.getInstance().getReference();
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         file_path=storageReference.child("Photos").child(firebaseUser.getUid());
-        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations");
+        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference();
 
         file_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -63,6 +66,32 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         });
 
     }
+
+    /*@Override
+    protected void onStart() {
+        super.onStart();
+        databaseReferenceProfile.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                InformationRegistered informationRegistered=dataSnapshot.getValue(InformationRegistered.class);
+                String str="ID:"+informationRegistered.getId()+"\n"
+                            +"First Name:"+informationRegistered.getFirstName()+"\n"
+                            +"Last Name:"+informationRegistered.getLastName()+"\n"
+                            +"Email:"+informationRegistered.getEmail()+"\n"
+                            +"PassWord:"+informationRegistered.getPassWord()+"\n"
+                            +"Takhassos:"+informationRegistered.getTakhassos()+"\n"
+                            +"English Points:"+informationRegistered.getEngPoints()+"\n"
+                            +"Math Points:"+informationRegistered.getMathPoints()+"\n"
+                            +"Grade:"+informationRegistered.getGrade();
+                tv.setText(str);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
