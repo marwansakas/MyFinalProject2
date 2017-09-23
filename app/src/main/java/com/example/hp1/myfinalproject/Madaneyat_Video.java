@@ -20,14 +20,14 @@ public class Madaneyat_Video extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_madaneyat__video);
-        videoView=(VideoView)findViewById(R.id.videoView);
-        mediaController=new MediaController(this);
-        intent=getIntent();
-        String videopath=intent.getStringExtra("videoPath");
-        Uri uri = Uri.parse(videopath);
-        videoView.setVideoURI(uri);
-        videoView.setMediaController(mediaController);
-        mediaController.setAnchorView(videoView);
+        videoView=(VideoView)findViewById(R.id.videoView);//initialize videoView
+        mediaController=new MediaController(this);//initialize mediaController
+        intent=getIntent();//get the intent
+        String videopath=intent.getStringExtra("videoPath");//get the videoPath from the intent
+        Uri uri = Uri.parse(videopath);//convert the string value to uri
+        videoView.setVideoURI(uri);//set the uri value in videoView
+        videoView.setMediaController(mediaController);//set mediaController
+        mediaController.setAnchorView(videoView);//set mediaController for the videoView
 
     }
 }

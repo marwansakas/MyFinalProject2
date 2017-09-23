@@ -29,7 +29,7 @@ public class Login extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        btregister = (Button) findViewById(R.id.btregister);//to set what buttons they are by thier id
+        btregister = (Button) findViewById(R.id.btregister);//to set what buttons they are by their id
         btlogin = (Button) findViewById(R.id.btlogin);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etpass = (EditText) findViewById(R.id.etpass);
@@ -37,10 +37,10 @@ public class Login extends Activity implements OnClickListener {
         btlogin.setOnClickListener(this);//to make the button clickable
         btregister.setOnClickListener(this);
 
-        intent = new Intent(this, MainActivity.class);
+        intent = new Intent(this, MainActivity.class);//initialize intent
 
-        progressDialog = new ProgressDialog(this);
-        firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);//initialize progressDialog
+        firebaseAuth = FirebaseAuth.getInstance();//initialize firebaseAuth
     }
 
     @Override
@@ -49,23 +49,22 @@ public class Login extends Activity implements OnClickListener {
             startActivity(new Intent(this, Register.class));//to start activity Register
         } else {
 
-            if (!(etpass.getText().toString().equals("")) && !(etEmail.getText().toString().equals(""))) {
-
-                progressDialog.setMessage("Checking for user...");
-                progressDialog.show();
-                firebaseAuth.signInWithEmailAndPassword(etEmail.getText().toString(), etpass.getText().toString())
+            if (!(etpass.getText().toString().equals("")) && !(etEmail.getText().toString().equals(""))) {//checking if the Password or Email are empty
+                progressDialog.setMessage("Checking for user...");//set progressDialog messege
+                progressDialog.show();//show progressDialog
+                firebaseAuth.signInWithEmailAndPassword(etEmail.getText().toString(), etpass.getText().toString())//to see if the user exists
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressDialog.dismiss();
-                                if (task.isSuccessful())
-                                    startActivity(intent);
+                                progressDialog.dismiss();//dismissing the progressDialog
+                                if (task.isSuccessful())//if task is successful continue
+                                    startActivity(intent);//start MainActivity
                             }
                         });
             }
             else
-                Toast.makeText(Login.this,"Could not login",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this,"fill PassWord And Email",Toast.LENGTH_SHORT).show();//to tell the user that he did not input the password and email
         }
     }
 

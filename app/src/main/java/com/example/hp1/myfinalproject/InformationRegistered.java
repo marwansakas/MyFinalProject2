@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class InformationRegistered implements Serializable{
 
-    public String Id;
+    public String _Id;
     public String FirstName;
     public String LastName;
     public String Email;
@@ -20,44 +20,8 @@ public class InformationRegistered implements Serializable{
 
     public InformationRegistered(){}
 
-    public String getId() {
-        return Id;
-    }
-
-    public String getFirstName() {
-        return FirstName;
-    }
-
-    public String getLastName() {
-        return LastName;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public String getPassWord() {
-        return PassWord;
-    }
-
-    public String getTakhassos() {
-        return Takhassos;
-    }
-
-    public int getEngPoints() {
-        return EngPoints;
-    }
-
-    public int getMathPoints() {
-        return MathPoints;
-    }
-
-    public int getGrade() {
-        return Grade;
-    }
-
-    public InformationRegistered(String id, String firstName, String lastName, String email, String passWord, String takhassos, int engPoints, int mathPoints, int grade) {
-        Id = id;
+    public InformationRegistered(String _id, String firstName, String lastName, String email, String passWord, String takhassos, int engPoints, int mathPoints, int grade) {
+        _Id = _id;
         FirstName = firstName;
         LastName = lastName;
         Email = email;

@@ -32,9 +32,11 @@ public class MainActivity extends Activity implements OnClickListener{
 	Button btexplination,bttests,btvolenteer,bthomework;
 	ImageView imb;
 	Intent intent;
+
     ListView lvNews;
     ArrayList arrNews=new ArrayList();
     ArrayAdapter<String> adapter;
+
 	Uri passedUri;
 
     DatabaseReference databaseReferenceRegister;
@@ -42,84 +44,86 @@ public class MainActivity extends Activity implements OnClickListener{
     FirebaseUser firebaseUser;
     StorageReference storageRef,file_path;
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		btexplination=(Button)findViewById(R.id.btexplinations);
-		bttests=(Button)findViewById(R.id.bttests);
-		btvolenteer=(Button)findViewById(R.id.btvolenteer);
-		bthomework=(Button)findViewById(R.id.bthomework);
-		imb=(ImageView) findViewById(R.id.imvProfPic);
-		lvNews=(ListView)findViewById(R.id.lvNews);
+		btexplination=(Button)findViewById(R.id.btexplinations);//initialize the button
+		bttests=(Button)findViewById(R.id.bttests);//initialize the button
+		btvolenteer=(Button)findViewById(R.id.btvolenteer);//initialize the button
+		bthomework=(Button)findViewById(R.id.bthomework);//initialize the button
+		imb=(ImageView) findViewById(R.id.imvProfPic);//initialize the ImageView
+		lvNews=(ListView)findViewById(R.id.lvNews);//initialize the ListView
 
-		btexplination.setOnClickListener(this);
-		bttests.setOnClickListener(this);
-		btvolenteer.setOnClickListener(this);
-		bthomework.setOnClickListener(this);
-		imb.setOnClickListener(this);
+		btexplination.setOnClickListener(this);//make button clickable
+		bttests.setOnClickListener(this);//make button clickable
+		btvolenteer.setOnClickListener(this);//make button clickable
+		bthomework.setOnClickListener(this);//make button clickable
+		imb.setOnClickListener(this);//make imageView clickable
 
 		intent=getIntent();//to get the information for this intent
-		adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrNews);
-		lvNews.setAdapter(adapter);
+		adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrNews);//to initialize the adapter
+		lvNews.setAdapter(adapter);//to set adapter to listView
 
-		firebaseAuth=FirebaseAuth.getInstance();
-        firebaseUser=firebaseAuth.getCurrentUser();
-		databaseReferenceRegister = FirebaseDatabase.getInstance().getReference("Registrations");
-        storageRef = FirebaseStorage.getInstance().getReference();
-		file_path=storageRef.child("Photos").child(firebaseUser.getUid());
+		firebaseAuth=FirebaseAuth.getInstance();//to initialize firebaseAuth
+        firebaseUser=firebaseAuth.getCurrentUser();//to get the current user in firebase user
+		databaseReferenceRegister = FirebaseDatabase.getInstance().getReference("Registrations");//initialize databaseReferenceRegister
+        storageRef = FirebaseStorage.getInstance().getReference();//initialize storageRef
+		file_path=storageRef.child("Photos").child(firebaseUser.getUid());//to get the child of storageRef
 	}
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        if(intent.getBooleanExtra("checking for user",false))
-            saveUSerInformation();
+        if(intent.getBooleanExtra("checking for user",false)) {//to see if the usr came from Register
+			saveUserInformation();//to save the user's information
 
-		if(intent.getBooleanExtra("check",false)){
-			passedUri=Uri.parse(intent.getStringExtra("uri"));
-			imb.setImageURI(passedUri);
+		}
+		if(intent.getBooleanExtra("check",false)){//to see if the usr came from Profile
+			passedUri=Uri.parse(intent.getStringExtra("uri"));//to get the image from storage
+			imb.setImageURI(passedUri);//to set imb image as the image from storage
 		}else {
-			file_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-				@Override
-				public void onSuccess(Uri uri) {
-					if(passedUri!=null) {
+			if(!intent.getBooleanExtra("checking for user",false)){
+				file_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+					@Override
+					public void onSuccess(Uri uri) {
 						passedUri = uri;
 						Glide.with(MainActivity.this)
 								.load(uri)
 								.into(imb);
 					}
-				}
-			});
+				});
+			}else
+				imb.setImageResource(R.drawable.nopicture);//if the user came from register then set his non profile pic
 		}
+
     }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {//to create an options menu
 		super.onCreateOptionsMenu(menu);
-		MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate(R.menu.menu_main, menu);
+		MenuInflater menuInflater = getMenuInflater();//initialize menuInflater
+		menuInflater.inflate(R.menu.menu_main, menu);//to create the three dot menu
 
-		return super.onCreateOptionsMenu(menu);
+		return super.onCreateOptionsMenu(menu);//to return if the result
 	}
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)//to make the iteams for the options menu
+    public boolean onOptionsItemSelected(MenuItem item)//to make the items for the options menu
     {
         switch (item.getItemId()) {
-			case R.id.logOut:
-				firebaseAuth.signOut();
-				startActivity(new Intent(this,Login.class));
+			case R.id.logOut://if the user chose logOut
+				firebaseAuth.signOut();//to signout of the account
+				startActivity(new Intent(this,Login.class));//to go to Login
 				return true;
-			case R.id.suggestion:
-				startActivity(new Intent(this, Explanation.class));
+			case R.id.suggestion://if the user chose suggestion
+				//startActivity(new Intent(this, Explanation.class));
 				return true;
 
 		}
-		return super.onOptionsItemSelected(item);
+		return super.onOptionsItemSelected(item);//return the items for the menu
     }
 
 
@@ -146,19 +150,13 @@ public class MainActivity extends Activity implements OnClickListener{
 					}
 
 	}
-    public void saveUSerInformation(){
+    public void saveUserInformation(){
 
-        Bundle bundle=intent.getExtras();
-        InformationRegistered informationRegistered=(InformationRegistered)bundle.getSerializable("information Registered");
-        FirebaseUser user=firebaseAuth.getCurrentUser();
-		databaseReferenceRegister.child(user.getUid()).setValue(informationRegistered);
-        Uri uri=Uri.parse("android.resource://com.example.hp1.myfinalproject/"+R.drawable.nopicture);
+        Bundle bundle=intent.getExtras();//to get the bundle from Register
+        InformationRegistered informationRegistered=(InformationRegistered)bundle.getSerializable("information Registered");//to convert the bundle into an InformationRegistered value
 
-        file_path.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getApplication(),"yes",Toast.LENGTH_SHORT).show();
-            }
-        });
+		databaseReferenceRegister.child(firebaseUser.getUid()).setValue(informationRegistered);//to add the registered value to firebase database
+        Uri uri=Uri.parse("android.resource://com.example.hp1.myfinalproject/"+R.drawable.nopicture);//to give the new user a first profile picture
+        file_path.putFile(uri);//to add his first profile pic to database storage
     }
 }

@@ -5,7 +5,7 @@
     <item
         android:id="@+id/logOut"
         app:showAsAction="never"
-        android:title="support"/>
+        android:title="Log Out"/>
     <item
         android:id="@+id/suggestion"
         app:showAsAction="never"

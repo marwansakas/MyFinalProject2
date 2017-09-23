@@ -47,59 +47,59 @@ public class Homework_Add extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework__show);
 
-        mDisplayDate = (TextView) findViewById(R.id.textView10);
-        ettheDs = (EditText) findViewById(R.id.editText2);
-        btadd = (Button) findViewById(R.id.btAdd);
-        s = (Spinner) findViewById(R.id.spinner1);
+        mDisplayDate = (TextView) findViewById(R.id.textView10);//givethe textview an id
+        ettheDs = (EditText) findViewById(R.id.editText2);//give the edittext an id
+        btadd = (Button) findViewById(R.id.btAdd);//give the button an id
+        s = (Spinner) findViewById(R.id.spinner1);//give the spinner an id
 
-        ArrayAdapter<String> spinneradapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arraySpinner);
-        s.setAdapter(spinneradapter);
+        ArrayAdapter<String> spinneradapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arraySpinner);//initialize the array adapter
+        s.setAdapter(spinneradapter);//set the adapter to the spinner
 
-        btadd.setOnClickListener(this);
-        mDisplayDate.setOnClickListener(this);
+        btadd.setOnClickListener(this);//make the button clickable
+        mDisplayDate.setOnClickListener(this);//make the textview clickable
         mDatesetListener = new DatePickerDialog.OnDateSetListener() {
 
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month += 1;
-                mDisplayDate.setText("Date:" + day + "/" + month + "/" + year);
-                selectDay = day;
-                selectYear = year;
-                selectMonth = month;
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {//so the user can pick te date on the datePicker dialog
+                month += 1;//becuase the month starts at zero so we increase it by 1
+                mDisplayDate.setText("Date:" + day + "/" + month + "/" + year);//display the chosen date on textview
+                selectDay = day;//make the selected day
+                selectYear = year;//make the selected year
+                selectMonth = month;//make the selected month
             }
         };
 
-        databaseReferenceHomework = FirebaseDatabase.getInstance().getReference("Homework");
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
+        databaseReferenceHomework = FirebaseDatabase.getInstance().getReference("Homework");//go to the firebase database foldr homework
+        firebaseAuth = FirebaseAuth.getInstance();//initialize firebaseAuth
+        firebaseUser = firebaseAuth.getCurrentUser();//initialize firebaseUser by the firebaseAuth
     }
 
     @Override
     public void onClick(View v) {
-        if (v == mDisplayDate) {
-            Calendar cal = Calendar.getInstance();
-            year = cal.get(Calendar.YEAR);
-            month = cal.get(Calendar.MONTH);
-            day = cal.get(Calendar.DAY_OF_MONTH);
-            DatePickerDialog dialog = new DatePickerDialog(Homework_Add.this, android.R.style.Theme_Holo_Light_DarkActionBar, mDatesetListener, year, month, day);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.show();
+        if (v == mDisplayDate) {//if the user clicked on the textview mDisplayDate
+            Calendar cal = Calendar.getInstance();//get the current time
+            year = cal.get(Calendar.YEAR);//set the year as the current year
+            month = cal.get(Calendar.MONTH);//set the month as the current month
+            day = cal.get(Calendar.DAY_OF_MONTH);//set the day as the current day
+            DatePickerDialog dialog = new DatePickerDialog(Homework_Add.this, android.R.style.Theme_Holo_Light_DarkActionBar, mDatesetListener, year, month, day);//set the datePicker dialog appearence
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//set the background color
+            dialog.show();//show the datePicker dialog
         }
-        if (v == btadd) {
+        if (v == btadd) {//if he clicked on btadd
 
-            if ((!ettheDs.getText().toString().equals("")) && year != 0 && day != 0 && month != 0 && (!s.getSelectedItem().toString().equals("Choose a subject"))) {
+            if ((!ettheDs.getText().toString().equals("")) && year != 0 && day != 0 && month != 0 && (!s.getSelectedItem().toString().equals("Choose a subject"))) {//check if the user filled all the required information
 
-                Intent i = new Intent(this, HomeWork.class);
-                saveUserInformation();
-                startActivity(i);
-                homeworkActivity.finish();
-                finish();
+                Intent i = new Intent(this, HomeWork.class);//initialize intent i
+                saveUserInformation();//start save usr information
+                startActivity(i);//start activity HomeWork
+                homeworkActivity.finish();//end the previos homework activity
+                finish();//end this activity
             }
         }
     }
 
     public void saveUserInformation() {
-        wazefe wazefe = new wazefe(s.getSelectedItem().toString(), ettheDs.getText().toString(), new Date(selectDay, selectMonth, selectYear));
-        databaseReferenceHomework.child(firebaseUser.getUid()).push().setValue(wazefe);
+        wazefe wazefe = new wazefe(s.getSelectedItem().toString(), ettheDs.getText().toString(), new Date(selectDay, selectMonth, selectYear));//add all the information to the wazefe variable
+        databaseReferenceHomework.child(firebaseUser.getUid()).push().setValue(wazefe);//add the value to the database
     }
 }

@@ -12,7 +12,7 @@ import com.example.hp1.myfinalproject.R;
 
 public class Sports extends AppCompatActivity implements View.OnClickListener{
 
-    EditText etweight,etheigth;
+    EditText etweight,etheight;
     Button btCalc;
     TextView tvresualt;
     ImageView shape;
@@ -21,35 +21,35 @@ public class Sports extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sports);
-        etheigth=(EditText)findViewById(R.id.etmeters);
-        etweight=(EditText)findViewById(R.id.etkg);
-        tvresualt=(TextView)findViewById(R.id.tvBMI_Resualt);
-        btCalc=(Button)findViewById(R.id.btCalc);
-        btCalc.setOnClickListener(this);
-        shape=(ImageView)findViewById(R.id.size);
+        etheight=(EditText)findViewById(R.id.etmeters);//initialize etheight
+        etweight=(EditText)findViewById(R.id.etkg);//initialize etweight
+        tvresualt=(TextView)findViewById(R.id.tvBMI_Resualt);//initialze tvresult
+        btCalc=(Button)findViewById(R.id.btCalc);//initialze btCalc
+        btCalc.setOnClickListener(this);//make bt Calc clickable
+        shape=(ImageView)findViewById(R.id.size);//initialize shape
     }
 
     @Override
     public void onClick(View view) {
-        if(!(etweight.getText().toString().equals(""))&&!(etheigth.getText().toString().equals("")))
+        if(!(etweight.getText().toString().equals(""))&&!(etheight.getText().toString().equals("")))//to se if the inputted the required information
         {
-            double bmi=Double.parseDouble(etweight.getText().toString())/(Double.parseDouble(etheigth.getText().toString())*Double.parseDouble(etheigth.getText().toString()));
+            double bmi=Double.parseDouble(etweight.getText().toString())/(Double.parseDouble(etheight.getText().toString())*Double.parseDouble(etheight.getText().toString()));//calculate bmi
 
-            if(bmi<18.5) {
-                shape.setImageResource(R.drawable.size1);
-                tvresualt.setText(bmi+"underweight");
+            if(bmi<18.5) {//if bmi is smaller than 18.5
+                shape.setImageResource(R.drawable.size1);//set image
+                tvresualt.setText(bmi+"underweight");//show result
             }else
-                if(bmi>=18.5&&bmi<24.9) {
-                    shape.setImageResource(R.drawable.size2);
-                    tvresualt.setText(bmi+"good");
+                if(bmi>=18.5&&bmi<24.9) {//if bmi is smaller than 24.9 and bigger than 18.5
+                    shape.setImageResource(R.drawable.size2);//set image
+                    tvresualt.setText(bmi+"good");//show result
             }else
-                if(bmi>=24.9&&bmi<29.9) {
-                    shape.setImageResource(R.drawable.size3);
-                    tvresualt.setText(bmi+"overweight");
+                if(bmi>=24.9&&bmi<29.9) {//if bmi is smaller than 29.9 and bigger than 24.9
+                    shape.setImageResource(R.drawable.size3);//set image
+                    tvresualt.setText(bmi+"overweight");//show result
                 }else
-                if(bmi>=29.9) {
-                    shape.setImageResource(R.drawable.size4);
-                    tvresualt.setText(bmi+"obese");
+                if(bmi>=29.9) {//if bmi is bigger than 29.9
+                    shape.setImageResource(R.drawable.size4);//set image
+                    tvresualt.setText(bmi+"obese");//show result
                 }
         }
     }

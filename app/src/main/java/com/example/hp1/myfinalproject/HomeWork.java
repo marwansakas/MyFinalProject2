@@ -41,20 +41,20 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_homework);
 
-		btplus=(Button)findViewById(R.id.button1);
-		lvsubjects=(ListView)findViewById(R.id.listView1);
+		btplus=(Button)findViewById(R.id.button1);//initialize btplus
+		lvsubjects=(ListView)findViewById(R.id.listView1);//initialize lvsubjects
 
-		btplus.setOnClickListener(this);
-		lvsubjects.setOnItemLongClickListener(this);
+		btplus.setOnClickListener(this);//make btplus clickable
+		lvsubjects.setOnItemLongClickListener(this);//make lvsubjects clickable
 
-		homeworkActivity=this;
-		adapter=new CustomAdapter(this,arrsubjects);
+		homeworkActivity=this;//to set homeworkActivity
+		adapter=new CustomAdapter(this,arrsubjects);//initialize adapter
 		lvsubjects.setAdapter(adapter);
 
-        firebaseAuth=FirebaseAuth.getInstance();
-		firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-		databaseReferenceHomework= FirebaseDatabase.getInstance().getReference("Homework");
-		databaseReferenceSubHomework=databaseReferenceHomework.child(firebaseUser.getUid());
+        firebaseAuth=FirebaseAuth.getInstance();//initialize firebaseAuth
+		firebaseUser= FirebaseAuth.getInstance().getCurrentUser();//initialize firebaseUser
+		databaseReferenceHomework= FirebaseDatabase.getInstance().getReference("Homework");//initialize databaseReferenceHomework
+		databaseReferenceSubHomework=databaseReferenceHomework.child(firebaseUser.getUid());//to get databaseReferenceHomework child
 	}
 
 	@Override
@@ -65,14 +65,14 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 			public void onDataChange(DataSnapshot dataSnapshot) {
 				for(DataSnapshot homeWorkDataSnapShot: dataSnapshot.getChildren())
 				{
-					wazefe wazefe = homeWorkDataSnapShot.getValue(wazefe.class);
-					arrsubjects.add(wazefe);
-					adapter.notifyDataSetChanged();
+					wazefe wazefe = homeWorkDataSnapShot.getValue(wazefe.class);//to get the user's homework from firebase database
+					arrsubjects.add(wazefe);//to add the homework to arrsubjects
 
-					if(arrsubjects.size()>0)
-						setNotification();
+					if(arrsubjects.size()>0)//if there is homework
+						setNotification();//start setNotification function
 
 				}
+				adapter.notifyDataSetChanged();//notify Data Set Changed
 			}
 			@Override
 			public void onCancelled(DatabaseError databaseError) {
@@ -83,38 +83,37 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	@Override
 	public void onClick(View v) {
 		if(v==btplus)
-			startActivity(new Intent(this,Homework_Add.class));
+			startActivity(new Intent(this,Homework_Add.class));//go to Homework_ADd
 
 	}
 
 	@Override
 	public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
 
-        databaseReferenceSubHomework.removeValue();
-        arrsubjects.remove(position);
-        adapter.notifyDataSetChanged();
+        databaseReferenceSubHomework.removeValue();//remove all homework from user's database
+        arrsubjects.remove(position);//to remove from arrsubjects
+        adapter.notifyDataSetChanged();//notify Data Set Changed
 
         for(int i=0;i<arrsubjects.size();i++) {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            databaseReferenceHomework.child(user.getUid()).push().setValue(arrsubjects.get(i));
+            databaseReferenceHomework.child(firebaseUser.getUid()).push().setValue(arrsubjects.get(i));//to add back all the removed homework that the user did not want to delete
         }
 
-        arrsubjects.clear();
-        adapter.notifyDataSetChanged();
+        arrsubjects.clear();//to clear arrsubjects becuase all the homework was added up there
+        adapter.notifyDataSetChanged();//notify data set changed
         return true;
 	}
 
 
 	public void setNotification(){
 
-		AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
-		Calendar calendar=Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY,9);
-		calendar.set(Calendar.MINUTE,12);
-		calendar.set(Calendar.SECOND,0);
-		Intent intent1=new Intent("singh.ajit.action.DISPLAY_NOTIFICATION");
-		PendingIntent pendingIntent=PendingIntent.getBroadcast(HomeWork.this,NOTIFICATION_CODE,intent1,PendingIntent.FLAG_UPDATE_CURRENT);
-		alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis()+AlarmManager.INTERVAL_HALF_DAY,pendingIntent);
+		AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);//initialize
+		Calendar calendar=Calendar.getInstance();//get the current time
+		calendar.set(Calendar.HOUR_OF_DAY,9);//set the notification to go of at 9 o'clock
+		calendar.set(Calendar.MINUTE,12);//12 minutes
+		calendar.set(Calendar.SECOND,0);//and 0 seconds
+		Intent intent1=new Intent("singh.ajit.action.DISPLAY_NOTIFICATION");//create the intent
+		PendingIntent pendingIntent=PendingIntent.getBroadcast(HomeWork.this,NOTIFICATION_CODE,intent1,PendingIntent.FLAG_UPDATE_CURRENT);//create the pending intent that will luached at the wanted time
+		alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis()+AlarmManager.INTERVAL_HALF_DAY,pendingIntent);//set the alarm maneger to go off on the wanted time and start the pending intent
 
 	}
 }

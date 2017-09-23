@@ -22,19 +22,21 @@ class Notifacation_reciever extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Intent homeworkIntent=new Intent(context,HomeWork.class);
+        Intent homeworkIntent=new Intent(context,HomeWork.class);//set the intent
 
-        TaskStackBuilder stackBuilder=TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(HomeWork.class);
-        stackBuilder.addNextIntent(homeworkIntent);
+        TaskStackBuilder stackBuilder=TaskStackBuilder.create(context);//set stackBuilder
+        stackBuilder.addParentStack(HomeWork.class);//addParent Stack
+        stackBuilder.addNextIntent(homeworkIntent);//add where the notification should go to
 
-        PendingIntent pendingIntent=stackBuilder.getPendingIntent(NOTIFICATION_CODE,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent=stackBuilder.getPendingIntent(NOTIFICATION_CODE,PendingIntent.FLAG_UPDATE_CURRENT);//fet the pending intent
 
-        NotificationCompat.Builder builder=new NotificationCompat.Builder(context);
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(context);//build the otificationCompatBuilder
 
-        Notification notification=builder.setContentTitle("You Have HomeWork")
-                .setContentText("You Have HomeWork").setTicker("New Messege Alert!")
-                .setAutoCancel(true).setSmallIcon(R.drawable.torch).setContentIntent(pendingIntent).build();
+        Notification notification=builder.setContentTitle("You Have HomeWork")//set the notification title
+                .setContentText("You Have HomeWork").setTicker("New Messege Alert!")//set the notification message
+                .setAutoCancel(true)//set it as cancable notification
+                .setSmallIcon(R.drawable.torch)//set the icon for the notification
+                .setContentIntent(pendingIntent).build();//set where the notifiction leads you to
 
         NotificationManager notificationManager=(NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
         notificationManager.notify(0,notification);

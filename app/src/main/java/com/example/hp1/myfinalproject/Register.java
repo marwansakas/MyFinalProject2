@@ -105,6 +105,7 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    progressDialog.dismiss();
                                     Intent intent = new Intent(Register.this, MainActivity.class);
                                     Bundle bundle = new Bundle();
                                     InformationRegistered informationRegistered = new InformationRegistered(Id, First, Last, EmailString, Pass, TT, Integer.parseInt(engpoints), Integer.parseInt(mathpoints), Integer.parseInt(Grade));

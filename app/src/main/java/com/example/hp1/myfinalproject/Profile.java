@@ -54,7 +54,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         storageReference= FirebaseStorage.getInstance().getReference();
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         file_path=storageReference.child("Photos").child(firebaseUser.getUid());
-        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference();
+        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations");
 
         file_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -67,13 +67,14 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
     }
 
-    /*@Override
+   /* @Override
     protected void onStart() {
         super.onStart();
         databaseReferenceProfile.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                InformationRegistered informationRegistered=dataSnapshot.getValue(InformationRegistered.class);
+                for(DataSnapshot profileDataSnapShot: dataSnapshot.getChildren()){
+                InformationRegistered informationRegistered=profileDataSnapShot.getValue(InformationRegistered.class);
                 String str="ID:"+informationRegistered.getId()+"\n"
                             +"First Name:"+informationRegistered.getFirstName()+"\n"
                             +"Last Name:"+informationRegistered.getLastName()+"\n"
@@ -84,6 +85,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                             +"Math Points:"+informationRegistered.getMathPoints()+"\n"
                             +"Grade:"+informationRegistered.getGrade();
                 tv.setText(str);
+            }
             }
 
             @Override

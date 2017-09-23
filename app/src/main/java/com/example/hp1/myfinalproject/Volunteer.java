@@ -35,20 +35,20 @@ public class Volunteer extends Activity implements View.OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_volunteer);
-		btAdd=(Button)findViewById(R.id.btAdd_Volenteer);
-		lvolunteer=(ListView)findViewById(R.id.LvVolenteers_done);
+		btAdd=(Button)findViewById(R.id.btAdd_Volenteer);//initialize btAdd
+		lvolunteer=(ListView)findViewById(R.id.LvVolenteers_done);//initialize lvolunteer
 
-		adapter=new Custom_Volunteer(this,arr1);
-		lvolunteer.setAdapter(adapter);
+		adapter=new Custom_Volunteer(this,arr1);//initialize adapter
+		lvolunteer.setAdapter(adapter);//set the adapter to lvolunteer
 
-		btAdd.setOnClickListener(this);
+		btAdd.setOnClickListener(this);//make button clickable
 
-		firebaseAuth=FirebaseAuth.getInstance();
-		firebaseUser=firebaseAuth.getCurrentUser();
-		databaseReferenceVolunteer= FirebaseDatabase.getInstance().getReference("Volunteer");
-		databaseReferenceSubVolunteer=databaseReferenceVolunteer.child(firebaseUser.getUid());
+		firebaseAuth=FirebaseAuth.getInstance();//initialze firebaseAuth
+		firebaseUser=firebaseAuth.getCurrentUser();//get hte current user from firebaseAuth
+		databaseReferenceVolunteer= FirebaseDatabase.getInstance().getReference("Volunteer");//go to folder Volunteer
+		databaseReferenceSubVolunteer=databaseReferenceVolunteer.child(firebaseUser.getUid());//go to the user information in volunteer
 
-		volunteerActivity=this;
+		volunteerActivity=this;//set volunteerActivity as this activity
 	}
 
 	@Override
@@ -57,12 +57,12 @@ public class Volunteer extends Activity implements View.OnClickListener{
 		databaseReferenceSubVolunteer.addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(DataSnapshot dataSnapshot) {
-				for(DataSnapshot volunteerDataSnapShot: dataSnapshot.getChildren())
+				for(DataSnapshot volunteerDataSnapShot: dataSnapshot.getChildren())//add all the volunteers in the arraylist
 				{
-					rows=volunteerDataSnapShot.getValue(Rows.class);
-					arr1.add(rows);
+					rows=volunteerDataSnapShot.getValue(Rows.class);//get the  value
+					arr1.add(rows);//add the value to the array list
 				}
-				adapter.notifyDataSetChanged();
+				adapter.notifyDataSetChanged();//notify Data Set Changed
 			}
 
 			@Override
