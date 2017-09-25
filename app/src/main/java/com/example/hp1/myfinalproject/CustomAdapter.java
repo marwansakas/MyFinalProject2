@@ -28,19 +28,19 @@ class CustomAdapter extends ArrayAdapter<wazefe>{
 		LayoutInflater sakas=LayoutInflater.from(getContext());
 		View customview=sakas.inflate(R.layout.custom_row,parent, false);
 
-		mawdo3=(TextView)customview.findViewById(R.id.textView1);
-		matlob=(TextView)customview.findViewById(R.id.textView2);
-		day=(TextView)customview.findViewById(R.id.textView3);
-		im=(ImageView)customview.findViewById(R.id.imageView1);
+		mawdo3=(TextView)customview.findViewById(R.id.textView1);//initialize mawdo3
+		matlob=(TextView)customview.findViewById(R.id.textView2);//initialize matlob
+		day=(TextView)customview.findViewById(R.id.textView3);//initialize day
+		im=(ImageView)customview.findViewById(R.id.imageView1);//initialize im
 
-		String subject=getItem(position).getSubject(),details=getItem(position).getDetails();
-		String d=getItem(position).getD().getDay()+"/"+getItem(position).getD().getMonth()+"/"+getItem(position).getD().getYear();
+		String subject=getItem(position).getSubject(),details=getItem(position).getDetails();//get the dtials and subject
+		String d=getItem(position).getD().getDay()+"/"+getItem(position).getD().getMonth()+"/"+getItem(position).getD().getYear();//get the day/month/ear
 		
-		mawdo3.setText(subject);
-		matlob.setText(details);
-		day.setText(d);
+		mawdo3.setText(subject);//show th subject
+		matlob.setText(details);//show the matlob
+		day.setText(d);//show the date
 
-		for(int i=0;i<S.length;i++)
+		for(int i=0;i<S.length;i++)//pick the right image for the subject
 		{
 			if(S[i].equals(subject))
 			{
@@ -49,7 +49,7 @@ class CustomAdapter extends ArrayAdapter<wazefe>{
 			}
 		}
 
-		return customview;
+		return customview;//return the row
 	}
 
 }

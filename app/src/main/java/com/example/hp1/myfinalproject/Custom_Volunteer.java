@@ -29,27 +29,27 @@ public class Custom_Volunteer extends ArrayAdapter<Rows>{
         LayoutInflater sexy=LayoutInflater.from(getContext());
         View customview=sexy.inflate(R.layout.custom_volunteer,parent,false);
 
-        tvPlace=(TextView) customview.findViewById(R.id.tvplace);
-        tvAction=(TextView)customview.findViewById(R.id.tvAction);
-        tvDate=(TextView)customview.findViewById(R.id.tvdate);
-        tvHourss=(TextView)customview.findViewById(R.id.tvhours);
-        imsigneture=(ImageView) customview.findViewById(R.id.imageView3);
+        tvPlace=(TextView) customview.findViewById(R.id.tvplace);//initialize tvPlace
+        tvAction=(TextView)customview.findViewById(R.id.tvAction);//initialize tvAction
+        tvDate=(TextView)customview.findViewById(R.id.tvdate);//initialize date
+        tvHourss=(TextView)customview.findViewById(R.id.tvhours);//initialize tvHours
+        imsigneture=(ImageView) customview.findViewById(R.id.imageView3);//initialize image signnturexd
 
-        String place=getItem(position).getPlace();
-        String Thingsdone=getItem(position).getAction();
-        Date date=getItem(position).getDate();
-        int hours=getItem(position).getHours();
+        String place=getItem(position).getPlace();//get the place
+        String Thingsdone=getItem(position).getAction();//get the Action
+        Date date=getItem(position).getDate();//git the date
+        int hours=getItem(position).getHours();//get the number of ours
         Bitmap bitmap;
-        bitmap=StringToBitMap(getItem(position).bmp);
+        bitmap=StringToBitMap(getItem(position).bmp);//convert String to bitmap
 
-        tvPlace.setText(place+" ");
-        tvAction.setText(Thingsdone+" ");
-        tvHourss.setText(hours+" ");
-        tvDate.setText(date.getDay()+"/"+date.getMonth()+"/"+date.getYear());
-        Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 75, 75, true);
-        imsigneture.setImageBitmap(scaled);
+        tvPlace.setText(place+" ");//show Place
+        tvAction.setText(Thingsdone+" ");//Show Action
+        tvHourss.setText(hours+" ");//Show hours
+        tvDate.setText(date.getDay()+"/"+date.getMonth()+"/"+date.getYear());//show date
+        Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 75, 75, true);////create bitmap
+        imsigneture.setImageBitmap(scaled);//show bitmap in imageView
 
-        return customview;
+        return customview;//return the result of the row in the custom listview
     }
 
     public Bitmap StringToBitMap(String encodedString){
