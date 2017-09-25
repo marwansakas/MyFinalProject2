@@ -19,6 +19,9 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,15 +34,18 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	Button btexplination,bttests,btvolenteer,bthomework;
 	ImageView imb;
-	Intent intent;
+	Intent intent,intentShowNews;
+	String title,first_sentence;
+	News myNews;
 
     ListView lvNews;
     ArrayList arrNews=new ArrayList();
-    ArrayAdapter<String> adapter;
+    ArrayAdapter<News> adapter;
 
 	Uri passedUri;
 
-    DatabaseReference databaseReferenceRegister;
+    DatabaseReference databaseReferenceRegister
+			,databaseReferenceNews;
 	FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     StorageReference storageRef,file_path;
@@ -63,12 +69,45 @@ public class MainActivity extends Activity implements OnClickListener{
 		imb.setOnClickListener(this);//make imageView clickable
 
 		intent=getIntent();//to get the information for this intent
-		adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrNews);//to initialize the adapter
+		adapter=new CustomNews(this,arrNews);
 		lvNews.setAdapter(adapter);//to set adapter to listView
 
 		firebaseAuth=FirebaseAuth.getInstance();//to initialize firebaseAuth
         firebaseUser=firebaseAuth.getCurrentUser();//to get the current user in firebase user
 		databaseReferenceRegister = FirebaseDatabase.getInstance().getReference("Registrations");//initialize databaseReferenceRegister
+
+		databaseReferenceNews=FirebaseDatabase.getInstance().getReference("News");
+		databaseReferenceNews.addChildEventListener(new ChildEventListener() {
+			@Override
+			public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+				//intentShowNews=new Intent(MainActivity.this,ShowNews.class);
+				myNews=dataSnapshot.getValue(News.class);
+				arrNews.add(myNews);
+				adapter.notifyDataSetChanged();
+
+			}
+
+			@Override
+			public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+			}
+
+			@Override
+			public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+			}
+
+			@Override
+			public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+			}
+
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
+
+			}
+		});
+
         storageRef = FirebaseStorage.getInstance().getReference();//initialize storageRef
 		file_path=storageRef.child("Photos").child(firebaseUser.getUid());//to get the child of storageRef
 	}

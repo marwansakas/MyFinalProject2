@@ -4,7 +4,7 @@
 
     <uses-permission android:name="com.android.alarm.permision.SET_ALARM" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,9 +14,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Explanation"
             android:screenOrientation="portrait" />
@@ -42,7 +40,7 @@
             android:name=".Register"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustPan"/>
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".Homework_Add"
             android:label="@string/title_activity_home_work"
@@ -78,8 +76,8 @@
         <activity
             android:name=".classes.Chemistry"
             android:label="@string/title_activity_chemistry"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".classes.History"
             android:label="@string/title_activity_history"
@@ -88,29 +86,33 @@
             android:name=".Test_Activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".math_stuff.root_calculator"
-            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".math_stuff.root_calculator"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".classes.Sports"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
-            android:theme="@style/AppTheme"
             android:name=".Profile"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".classes.Madaneyat"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Madaneyat_Video"
-            android:theme="@style/AppTheme" ></activity>
-        <receiver android:name=".Notifacation_reciever" android:enabled="true">
+            android:theme="@style/AppTheme" />
+
+        <receiver
+            android:name=".Notifacation_reciever"
+            android:enabled="true">
             <intent-filter>
-                <action android:name="singh.ajit.action.DISPLAY_NOTIFICATION"/>
+                <action android:name="singh.ajit.action.DISPLAY_NOTIFICATION" />
             </intent-filter>
         </receiver>
 
-
+        <activity android:name=".ShowNews"></activity>
     </application>
 
 </manifest>

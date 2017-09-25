@@ -67,33 +67,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
     }
 
-   /* @Override
-    protected void onStart() {
-        super.onStart();
-        databaseReferenceProfile.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot profileDataSnapShot: dataSnapshot.getChildren()){
-                InformationRegistered informationRegistered=profileDataSnapShot.getValue(InformationRegistered.class);
-                String str="ID:"+informationRegistered.getId()+"\n"
-                            +"First Name:"+informationRegistered.getFirstName()+"\n"
-                            +"Last Name:"+informationRegistered.getLastName()+"\n"
-                            +"Email:"+informationRegistered.getEmail()+"\n"
-                            +"PassWord:"+informationRegistered.getPassWord()+"\n"
-                            +"Takhassos:"+informationRegistered.getTakhassos()+"\n"
-                            +"English Points:"+informationRegistered.getEngPoints()+"\n"
-                            +"Math Points:"+informationRegistered.getMathPoints()+"\n"
-                            +"Grade:"+informationRegistered.getGrade();
-                tv.setText(str);
-            }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
