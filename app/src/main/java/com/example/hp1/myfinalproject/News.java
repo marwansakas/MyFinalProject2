@@ -30,4 +30,9 @@ public class News {
     public String getArtical() {
         return artical;
     }
+
+    public String toString(){
+        return "Haneen";
+    }
+
 }

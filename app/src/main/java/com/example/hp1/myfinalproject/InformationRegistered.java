@@ -14,13 +14,13 @@ public class InformationRegistered implements Serializable{
     public String Email;
     public String PassWord;
     public String Takhassos;
-    public int EngPoints;
-    public int MathPoints;
-    public int Grade;
+    public String EngPoints;
+    public String MathPoints;
+    public String Grade;
 
     public InformationRegistered(){}
 
-    public InformationRegistered(String _id, String firstName, String lastName, String email, String passWord, String takhassos, int engPoints, int mathPoints, int grade) {
+    public InformationRegistered(String _id, String firstName, String lastName, String email, String passWord, String takhassos, String engPoints, String mathPoints, String grade) {
         _Id = _id;
         FirstName = firstName;
         LastName = lastName;
@@ -31,4 +31,5 @@ public class InformationRegistered implements Serializable{
         MathPoints = mathPoints;
         Grade = grade;
     }
+
 }

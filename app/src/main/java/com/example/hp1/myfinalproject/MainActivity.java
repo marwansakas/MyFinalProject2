@@ -2,6 +2,8 @@ package com.example.hp1.myfinalproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,20 +15,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
@@ -34,18 +31,15 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	Button btexplination,bttests,btvolenteer,bthomework;
 	ImageView imb;
-	Intent intent,intentShowNews;
-	String title,first_sentence;
+	Intent intent;
 	News myNews;
-
     ListView lvNews;
     ArrayList arrNews=new ArrayList();
     ArrayAdapter<News> adapter;
 
 	Uri passedUri;
 
-    DatabaseReference databaseReferenceRegister
-			,databaseReferenceNews;
+    DatabaseReference databaseReferenceRegister,databaseReferenceNews;
 	FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     StorageReference storageRef,file_path;
@@ -74,39 +68,9 @@ public class MainActivity extends Activity implements OnClickListener{
 
 		firebaseAuth=FirebaseAuth.getInstance();//to initialize firebaseAuth
         firebaseUser=firebaseAuth.getCurrentUser();//to get the current user in firebase user
+
 		databaseReferenceRegister = FirebaseDatabase.getInstance().getReference("Registrations");//initialize databaseReferenceRegister
-
 		databaseReferenceNews=FirebaseDatabase.getInstance().getReference("News");
-		databaseReferenceNews.addChildEventListener(new ChildEventListener() {
-			@Override
-			public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-				//intentShowNews=new Intent(MainActivity.this,ShowNews.class);
-				myNews=dataSnapshot.getValue(News.class);
-				arrNews.add(myNews);
-				adapter.notifyDataSetChanged();
-
-			}
-
-			@Override
-			public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-			}
-
-			@Override
-			public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-			}
-
-			@Override
-			public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-			}
-
-			@Override
-			public void onCancelled(DatabaseError databaseError) {
-
-			}
-		});
 
         storageRef = FirebaseStorage.getInstance().getReference();//initialize storageRef
 		file_path=storageRef.child("Photos").child(firebaseUser.getUid());//to get the child of storageRef
@@ -120,10 +84,16 @@ public class MainActivity extends Activity implements OnClickListener{
 			saveUserInformation();//to save the user's information
 
 		}
-		if(intent.getBooleanExtra("check",false)){//to see if the usr came from Profile
+		if(intent.getBooleanExtra("checkUri",false)){//to see if the usr came from Profile
 			passedUri=Uri.parse(intent.getStringExtra("uri"));//to get the image from storage
 			imb.setImageURI(passedUri);//to set imb image as the image from storage
 		}else {
+            if(intent.getBooleanExtra("checkByte[]",false))
+            {
+                byte[] bytes=intent.getByteArrayExtra("byte[]");
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,bytes.length);
+                imb.setImageBitmap(bitmap);
+            }else{
 			if(!intent.getBooleanExtra("checking for user",false)){
 				file_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 					@Override
@@ -134,8 +104,10 @@ public class MainActivity extends Activity implements OnClickListener{
 								.into(imb);
 					}
 				});
-			}else
+			}
+			else
 				imb.setImageResource(R.drawable.nopicture);//if the user came from register then set his non profile pic
+				}
 		}
 
     }

@@ -10,9 +10,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,6 +26,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class Profile extends AppCompatActivity implements View.OnClickListener{
 
@@ -33,7 +38,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     ImageView imageView;
     int PICK_IMAGE=100;
     Uri imageUri;
-    TextView tv;
+    byte[] dataBAOS;
+    int check;
+
+    ListView lvInfo;
+    ArrayList arrayInfo=new ArrayList();
+    ArrayAdapter adapter;
 
     DatabaseReference databaseReferenceProfile;
     StorageReference storageReference;
@@ -46,7 +56,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_profile);
         imageView = (ImageView) findViewById(R.id.imageView);
         btsave=(Button)findViewById(R.id.btsave);
-        tv=(TextView)findViewById(R.id.tvRegister);
+        lvInfo=(ListView)findViewById(R.id.lvProInfo);
+        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayInfo);
+        lvInfo.setAdapter(adapter);
 
         btsave.setOnClickListener(this);
         imageView.setOnClickListener(this);
@@ -54,7 +66,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         storageReference= FirebaseStorage.getInstance().getReference();
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         file_path=storageReference.child("Photos").child(firebaseUser.getUid());
-        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations");
 
         file_path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -65,16 +76,48 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
             }
         });
 
+        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations").child(firebaseUser.getUid());
+
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        databaseReferenceProfile.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                InformationRegistered informationRegistered=dataSnapshot.getValue(InformationRegistered.class);
+                arrayInfo.add("ID: "+informationRegistered._Id);
+                arrayInfo.add("First Name: "+informationRegistered.FirstName);
+                arrayInfo.add("Last Name: "+informationRegistered.LastName);
+                arrayInfo.add("Email: "+informationRegistered.Email);
+                arrayInfo.add("PassWord: "+informationRegistered.PassWord);
+                arrayInfo.add("Takhassos: "+informationRegistered.Takhassos);
+                arrayInfo.add("English Points: "+informationRegistered.EngPoints);
+                arrayInfo.add("Math Points: "+informationRegistered.MathPoints);
+                arrayInfo.add("Grade: "+informationRegistered.Grade);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
 
+
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK)
         {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            dataBAOS = baos.toByteArray();
+            file_path=storageReference.child("Photos").child(firebaseUser.getUid());
             imageView.setImageBitmap(photo);
         }else
             if(resultCode==RESULT_OK&&requestCode==PICK_IMAGE)
@@ -96,7 +139,13 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                 if(imageUri!=null){
                     file_path.putFile(imageUri);
                     i.putExtra("uri",imageUri.toString());
-                    i.putExtra("check",true);
+                    i.putExtra("checkUri",true);
+                }
+                if(dataBAOS!=null)
+                {
+                    file_path.putBytes(dataBAOS);
+                    i.putExtra("byte[]",dataBAOS);
+                    i.putExtra("checkByte[]",true);
                 }
                 startActivity(i);
                 finish();
@@ -133,4 +182,5 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         });
         alertdialog.show();
     }
+
 }

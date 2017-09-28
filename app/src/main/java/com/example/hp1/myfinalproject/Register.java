@@ -108,7 +108,7 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                                     progressDialog.dismiss();
                                     Intent intent = new Intent(Register.this, MainActivity.class);
                                     Bundle bundle = new Bundle();
-                                    InformationRegistered informationRegistered = new InformationRegistered(Id, First, Last, EmailString, Pass, TT, Integer.parseInt(engpoints), Integer.parseInt(mathpoints), Integer.parseInt(Grade));
+                                    InformationRegistered informationRegistered = new InformationRegistered(Id, First, Last, EmailString, Pass, TT, engpoints, mathpoints, Grade);
                                     bundle.putSerializable("information Registered",informationRegistered);
                                     intent.putExtras(bundle);
                                     intent.putExtra("checking for user",true);
