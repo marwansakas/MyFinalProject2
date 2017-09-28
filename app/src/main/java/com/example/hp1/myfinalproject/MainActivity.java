@@ -20,8 +20,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -70,7 +73,22 @@ public class MainActivity extends Activity implements OnClickListener{
         firebaseUser=firebaseAuth.getCurrentUser();//to get the current user in firebase user
 
 		databaseReferenceRegister = FirebaseDatabase.getInstance().getReference("Registrations");//initialize databaseReferenceRegister
-		databaseReferenceNews=FirebaseDatabase.getInstance().getReference("News");
+		/*databaseReferenceNews=FirebaseDatabase.getInstance().getReference("News");
+		databaseReferenceNews.addValueEventListener(new ValueEventListener() {
+			@Override
+			public void onDataChange(DataSnapshot dataSnapshot) {
+				for(DataSnapshot dataSnapshotNews:dataSnapshot.getChildren()){
+					myNews=dataSnapshotNews.getValue(News.class);
+					arrNews.add(myNews);
+					adapter.notifyDataSetChanged();
+				}
+			}
+
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
+
+			}
+		});*/
 
         storageRef = FirebaseStorage.getInstance().getReference();//initialize storageRef
 		file_path=storageRef.child("Photos").child(firebaseUser.getUid());//to get the child of storageRef
