@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,7 +31,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity implements OnClickListener{
+public class MainActivity extends Activity implements OnClickListener,AdapterView.OnItemClickListener{
 
 	Button btexplination,bttests,btvolenteer,bthomework;
 	ImageView imb;
@@ -64,6 +65,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		btvolenteer.setOnClickListener(this);//make button clickable
 		bthomework.setOnClickListener(this);//make button clickable
 		imb.setOnClickListener(this);//make imageView clickable
+		lvNews.setOnItemClickListener(this);
 
 		intent=getIntent();//to get the information for this intent
 		adapter=new CustomNews(this,arrNews);
@@ -73,7 +75,7 @@ public class MainActivity extends Activity implements OnClickListener{
         firebaseUser=firebaseAuth.getCurrentUser();//to get the current user in firebase user
 
 		databaseReferenceRegister = FirebaseDatabase.getInstance().getReference("Registrations");//initialize databaseReferenceRegister
-		/*databaseReferenceNews=FirebaseDatabase.getInstance().getReference("News");
+		databaseReferenceNews=FirebaseDatabase.getInstance().getReference("News");
 		databaseReferenceNews.addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(DataSnapshot dataSnapshot) {
@@ -88,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			public void onCancelled(DatabaseError databaseError) {
 
 			}
-		});*/
+		});
 
         storageRef = FirebaseStorage.getInstance().getReference();//initialize storageRef
 		file_path=storageRef.child("Photos").child(firebaseUser.getUid());//to get the child of storageRef
@@ -146,6 +148,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			case R.id.logOut://if the user chose logOut
 				firebaseAuth.signOut();//to signout of the account
 				startActivity(new Intent(this,Login.class));//to go to Login
+				firebaseAuth.signOut();
 				return true;
 			case R.id.suggestion://if the user chose suggestion
 				//startActivity(new Intent(this, Explanation.class));
@@ -188,4 +191,12 @@ public class MainActivity extends Activity implements OnClickListener{
         Uri uri=Uri.parse("android.resource://com.example.hp1.myfinalproject/"+R.drawable.nopicture);//to give the new user a first profile picture
         file_path.putFile(uri);//to add his first profile pic to database storage
     }
+
+	@Override
+	public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+		Intent i = new Intent(this,ShowNews.class);
+		i.putExtra("Title",adapter.getItem(position).getTitle());
+		i.putExtra("Artical",adapter.getItem(position).getArtical());
+		startActivity(i);
+	}
 }

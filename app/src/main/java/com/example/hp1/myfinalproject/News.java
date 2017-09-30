@@ -31,8 +31,5 @@ public class News {
         return artical;
     }
 
-    public String toString(){
-        return "Haneen";
-    }
 
 }
