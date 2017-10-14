@@ -104,6 +104,12 @@
         <activity
             android:name=".Madaneyat_Video"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ShowNews"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".math_stuff.Graphs"
+            android:theme="@style/AppTheme"></activity>
 
         <receiver
             android:name=".Notifacation_reciever"
@@ -113,12 +119,7 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".ShowNews"
-            android:theme="@style/AppTheme"></activity>
-        <activity
-            android:name=".math_stuff.Graphs"
-            android:theme="@style/AppTheme"></activity>
+
     </application>
 
 </manifest>
