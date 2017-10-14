@@ -2,6 +2,7 @@ package com.example.hp1.myfinalproject.classes;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
@@ -15,11 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.R;
+import com.github.chrisbanes.photoview.PhotoView;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
 
 public class Chemistry extends Activity implements AdapterView.OnItemSelectedListener{
 
 	TextView tvVEB;
-	ImageView imb;
+	//ImageView imb;
+	//PhotoViewAttacher attacher;
+	PhotoView photoView;
 	Spinner spinner;
 	String[] chemicalSymbols={"   ","H","He"
 			,"Li","Be","B","C","N","O","F","Ne"
@@ -43,12 +48,17 @@ public class Chemistry extends Activity implements AdapterView.OnItemSelectedLis
 		tvVEB.setMovementMethod(LinkMovementMethod.getInstance());
 		String text = "<a href='https://www.facebook.com/groups/VEBSchool.chemistry/'> VEB School </a>";
 		tvVEB.setText(Html.fromHtml(text));
-		imb=(ImageView)findViewById(R.id.table_of_elements);
-		imb.setImageResource(R.drawable.table_of_elements);
+		//imb=(ImageView)findViewById(R.id.table_of_elements);
+		//Drawable drawable= getResources().getDrawable(R.drawable.table_of_elements,null);
+		//imb.setImageDrawable(drawable);
+		photoView=(PhotoView)findViewById(R.id.table_of_elements);
+		photoView.setImageResource(R.drawable.table_of_elements);
 		spinner=(Spinner)findViewById(R.id.spinner);
 		ArrayAdapter<String> spinneradapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, chemicalSymbols);
 		spinner.setAdapter(spinneradapter);
 		spinner.setOnItemSelectedListener(this);
+		//attacher=new PhotoViewAttacher(imb);
+		//attacher.update();
 	}
 
 	@Override

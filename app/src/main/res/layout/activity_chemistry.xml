@@ -16,12 +16,21 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:text="VEB School" />
 
+    <!-->
     <ImageView
         android:id="@+id/table_of_elements"
         android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_height="197dp"
+        android:scaleType="centerInside"
         app:srcCompat="@drawable/table_of_elements"
         android:layout_weight="0.06" />
+        <!-->
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/table_of_elements"
+        android:layout_width="match_parent"
+        android:layout_height="197dp" />
 
     <Spinner
         android:id="@+id/spinner"
