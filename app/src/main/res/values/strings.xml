@@ -38,5 +38,12 @@
         <item>Sodium is a chemical element with symbol Na (from Latin natrium) and atomic number 11. It is a soft, silvery-white, highly reactive metal.</item>
 
     </string-array>
+    <string name="title_activity_graphs2">Graphs2</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="item">Item</string>
 
 </resources>
