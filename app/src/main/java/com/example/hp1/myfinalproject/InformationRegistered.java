@@ -8,15 +8,15 @@ import java.io.Serializable;
 
 public class InformationRegistered implements Serializable{
 
-    public String _Id;
-    public String FirstName;
-    public String LastName;
-    public String Email;
-    public String PassWord;
-    public String Takhassos;
-    public String EngPoints;
-    public String MathPoints;
-    public String Grade;
+    private String _Id;
+    private String FirstName;
+    private String LastName;
+    private String Email;
+    private String PassWord;
+    private String Takhassos;
+    private String EngPoints;
+    private String MathPoints;
+    private String Grade;
 
     public InformationRegistered(){}
 
@@ -32,4 +32,39 @@ public class InformationRegistered implements Serializable{
         Grade = grade;
     }
 
+    public String getTakhassos() {
+        return Takhassos;
+    }
+
+    public String get_Id() {
+        return _Id;
+    }
+
+    public String getFirstName() {
+        return FirstName;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public String getPassWord() {
+        return PassWord;
+    }
+
+    public String getEngPoints() {
+        return EngPoints;
+    }
+
+    public String getMathPoints() {
+        return MathPoints;
+    }
+
+    public String getGrade() {
+        return Grade;
+    }
 }

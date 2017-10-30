@@ -118,6 +118,12 @@
                 <action android:name="singh.ajit.action.DISPLAY_NOTIFICATION" />
             </intent-filter>
         </receiver>
+        <service
+            android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
 
     </application>
 

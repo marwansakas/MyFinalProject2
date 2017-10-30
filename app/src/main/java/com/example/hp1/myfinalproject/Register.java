@@ -31,10 +31,9 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
     Button btsubmit;
     String First, Last, EmailString, Pass, Grade, TT, engpoints, mathpoints, Id;
     RadioGroup rgtakhasos, rgmath, rgeng;
-    EditText First_Name, Last_Name, Email, Password, alame, ID;
+    EditText First_Name, Last_Name, Email, Password, safe, ID;
     RadioButton rbtakhasos, rbmath, rbeng;
     Intent intent;
-    byte[] image;
 
     ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth;
@@ -52,7 +51,7 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
         Last_Name = (EditText) findViewById(R.id.Last_Name);
         Email = (EditText) findViewById(R.id.Email);
         Password = (EditText) findViewById(R.id.Pass);
-        alame = (EditText) findViewById(R.id.Grade);
+        safe = (EditText) findViewById(R.id.Grade);
         ID = (EditText) findViewById(R.id.editText3);
 
         rgtakhasos = (RadioGroup) findViewById(R.id.radiogroup);
@@ -87,15 +86,14 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                 && !(rgeng.getCheckedRadioButtonId() == -1)
                 && !(rgmath.getCheckedRadioButtonId() == -1)
                 && !(ID.getText().toString().equals(""))
-                && !(alame.getText().toString().equals(""))
-                && !(ID.getText().toString().equals("")))//to check if the inputted all the information
+                && !(safe.getText().toString().equals("")))//to check if the inputted all the information
         {
             Pass = Password.getText().toString();
             if(Pass.length()>=6){
             First = First_Name.getText().toString();
             Last = Last_Name.getText().toString();
             EmailString = Email.getText().toString();
-            Grade = alame.getText().toString();
+            Grade = safe.getText().toString();
             Id = ID.getText().toString();//to turn all the information to string
 
                 progressDialog.setMessage("Registering user...");
@@ -140,13 +138,16 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                     TT = "Biology";//to set TT as Biology
                     break;
                 case R.id.Chemistry:
-                    TT = "Chemistry";
+                    TT = "Chemistry";//to set TT as Chemistry
                     break;
                 case R.id.Computer_Seince:
-                    TT = "Computer Seince";//to set TT as Chemistry
+                    TT = "Computer_Science";//to set TT as Computer Science
                     break;
                 case R.id.Physics:
                     TT = "Physics";//to set TT as Physics
+                    break;
+                default:
+                    TT = "None";
                     break;
             }
         } else if (radioGroup == rgeng)//to check what he selected in the radioGroup rgeng

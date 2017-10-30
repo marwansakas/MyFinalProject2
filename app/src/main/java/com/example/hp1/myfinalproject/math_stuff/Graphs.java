@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TableLayout;
+import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.R;
 import com.jjoe64.graphview.GraphView;
@@ -28,6 +29,7 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
         graphView.addSeries(series1);//to add series1 to graphView
         graphView.addSeries(series2);//to add series2 to graphView
 
-        NavigationView navigationView=(NavigationView)findViewById(R.id.nav_view);
+        navigationView=(NavigationView)findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
     }
@@ -68,7 +70,19 @@ public class Graphs extends AppCompatActivity implements NavigationView.OnNaviga
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+        Toast.makeText(getApplicationContext(),"it works",Toast.LENGTH_SHORT).show();
+        switch(item.getItemId())
+        {
+            case R.id.single_line:
+                Toast.makeText(getApplicationContext(),"it works",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.parabola:
+                Toast.makeText(getApplicationContext(),"it works",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.circle:
+                Toast.makeText(getApplicationContext(),"it works",Toast.LENGTH_SHORT).show();
+                break;
+        }
         return true;
     }
 }

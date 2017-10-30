@@ -77,8 +77,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         });
 
         databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations").child(firebaseUser.getUid());
-
     }
+
 
     @Override
     protected void onStart() {
@@ -87,15 +87,15 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 InformationRegistered informationRegistered=dataSnapshot.getValue(InformationRegistered.class);
-                arrayInfo.add("ID: "+informationRegistered._Id);
-                arrayInfo.add("First Name: "+informationRegistered.FirstName);
-                arrayInfo.add("Last Name: "+informationRegistered.LastName);
-                arrayInfo.add("Email: "+informationRegistered.Email);
-                arrayInfo.add("PassWord: "+informationRegistered.PassWord);
-                arrayInfo.add("Takhassos: "+informationRegistered.Takhassos);
-                arrayInfo.add("English Points: "+informationRegistered.EngPoints);
-                arrayInfo.add("Math Points: "+informationRegistered.MathPoints);
-                arrayInfo.add("Grade: "+informationRegistered.Grade);
+                arrayInfo.add("ID: "+informationRegistered.get_Id());
+                arrayInfo.add("First Name: "+informationRegistered.getFirstName());
+                arrayInfo.add("Last Name: "+informationRegistered.getLastName());
+                arrayInfo.add("Email: "+informationRegistered.getEmail());
+                arrayInfo.add("PassWord: "+informationRegistered.getPassWord());
+                arrayInfo.add("Takhassos: "+informationRegistered.getTakhassos());
+                arrayInfo.add("English Points: "+informationRegistered.getEngPoints());
+                arrayInfo.add("Math Points: "+informationRegistered.getMathPoints());
+                arrayInfo.add("Grade: "+informationRegistered.getGrade());
                 adapter.notifyDataSetChanged();
             }
 

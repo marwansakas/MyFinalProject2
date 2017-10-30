@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -46,6 +47,7 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
     DatabaseReference databaseReferenceRegister,databaseReferenceNews;
 	FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
+	FirebaseMessaging firebaseMessage;
     StorageReference storageRef,file_path;
 
 	@Override
@@ -71,6 +73,7 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 		adapter=new CustomNews(this,arrNews);
 		lvNews.setAdapter(adapter);//to set adapter to listView
 
+		firebaseMessage=FirebaseMessaging.getInstance();
 		firebaseAuth=FirebaseAuth.getInstance();//to initialize firebaseAuth
         firebaseUser=firebaseAuth.getCurrentUser();//to get the current user in firebase user
 
@@ -102,8 +105,8 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 
         if(intent.getBooleanExtra("checking for user",false)) {//to see if the usr came from Register
 			saveUserInformation();//to save the user's information
-
 		}
+
 		if(intent.getBooleanExtra("checkUri",false)){//to see if the usr came from Profile
 			passedUri=Uri.parse(intent.getStringExtra("uri"));//to get the image from storage
 			imb.setImageURI(passedUri);//to set imb image as the image from storage
@@ -146,9 +149,9 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
     {
         switch (item.getItemId()) {
 			case R.id.logOut://if the user chose logOut
-				firebaseAuth.signOut();//to signout of the account
-				startActivity(new Intent(this,Login.class));//to go to Login
 				firebaseAuth.signOut();
+				startActivity(new Intent(MainActivity.this, Login.class));
+				finish();
 				return true;
 			case R.id.suggestion://if the user chose suggestion
 				//startActivity(new Intent(this, Explanation.class));
@@ -189,7 +192,8 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 
 		databaseReferenceRegister.child(firebaseUser.getUid()).setValue(informationRegistered);//to add the registered value to firebase database
         Uri uri=Uri.parse("android.resource://com.example.hp1.myfinalproject/"+R.drawable.nopicture);//to give the new user a first profile picture
-        file_path.putFile(uri);//to add his first profile pic to database storage
+		firebaseMessage.subscribeToTopic(informationRegistered.getTakhassos());
+		file_path.putFile(uri);//to add his first profile pic to database storage
     }
 
 	@Override
