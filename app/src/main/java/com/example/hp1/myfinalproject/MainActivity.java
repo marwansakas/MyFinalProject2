@@ -203,4 +203,11 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 		i.putExtra("Artical",adapter.getItem(position).getArtical());
 		startActivity(i);
 	}
+	/*
+	public void shake(View v)
+  {
+    Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+    findViewById(R.id.pw).startAnimation(shake);
+  }
+	*/
 }

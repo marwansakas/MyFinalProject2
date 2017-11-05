@@ -3,17 +3,14 @@ package com.example.hp1.myfinalproject.classes;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TableLayout;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
+import com.example.hp1.myfinalproject.LineGraph;
 import com.example.hp1.myfinalproject.R;
-import com.example.hp1.myfinalproject.math_stuff.Graphs;
 import com.example.hp1.myfinalproject.math_stuff.root_calculator;
 
 import java.util.ArrayList;
@@ -44,7 +41,7 @@ public class Math extends Activity implements AdapterView.OnItemClickListener{
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 		if(i<2){
-			Intent intent[]={new Intent(this,root_calculator.class),new Intent(this,Graphs.class)};
+			Intent intent[]={new Intent(this,root_calculator.class),new Intent(this,LineGraph.class)};
         	startActivity(intent[i]);//go to intent
     	}
     	else

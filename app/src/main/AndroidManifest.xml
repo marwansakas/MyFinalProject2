@@ -27,17 +27,6 @@
             android:label="@string/title_activity_tests"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Login"
-            android:label="@string/title_activity_login"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".Register"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"
@@ -107,9 +96,6 @@
         <activity
             android:name=".ShowNews"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".math_stuff.Graphs"
-            android:theme="@style/AppTheme" />
 
         <receiver
             android:name=".Notifacation_reciever"
@@ -118,13 +104,26 @@
                 <action android:name="singh.ajit.action.DISPLAY_NOTIFICATION" />
             </intent-filter>
         </receiver>
-        <service
-            android:name=".MyFirebaseInstanceIDService">
+
+        <service android:name=".MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_main2" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LineGraph"
+            android:label="@string/title_activity_line_graph"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
