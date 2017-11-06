@@ -9,7 +9,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/torch"
         android:label="@string/app_name"
         android:supportsRtl="true">
         <activity
@@ -113,7 +113,7 @@
 
         <activity
             android:name=".Login"
-            android:label="@string/title_activity_main2" >
+             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -39,8 +39,6 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
 
-    String[] exists = {"id", "username", "password"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

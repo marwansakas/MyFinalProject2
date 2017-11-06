@@ -23,8 +23,9 @@ public class LineGraph extends AppCompatActivity implements NavigationView.OnNav
 
     GraphView graph;
     FloatingActionButton fab;
-    private final int GRAPHSIZE=20000000;
-    double y,x=-GRAPHSIZE/2;
+    Toolbar toolbar;
+    private final int GRAPHSIZE=50000;
+    double y,x=-1000;
     EditText etA,etB;
 
     @Override
@@ -35,8 +36,25 @@ public class LineGraph extends AppCompatActivity implements NavigationView.OnNav
         etA=(EditText)findViewById(R.id.etA);
         etB=(EditText)findViewById(R.id.etB);
         graph = (GraphView) findViewById(R.id.graph);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // set manual X bounds
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(-150);
+        graph.getViewport().setMaxY(150);
+
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMinX(4);
+        graph.getViewport().setMaxX(80);
+
+        // enable scaling and scrolling
+        graph.getViewport().setScalable(true);
+        graph.getViewport().setScalableY(true);
+        graph.getViewport().setScrollable(true); // enables horizontal scrolling
+        graph.getViewport().setScrollableY(true); // enables vertical scrolling
+
+
+
         setSupportActionBar(toolbar);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -89,7 +107,6 @@ public class LineGraph extends AppCompatActivity implements NavigationView.OnNav
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(getApplicationContext(),"Please fill all the requird information",Toast.LENGTH_SHORT).show();
         String stA,stB;
         stA=etA.getText().toString();
         stB=etB.getText().toString();

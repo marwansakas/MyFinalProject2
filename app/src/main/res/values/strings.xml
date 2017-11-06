@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MyFinalProject</string>
+    <string name="app_name">Sakas Helper</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_volenteer">Volenteer</string>
     <string name="title_activity_explination">Explination</string>
