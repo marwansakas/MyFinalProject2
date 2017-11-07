@@ -36,7 +36,13 @@ public class Madaneyat extends AppCompatActivity implements AdapterView.OnItemCl
         lv1.setAdapter(adapter);//set the adapter to lv1
     }
 
-
+    /**
+     * takes you to Madaneyat_Video to show the chosen video
+     * @param adapterView
+     * @param view
+     * @param i
+     * @param l
+     */
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent=new Intent(this,Madaneyat_Video.class);//initialize intent

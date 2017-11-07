@@ -54,6 +54,13 @@ public class Chemistry extends Activity implements AdapterView.OnItemSelectedLis
 		spinner.setOnItemSelectedListener(this);//make spinner clickAable
 	}
 
+	/**
+	 * open n allert dialog that displays information about the chosen chemical symbol
+	 * @param adapterView
+	 * @param view
+	 * @param i
+	 * @param l
+	 */
 	@Override
 	public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 		if(0<i&&i<chemicalInformation.length)//if the item was between 0 and chemicalInformation.length

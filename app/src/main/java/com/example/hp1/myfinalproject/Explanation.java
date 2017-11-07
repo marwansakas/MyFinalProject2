@@ -52,7 +52,16 @@ public class Explanation extends Activity implements AdapterView.OnItemClickList
 		adapter.add("Sports");//add to the adapter Sports
 		adapter.add("Madaneyat");//add to the adapter Madaneyat
 	}
-	
+
+	/**
+	 *
+	 * @param adapterView
+	 * @param view
+	 * @param position
+	 * @param l
+	 *
+	 * this function lets the user go to the ctivity he chose to click on from the list
+	 */
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 		Intent[] i={new Intent(this,Math.class),

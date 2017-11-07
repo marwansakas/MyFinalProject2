@@ -79,7 +79,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations").child(firebaseUser.getUid());
     }
 
-
+    /**
+     * shows the user's information that was added when he signed up for an account
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -106,6 +108,13 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         });
     }
 
+    /**
+     *
+     * @param requestCode the code that identifies what the action is
+     * @param resultCode if the action was possibale
+     * @param data and the data that was recived from the action
+     * this function displays the image that was taken either from camera or gallary
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
@@ -128,6 +137,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
             }
     }
 
+    /**
+     * this function lets the user open the alertDialog
+     * and save the information that was changed
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         if(v==imageView){
@@ -135,28 +149,14 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         }else
             if(v==btsave)
             {
-                Intent i = new Intent(this, MainActivity.class);
-                if(imageUri!=null){
-                    file_path.putFile(imageUri);
-                    i.putExtra("uri",imageUri.toString());
-                    i.putExtra("checkUri",true);
-                }
-                if(dataBAOS!=null)
-                {
-                    file_path.putBytes(dataBAOS);
-                    i.putExtra("byte[]",dataBAOS);
-                    i.putExtra("checkByte[]",true);
-                }
-                startActivity(i);
-                finish();
+                saveInfo();
             }
     }
 
-    public void openGallery(){
-        Intent gallery=new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery,PICK_IMAGE);
-    }
-
+    /**
+     * chose an alertDialog with three option to let you chose
+     * if to take picture from camera, gallary, or not at all
+     */
     private void SelectImage()
     {
         final CharSequence[] items={"Camera","Gallery","Cancel"};
@@ -172,7 +172,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                         startActivityForResult(intent, CAMERA_REQUEST);
                         break;
                     case 1:
-                       openGallery();
+                        Intent gallery=new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                        startActivityForResult(gallery,PICK_IMAGE);
                         break;
                     case 2:
                         dialog.dismiss();
@@ -181,6 +182,24 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
             }
         });
         alertdialog.show();
+    }
+
+    public void saveInfo()
+    {
+        Intent i = new Intent(this, MainActivity.class);
+        if(imageUri!=null){
+            file_path.putFile(imageUri);
+            i.putExtra("uri",imageUri.toString());
+            i.putExtra("checkUri",true);
+        }
+        if(dataBAOS!=null)
+        {
+            file_path.putBytes(dataBAOS);
+            i.putExtra("byte[]",dataBAOS);
+            i.putExtra("checkByte[]",true);
+        }
+        startActivity(i);
+        finish();
     }
 
 }

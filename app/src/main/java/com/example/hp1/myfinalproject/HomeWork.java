@@ -60,6 +60,69 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	@Override
 	protected void onStart() {
 		super.onStart();
+		getHomeworkFromFirebase();
+	}
+
+	/**
+	 *
+	 * @param v the view that was clicked on
+	 *          and sed the user to te activity Homework_Add
+	 */
+	@Override
+	public void onClick(View v) {
+		if(v==btplus)
+			startActivity(new Intent(this,Homework_Add.class));//go to Homework_ADd
+
+	}
+
+
+	/**
+	 *
+	 * @param parent
+	 * @param view
+	 * @param position
+	 * @param id
+	 * @return
+	 *
+	 * this function lets the user delete a homework from his database
+	 */
+	@Override
+	public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
+
+        databaseReferenceSubHomework.removeValue();//remove all homework from user's database
+        arrsubjects.remove(position);//to remove from arrsubjects
+        adapter.notifyDataSetChanged();//notify Data Set Changed
+
+        for(int i=0;i<arrsubjects.size();i++) {
+            databaseReferenceHomework.child(firebaseUser.getUid()).push().setValue(arrsubjects.get(i));//to add back all the removed homework that the user did not want to delete
+        }
+
+        arrsubjects.clear();//to clear arrsubjects becuase all the homework was added up there
+        adapter.notifyDataSetChanged();//notify data set changed
+        return true;
+	}
+
+	/**
+	 * this function set a notifacation for the user if he has homework
+	 */
+	public void setNotification(){
+
+		AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);//initialize
+		Calendar calendar=Calendar.getInstance();//get the current time
+		calendar.set(Calendar.HOUR_OF_DAY,9);//set the notification to go of at 9 o'clock
+		calendar.set(Calendar.MINUTE,12);//12 minutes
+		calendar.set(Calendar.SECOND,0);//and 0 seconds
+		Intent intent1=new Intent("singh.ajit.action.DISPLAY_NOTIFICATION");//create the intent
+		PendingIntent pendingIntent=PendingIntent.getBroadcast(HomeWork.this,NOTIFICATION_CODE,intent1,PendingIntent.FLAG_UPDATE_CURRENT);//create the pending intent that will luached at the wanted time
+		alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis()+AlarmManager.INTERVAL_HALF_DAY,pendingIntent);//set the alarm maneger to go off on the wanted time and start the pending intent
+
+	}
+
+	/**
+	 * this function gets all the homework stored in the database and showes them tin the listview
+	 */
+	public void getHomeworkFromFirebase()
+	{
 		databaseReferenceSubHomework.addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(DataSnapshot dataSnapshot) {
@@ -78,42 +141,5 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 			public void onCancelled(DatabaseError databaseError) {
 			}
 		});
-	}
-
-	@Override
-	public void onClick(View v) {
-		if(v==btplus)
-			startActivity(new Intent(this,Homework_Add.class));//go to Homework_ADd
-
-	}
-
-	@Override
-	public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
-
-        databaseReferenceSubHomework.removeValue();//remove all homework from user's database
-        arrsubjects.remove(position);//to remove from arrsubjects
-        adapter.notifyDataSetChanged();//notify Data Set Changed
-
-        for(int i=0;i<arrsubjects.size();i++) {
-            databaseReferenceHomework.child(firebaseUser.getUid()).push().setValue(arrsubjects.get(i));//to add back all the removed homework that the user did not want to delete
-        }
-
-        arrsubjects.clear();//to clear arrsubjects becuase all the homework was added up there
-        adapter.notifyDataSetChanged();//notify data set changed
-        return true;
-	}
-
-
-	public void setNotification(){
-
-		AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);//initialize
-		Calendar calendar=Calendar.getInstance();//get the current time
-		calendar.set(Calendar.HOUR_OF_DAY,9);//set the notification to go of at 9 o'clock
-		calendar.set(Calendar.MINUTE,12);//12 minutes
-		calendar.set(Calendar.SECOND,0);//and 0 seconds
-		Intent intent1=new Intent("singh.ajit.action.DISPLAY_NOTIFICATION");//create the intent
-		PendingIntent pendingIntent=PendingIntent.getBroadcast(HomeWork.this,NOTIFICATION_CODE,intent1,PendingIntent.FLAG_UPDATE_CURRENT);//create the pending intent that will luached at the wanted time
-		alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis()+AlarmManager.INTERVAL_HALF_DAY,pendingIntent);//set the alarm maneger to go off on the wanted time and start the pending intent
-
 	}
 }

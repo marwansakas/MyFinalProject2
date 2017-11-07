@@ -52,6 +52,11 @@ public class Custom_Volunteer extends ArrayAdapter<Rows>{
         return customview;//return the result of the row in the custom listview
     }
 
+    /**
+     *  converts String to bitmap
+     * @param encodedString the String from firbase that ws once a bitmap
+     * @return
+     */
     public Bitmap StringToBitMap(String encodedString){
             byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
             Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);

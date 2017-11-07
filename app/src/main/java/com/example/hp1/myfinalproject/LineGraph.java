@@ -105,6 +105,10 @@ public class LineGraph extends AppCompatActivity implements NavigationView.OnNav
         return true;
     }
 
+    /**
+     * shows the graph
+     * @param view the view that was clicked on
+     */
     @Override
     public void onClick(View view) {
         String stA,stB;

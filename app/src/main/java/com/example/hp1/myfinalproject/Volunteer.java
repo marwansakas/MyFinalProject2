@@ -51,6 +51,9 @@ public class Volunteer extends Activity implements View.OnClickListener{
 		volunteerActivity=this;//set volunteerActivity as this activity
 	}
 
+	/**
+	 * shows the volunteer notes that the user added
+	 */
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -72,6 +75,10 @@ public class Volunteer extends Activity implements View.OnClickListener{
 		});
 	}
 
+	/**
+	 * takes the user to Test_Activity
+	 * @param view the view that was clicked on
+	 */
 	@Override
 	public void onClick(View view) {
 		startActivity(new Intent(this, Test_Activity.class));//to go to TestActivity

@@ -43,6 +43,7 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         btsubmit = (Button) findViewById(R.id.btsubmit);
 
         First_Name = (EditText) findViewById(R.id.first);
@@ -60,8 +61,6 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
         rbmath = (RadioButton) findViewById(rgmath.getCheckedRadioButtonId());
         rbtakhasos = (RadioButton) findViewById(rgtakhasos.getCheckedRadioButtonId());
 
-
-
         intent = new Intent(Register.this, MainActivity.class);
 
         btsubmit.setOnClickListener(this);
@@ -74,6 +73,11 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
         progressDialog = new ProgressDialog(this);
     }
 
+    /**
+     *
+     * @param v the view that was clicked on
+     *          this function lets the user store all the iformation that he added to the firebase to create a new user for him else shows a message
+     */
     @Override
     public void onClick(View v) {
         if ((!First_Name.getText().toString().equals(""))
@@ -84,7 +88,7 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                 && !(rgeng.getCheckedRadioButtonId() == -1)
                 && !(rgmath.getCheckedRadioButtonId() == -1)
                 && !(ID.getText().toString().equals(""))
-                && !(safe.getText().toString().equals("")))//to check if the inputted all the information
+                && !(safe.getText().toString().equals("")))
         {
             Pass = Password.getText().toString();
             if(Pass.length()>=6){
@@ -92,7 +96,7 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
             Last = Last_Name.getText().toString();
             EmailString = Email.getText().toString();
             Grade = safe.getText().toString();
-            Id = ID.getText().toString();//to turn all the information to string
+            Id = ID.getText().toString();
 
                 progressDialog.setMessage("Registering user...");
                 progressDialog.show();

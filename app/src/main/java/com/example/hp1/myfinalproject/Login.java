@@ -48,25 +48,31 @@ public class Login extends Activity implements OnClickListener {
         if (v == btregister) {
             startActivity(new Intent(this, Register.class));//to start activity Register
         } else {
-
-            if (!(etpass.getText().toString().equals("")) && !(etEmail.getText().toString().equals(""))) {//checking if the Password or Email are empty
-                progressDialog.setMessage("Checking for user...");//set progressDialog messege
-                progressDialog.show();//show progressDialog
-                firebaseAuth.signInWithEmailAndPassword(etEmail.getText().toString(), etpass.getText().toString())//to see if the user exists
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressDialog.dismiss();//dismissing the progressDialog
-                                if (task.isSuccessful())//if task is successful continue
-                                    startActivity(intent);//start MainActivity
-                            }
-                        });
-            }
-            else
-                Toast.makeText(Login.this,"fill PassWord And Email",Toast.LENGTH_SHORT).show();//to tell the user that he did not input the password and email
-        }
+            Login();
+           }
     }
 
+    /**
+     * this function check if has a user in the database and if so loges the in else shows an apropriat messege
+     */
+    public void Login(){
+        if (!(etpass.getText().toString().equals("")) && !(etEmail.getText().toString().equals(""))) {//checking if the Password or Email are empty
+            progressDialog.setMessage("Checking for user...");//set progressDialog messege
+            progressDialog.show();//show progressDialog
+            firebaseAuth.signInWithEmailAndPassword(etEmail.getText().toString(), etpass.getText().toString())//to see if the user exists
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressDialog.dismiss();//dismissing the progressDialog
+                            if (task.isSuccessful())//if task is successful continue
+                                startActivity(intent);//start MainActivity
+                        }
+                    });
+        }
+        else
+            Toast.makeText(Login.this,"fill PassWord And Email",Toast.LENGTH_SHORT).show();//to tell the user that he did not input the password and email
+
+    }
 }
 

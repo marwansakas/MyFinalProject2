@@ -85,21 +85,21 @@ public class Homework_Add extends Activity implements OnClickListener {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//set the background color
             dialog.show();//show the datePicker dialog
         }
-        if (v == btadd) {//if he clicked on btadd
+        if (v == btadd) {
 
             if ((!ettheDs.getText().toString().equals("")) && year != 0 && day != 0 && month != 0 && (!s.getSelectedItem().toString().equals("Choose a subject"))) {//check if the user filled all the required information
 
-                Intent i = new Intent(this, HomeWork.class);//initialize intent i
-                saveUserInformation();//start save usr information
-                startActivity(i);//start activity HomeWork
-                homeworkActivity.finish();//end the previos homework activity
-                finish();//end this activity
+                Intent i = new Intent(this, HomeWork.class);
+                saveUserInformation();
+                startActivity(i);
+                homeworkActivity.finish();
+                finish();
             }
         }
     }
 
     public void saveUserInformation() {
         wazefe wazefe = new wazefe(s.getSelectedItem().toString(), ettheDs.getText().toString(), new Date(selectDay, selectMonth, selectYear));//add all the information to the wazefe variable
-        databaseReferenceHomework.child(firebaseUser.getUid()).push().setValue(wazefe);//add the value to the database
+        databaseReferenceHomework.child(firebaseUser.getUid()).push().setValue(wazefe);
     }
 }

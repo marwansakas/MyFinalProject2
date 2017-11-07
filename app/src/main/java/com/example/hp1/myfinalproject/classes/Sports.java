@@ -29,6 +29,10 @@ public class Sports extends AppCompatActivity implements View.OnClickListener{
         shape=(ImageView)findViewById(R.id.size);//initialize shape
     }
 
+    /**
+     * showz the user his bmi and health
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         if(!(etweight.getText().toString().equals(""))&&!(etheight.getText().toString().equals("")))//to se if the inputted the required information
@@ -37,19 +41,19 @@ public class Sports extends AppCompatActivity implements View.OnClickListener{
 
             if(bmi<18.5) {//if bmi is smaller than 18.5
                 shape.setImageResource(R.drawable.size1);//set image
-                tvresualt.setText(bmi+"underweight");//show result
+                tvresualt.setText(bmi+" underweight");//show result
             }else
                 if(bmi>=18.5&&bmi<24.9) {//if bmi is smaller than 24.9 and bigger than 18.5
                     shape.setImageResource(R.drawable.size2);//set image
-                    tvresualt.setText(bmi+"good");//show result
+                    tvresualt.setText(bmi+" good");//show result
             }else
                 if(bmi>=24.9&&bmi<29.9) {//if bmi is smaller than 29.9 and bigger than 24.9
                     shape.setImageResource(R.drawable.size3);//set image
-                    tvresualt.setText(bmi+"overweight");//show result
+                    tvresualt.setText(bmi+" overweight");//show result
                 }else
                 if(bmi>=29.9) {//if bmi is bigger than 29.9
                     shape.setImageResource(R.drawable.size4);//set image
-                    tvresualt.setText(bmi+"obese");//show result
+                    tvresualt.setText(bmi+" obese");//show result
                 }
         }
     }

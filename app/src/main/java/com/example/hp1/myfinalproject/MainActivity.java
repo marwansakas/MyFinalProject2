@@ -80,6 +80,11 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 		databaseReferenceRegister = FirebaseDatabase.getInstance().getReference("Registrations");//initialize databaseReferenceRegister
 		databaseReferenceNews=FirebaseDatabase.getInstance().getReference("News");
 		databaseReferenceNews.addValueEventListener(new ValueEventListener() {
+			/**
+			 *
+			 * @param dataSnapshot
+			 * gets all the news that was written in the firebase and shows them
+			 */
 			@Override
 			public void onDataChange(DataSnapshot dataSnapshot) {
 				for(DataSnapshot dataSnapshotNews:dataSnapshot.getChildren()){
@@ -135,6 +140,12 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 
     }
 
+	/**
+	 *
+	 * @param menu the menu
+	 * @return
+	 * this function create the menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {//to create an options menu
 		super.onCreateOptionsMenu(menu);
@@ -144,47 +155,61 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 		return super.onCreateOptionsMenu(menu);//to return if the result
 	}
 
+	/**
+	 * if the user clicked logout then the user will be logged out of the application
+	 * if he clicked calendar he will then be sent to calendar activity
+	 * @param item thid=s parameter is the item that was clicked on
+	 * @return
+	 */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)//to make the items for the options menu
     {
         switch (item.getItemId()) {
-			case R.id.logOut://if the user chose logOut
+			case R.id.logOut:
 				firebaseAuth.signOut();
 				startActivity(new Intent(MainActivity.this, Login.class));
 				finish();
 				return true;
-			case R.id.suggestion://if the user chose suggestion
-				//startActivity(new Intent(this, Explanation.class));
+			case R.id.calendar:
+				startActivity(new Intent(this, CalendarActivity.class));
 				return true;
 
 		}
 		return super.onOptionsItemSelected(item);//return the items for the menu
     }
 
-
+	/**
+	 * this functio lets you go to the activity the user chose
+	 * @param v the view that was clicked on
+	 */
 	@Override
 	public void onClick(View v) {
 		if(v==btexplination)
-		    startActivity(new Intent(this,Explanation.class));//to go to Explanation
+		    startActivity(new Intent(this,Explanation.class));
 		else
 			if(v==bttests)
-				startActivity(new Intent(this,Tests.class));//to go to Tests
+				startActivity(new Intent(this,Tests.class));
 			else
 				if(v==btvolenteer) {
 					Intent i = new Intent(this, Volunteer.class);
-					startActivity(i);//to go to Volunteer
+					startActivity(i);
 				}
 				else
 					if(v==bthomework){
 						Intent i=new Intent(this,HomeWork.class);
-						startActivity(i);//to go to HomeWork
+						startActivity(i);
                     }
 					else {
 						Intent i=new Intent(this, Profile.class);
-						startActivity(i);//to go to Profile
+						startActivity(i);
 					}
 
 	}
+
+	/**
+	 *
+	 * this function saves the information the new user added when he signed up for an account
+	 */
     public void saveUserInformation(){
 
         Bundle bundle=intent.getExtras();//to get the bundle from Register
@@ -196,6 +221,13 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 		file_path.putFile(uri);//to add his first profile pic to database storage
     }
 
+	/**
+	 * open an activity displaying the clicked in news
+	 * @param adapterView
+	 * @param view
+	 * @param position
+	 * @param l
+	 */
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 		Intent i = new Intent(this,ShowNews.class);

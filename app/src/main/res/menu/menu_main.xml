@@ -7,7 +7,7 @@
         app:showAsAction="never"
         android:title="Log Out"/>
     <item
-        android:id="@+id/suggestion"
-        app:showAsAction="never"
-        android:title="suggestion for the app"/>
+        android:id="@+id/calendar"
+        android:title="Calendar"
+        app:showAsAction="never" />
 </menu>

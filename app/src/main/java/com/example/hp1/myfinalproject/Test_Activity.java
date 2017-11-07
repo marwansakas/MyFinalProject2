@@ -68,7 +68,13 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
         tvDate.setOnClickListener(this);
 
         mDatesetListener = new DatePickerDialog.OnDateSetListener() {
-
+            /**
+             * displays the chosen date
+             * @param datePicker the datpicker
+             * @param year the chosen year
+             * @param month the chosen month
+             * @param day the chosen day
+             */
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month += 1;// to increase moths by 1 becuase they start at zero
@@ -81,6 +87,11 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
         databaseReferenceVolunteer= FirebaseDatabase.getInstance().getReference("Volunteer");
     }
 
+    /**
+     * creates the on options menu
+     * @param menu the munu that was created
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {//to create options menu
         MenuInflater menuInflater = getMenuInflater();
@@ -89,6 +100,11 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * allows the user to clear the signuture
+     * @param item the item that was clicked on
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {//to put iteams in the options menu
         switch (item.getItemId()) {
@@ -99,6 +115,11 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * if the view was tvDate opens the datePicker Dialog
+     * if the view that was clicked on bt saves information and goes back to Volunteer
+     * @param view the view that was clicked on
+     */
     @Override
     public void onClick(View view) {
         if (view == tvDate) {
@@ -127,11 +148,19 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * save the information into the database
+     */
     public void saveUserInformation(){
         Rows rows=new Rows(strplace,stractivity,Integer.parseInt(strhours),new Date(day,month+1,year),BitMapToString(paintView.mBitmap));
         databaseReferenceVolunteer.child(firebaseUser.getUid()).push().setValue(rows);
     }
 
+    /**
+     * this function converts Bitmap to String
+     * @param bitmap this is the signature
+     * @return return the bitmap but in type String
+     */
     public String BitMapToString(Bitmap bitmap){
         ByteArrayOutputStream baos=new  ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
