@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/torch"
-    tools:context="com.example.hp1.myfinalproject.classes.Madaneyat">
+    tools:context="com.example.hp1.myfinalproject.Subjects.Madaneyat">
 
     <VideoView
         android:id="@+id/videoView"

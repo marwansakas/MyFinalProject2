@@ -1,8 +1,7 @@
-package com.example.hp1.myfinalproject.classes;
+package com.example.hp1.myfinalproject.Subjects;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
@@ -10,14 +9,12 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.R;
 import com.github.chrisbanes.photoview.PhotoView;
-import com.github.chrisbanes.photoview.PhotoViewAttacher;
 
 public class Chemistry extends Activity implements AdapterView.OnItemSelectedListener{
 

@@ -171,7 +171,7 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 				finish();
 				return true;
 			case R.id.calendar:
-				startActivity(new Intent(this, CalendarActivity.class));
+				startActivity(new Intent(MainActivity.this, CalendarActivity.class));
 				return true;
 
 		}

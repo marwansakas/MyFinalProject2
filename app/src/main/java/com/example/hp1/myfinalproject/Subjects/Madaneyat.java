@@ -1,4 +1,4 @@
-package com.example.hp1.myfinalproject.classes;
+package com.example.hp1.myfinalproject.Subjects;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

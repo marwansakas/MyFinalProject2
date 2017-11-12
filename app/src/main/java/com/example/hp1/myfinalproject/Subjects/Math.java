@@ -1,4 +1,4 @@
-package com.example.hp1.myfinalproject.classes;
+package com.example.hp1.myfinalproject.Subjects;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.hp1.myfinalproject.LineGraph;
+import com.example.hp1.myfinalproject.Graphs.LineGraph;
 import com.example.hp1.myfinalproject.R;
 import com.example.hp1.myfinalproject.math_stuff.root_calculator;
 

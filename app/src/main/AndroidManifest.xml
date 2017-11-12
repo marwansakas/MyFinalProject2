@@ -40,36 +40,36 @@
             android:label="@string/title_activity_homework__show"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".classes.Math"
+            android:name=".Subjects.Math"
             android:label="@string/title_activity_math"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".classes.Arabic"
+            android:name=".Subjects.Arabic"
             android:label="@string/title_activity_arabic"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".classes.English"
+            android:name=".Subjects.English"
             android:label="@string/title_activity_english"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".classes.Computer_Sience"
+            android:name=".Subjects.Computer_Sience"
             android:label="@string/title_activity_computer__sience"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".classes.Hebrew"
+            android:name=".Subjects.Hebrew"
             android:label="@string/title_activity_hebrew"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".classes.Biology"
+            android:name=".Subjects.Biology"
             android:label="@string/title_activity_biology"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".classes.Chemistry"
+            android:name=".Subjects.Chemistry"
             android:label="@string/title_activity_chemistry"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".classes.History"
+            android:name=".Subjects.History"
             android:label="@string/title_activity_history"
             android:screenOrientation="portrait" />
         <activity
@@ -80,7 +80,7 @@
             android:name=".math_stuff.root_calculator"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".classes.Sports"
+            android:name=".Subjects.Sports"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
@@ -88,7 +88,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".classes.Madaneyat"
+            android:name=".Subjects.Madaneyat"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Madaneyat_Video"
@@ -119,10 +119,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LineGraph"
+            android:name=".Graphs.LineGraph"
             android:label="@string/title_activity_line_graph"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CalendarActivity"></activity>
+        <activity
+            android:name=".CalendarActivity"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name=".Graphs.Parabola"
+            android:label="@string/title_activity_parabola"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Graphs.SinGraph"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Graphs.CosGraph"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Graphs.TanGraph"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Graphs.ParabolaGraph"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Graphs.Circle"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Graphs.Elipsa"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

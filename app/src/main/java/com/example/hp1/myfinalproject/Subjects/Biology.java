@@ -1,17 +1,16 @@
-package com.example.hp1.myfinalproject.classes;
+package com.example.hp1.myfinalproject.Subjects;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.example.hp1.myfinalproject.R;
 
-public class English extends Activity {
+public class Biology extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_english);
+		setContentView(R.layout.activity_biology);
+
 	}
 }

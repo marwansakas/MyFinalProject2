@@ -7,21 +7,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.hp1.myfinalproject.classes.Arabic;
-import com.example.hp1.myfinalproject.classes.Biology;
-import com.example.hp1.myfinalproject.classes.Chemistry;
-import com.example.hp1.myfinalproject.classes.Computer_Sience;
-import com.example.hp1.myfinalproject.classes.English;
-import com.example.hp1.myfinalproject.classes.Hebrew;
-import com.example.hp1.myfinalproject.classes.History;
-import com.example.hp1.myfinalproject.classes.Madaneyat;
-import com.example.hp1.myfinalproject.classes.Math;
-import com.example.hp1.myfinalproject.classes.Sports;
+import com.example.hp1.myfinalproject.Subjects.Arabic;
+import com.example.hp1.myfinalproject.Subjects.Biology;
+import com.example.hp1.myfinalproject.Subjects.Chemistry;
+import com.example.hp1.myfinalproject.Subjects.Computer_Sience;
+import com.example.hp1.myfinalproject.Subjects.English;
+import com.example.hp1.myfinalproject.Subjects.Hebrew;
+import com.example.hp1.myfinalproject.Subjects.History;
+import com.example.hp1.myfinalproject.Subjects.Madaneyat;
+import com.example.hp1.myfinalproject.Subjects.Math;
+import com.example.hp1.myfinalproject.Subjects.Sports;
 
 public class Explanation extends Activity implements AdapterView.OnItemClickListener{
 
