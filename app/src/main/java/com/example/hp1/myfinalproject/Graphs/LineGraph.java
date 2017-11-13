@@ -93,16 +93,21 @@ public class LineGraph extends AppCompatActivity implements NavigationView.OnNav
             startActivity(new Intent(this,SinGraph.class));
             finish();
         } else if (id == R.id.nav_cos) {
+            startActivity(new Intent(this,CosGraph.class));
             finish();
         } else if (id == R.id.nav_tan) {
+            startActivity(new Intent(this,TanGraph.class));
             finish();
         } else if (id == R.id.nav_parabola) {
+            startActivity(new Intent(this,ParabolaGraph.class));
             finish();
         }
         else if (id == R.id.nav_circle) {
+            startActivity(new Intent(this,Circle.class));
             finish();
         }
         else if (id == R.id.nav_elipsa) {
+            startActivity(new Intent(this,Elipsa.class));
             finish();
         }
 

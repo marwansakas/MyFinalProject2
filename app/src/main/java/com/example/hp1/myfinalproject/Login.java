@@ -29,6 +29,7 @@ public class Login extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         btregister = (Button) findViewById(R.id.btregister);//to set what buttons they are by their id
         btlogin = (Button) findViewById(R.id.btlogin);
         etEmail = (EditText) findViewById(R.id.etEmail);
@@ -41,6 +42,10 @@ public class Login extends Activity implements OnClickListener {
 
         progressDialog = new ProgressDialog(this);//initialize progressDialog
         firebaseAuth = FirebaseAuth.getInstance();//initialize firebaseAuth
+        if(firebaseAuth.getCurrentUser()!=null){
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
+        }
     }
 
     @Override
@@ -50,6 +55,7 @@ public class Login extends Activity implements OnClickListener {
         } else {
             Login();
            }
+
     }
 
     /**
@@ -67,6 +73,7 @@ public class Login extends Activity implements OnClickListener {
                             progressDialog.dismiss();//dismissing the progressDialog
                             if (task.isSuccessful())//if task is successful continue
                                 startActivity(intent);//start MainActivity
+                                finish();
                         }
                     });
         }

@@ -57,11 +57,12 @@ public class CalendarActivity extends AppCompatActivity {
         compactCalendar.addEvent(ev1);
 
         databaseReferenceTests= FirebaseDatabase.getInstance().getReference("Tests");
-       /* databaseReferenceTests.addValueEventListener(new ValueEventListener() {
+        databaseReferenceTests.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshotTests:dataSnapshot.getChildren()){
                     CalendarEventDetails eventDetails=dataSnapshotTests.getValue(CalendarEventDetails.class);
+                    CalendarEventDetails eventDetails1=eventDetails;
                     Event eventTest=EventCreator(Color.BLUE,eventDetails);
                     compactCalendar.addEvent(eventTest);
                 }
@@ -71,7 +72,7 @@ public class CalendarActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });*/
+        });
 
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -95,7 +96,7 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     public Event EventCreator(int color,CalendarEventDetails eventDetails){
-        String myDate=eventDetails.getDate().convertToString()+" "+eventDetails.getHourClock().convertToString();
+        String myDate=eventDetails.returnDate()+" 00:00:00";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         java.util.Date date = null;
         try {

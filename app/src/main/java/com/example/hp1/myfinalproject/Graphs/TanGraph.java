@@ -91,19 +91,24 @@ public class TanGraph extends AppCompatActivity implements NavigationView.OnNavi
             startActivity(new Intent(this,Parabola.class));
             finish();
         } else if (id == R.id.nav_sin) {
-            Toast.makeText(getApplicationContext(),"You are here",Toast.LENGTH_SHORT).show();
-
+            startActivity(new Intent(this,SinGraph.class));
+            finish();
         } else if (id == R.id.nav_cos) {
+            startActivity(new Intent(this,CosGraph.class));
             finish();
         } else if (id == R.id.nav_tan) {
-            finish();
+
+            Toast.makeText(getApplicationContext(),"You are here",Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_parabola) {
+            startActivity(new Intent(this,ParabolaGraph.class));
             finish();
         }
         else if (id == R.id.nav_circle) {
+            startActivity(new Intent(this,Circle.class));
             finish();
         }
         else if (id == R.id.nav_elipsa) {
+            startActivity(new Intent(this,Elipsa.class));
             finish();
         }
 
