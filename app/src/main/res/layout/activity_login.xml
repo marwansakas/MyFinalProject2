@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnCount="1"
-    android:background="@drawable/torch"
+    android:background="@mipmap/bettertorch"
     tools:context="com.example.hp1.myfinalproject.Login">
 
     <TextView

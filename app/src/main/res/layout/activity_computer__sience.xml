@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/torch"
+    android:background="@mipmap/bettertorch"
     tools:context="com.example.hp1.myfinalproject.Subjects.Computer_Sience" >
 
 
