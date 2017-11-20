@@ -1,12 +1,9 @@
-package com.example.hp1.myfinalproject;
+package com.example.hp1.myfinalproject.JavaClasses;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.EmbossMaskFilter;
-import android.graphics.MaskFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
@@ -14,6 +11,8 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.example.hp1.myfinalproject.JavaClasses.FingerPath;
 
 import java.lang.*;
 import java.util.ArrayList;
@@ -140,5 +139,9 @@ public class PaintView extends View {
         }
 
         return true;
+    }
+
+    public Bitmap getmBitmap() {
+        return mBitmap;
     }
 }

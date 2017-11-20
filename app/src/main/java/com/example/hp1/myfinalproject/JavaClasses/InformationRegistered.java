@@ -1,4 +1,4 @@
-package com.example.hp1.myfinalproject;
+package com.example.hp1.myfinalproject.JavaClasses;
 
 import java.io.Serializable;
 
@@ -17,8 +17,11 @@ public class InformationRegistered implements Serializable{
     private String EngPoints;
     private String MathPoints;
     private String Grade;
+    private boolean isAdmin;
 
     public InformationRegistered(){}
+
+
 
     public InformationRegistered(String _id, String firstName, String lastName, String email, String passWord, String takhassos, String engPoints, String mathPoints, String grade) {
         _Id = _id;
@@ -30,6 +33,8 @@ public class InformationRegistered implements Serializable{
         EngPoints = engPoints;
         MathPoints = mathPoints;
         Grade = grade;
+        this.isAdmin=false;
+
     }
 
     public String getTakhassos() {
@@ -67,4 +72,9 @@ public class InformationRegistered implements Serializable{
     public String getGrade() {
         return Grade;
     }
+
+    public boolean getIsAdmin() { return isAdmin; }
+
+
+
 }

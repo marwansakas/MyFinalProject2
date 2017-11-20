@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hp1.myfinalproject.JavaClasses.wazefe;
+
 class CustomAdapter extends ArrayAdapter<wazefe>{
 
 	TextView mawdo3,matlob,day;

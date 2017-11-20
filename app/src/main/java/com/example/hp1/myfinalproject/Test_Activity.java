@@ -2,18 +2,14 @@ package com.example.hp1.myfinalproject;
 
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +19,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.hp1.myfinalproject.JavaClasses.Date;
+import com.example.hp1.myfinalproject.JavaClasses.PaintView;
+import com.example.hp1.myfinalproject.JavaClasses.Rows;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -152,7 +151,7 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
      * save the information into the database
      */
     public void saveUserInformation(){
-        Rows rows=new Rows(strplace,stractivity,Integer.parseInt(strhours),new Date(day,month+1,year),BitMapToString(paintView.mBitmap));
+        Rows rows=new Rows(strplace,stractivity,Integer.parseInt(strhours),new Date(day,month+1,year),BitMapToString(paintView.getmBitmap()));
         databaseReferenceVolunteer.child(firebaseUser.getUid()).push().setValue(rows);
     }
 

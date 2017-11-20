@@ -12,6 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hp1.myfinalproject.JavaClasses.Date;
+import com.example.hp1.myfinalproject.JavaClasses.Rows;
+
 import java.util.ArrayList;
 
 public class Custom_Volunteer extends ArrayAdapter<Rows>{

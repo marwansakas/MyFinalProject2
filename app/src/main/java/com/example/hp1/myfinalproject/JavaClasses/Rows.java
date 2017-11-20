@@ -1,13 +1,13 @@
-package com.example.hp1.myfinalproject;
+package com.example.hp1.myfinalproject.JavaClasses;
 
 
-import android.graphics.Bitmap;
+import com.example.hp1.myfinalproject.JavaClasses.Date;
 
 public class Rows {
-    String place,action;
-    int hours;
-    Date date;
-    String bmp;
+    private String place,action;
+    private int hours;
+    private Date date;
+    private String bmp;
 
     public Rows(){}
 

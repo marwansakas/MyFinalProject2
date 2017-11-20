@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.Graphs.LineGraph;
 import com.example.hp1.myfinalproject.R;
-import com.example.hp1.myfinalproject.math_stuff.root_calculator;
+import com.example.hp1.myfinalproject.root_calculator;
 
 import java.util.ArrayList;
 

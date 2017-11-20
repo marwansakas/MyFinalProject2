@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bettertorch"
-    tools:context="com.example.hp1.myfinalproject.math_stuff.root_calculator">
+    tools:context="com.example.hp1.myfinalproject.root_calculator">
 
     <TextView
         android:id="@+id/directions"

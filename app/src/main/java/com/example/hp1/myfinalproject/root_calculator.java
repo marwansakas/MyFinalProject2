@@ -1,4 +1,4 @@
-package com.example.hp1.myfinalproject.math_stuff;
+package com.example.hp1.myfinalproject;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

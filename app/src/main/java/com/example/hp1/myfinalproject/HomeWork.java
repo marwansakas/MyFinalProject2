@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.hp1.myfinalproject.JavaClasses.wazefe;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +35,6 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	public static Activity homeworkActivity;
 	DatabaseReference databaseReferenceHomework,databaseReferenceSubHomework;
 	FirebaseUser firebaseUser;
-    FirebaseAuth firebaseAuth;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,6 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 		adapter=new CustomAdapter(this,arrsubjects);//initialize adapter
 		lvsubjects.setAdapter(adapter);
 
-        firebaseAuth=FirebaseAuth.getInstance();//initialize firebaseAuth
 		firebaseUser= FirebaseAuth.getInstance().getCurrentUser();//initialize firebaseUser
 		databaseReferenceHomework= FirebaseDatabase.getInstance().getReference("Homework");//initialize databaseReferenceHomework
 		databaseReferenceSubHomework=databaseReferenceHomework.child(firebaseUser.getUid());//to get databaseReferenceHomework child

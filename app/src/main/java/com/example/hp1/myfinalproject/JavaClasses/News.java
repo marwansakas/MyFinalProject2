@@ -1,4 +1,4 @@
-package com.example.hp1.myfinalproject;
+package com.example.hp1.myfinalproject.JavaClasses;
 
 /**
  * Created by Dell on 9/25/2017.

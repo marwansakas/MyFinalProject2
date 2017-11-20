@@ -1,15 +1,15 @@
 package com.example.hp1.myfinalproject;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.hp1.myfinalproject.JavaClasses.*;
+import com.example.hp1.myfinalproject.JavaClasses.Date;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +29,7 @@ public class CalendarActivity extends AppCompatActivity {
     ArrayList<Event> tests=new ArrayList<>();
     ArrayList<Event> holidays=new ArrayList<>();
 
-    DatabaseReference databaseReferenceTests;
+    DatabaseReference databaseReferenceCalendar,databaseReferenceTests;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,10 @@ public class CalendarActivity extends AppCompatActivity {
         Event ev1 = new Event(Color.BLUE,millis , "Teachers' Professional Day");
         compactCalendar.addEvent(ev1);
 
-        databaseReferenceTests= FirebaseDatabase.getInstance().getReference("Tests");
+        databaseReferenceCalendar=FirebaseDatabase.getInstance().getReference("Calendar");
+        databaseReferenceTests= databaseReferenceCalendar.child("Tests");
+        CalendarEventDetails calendarEventDetails=new CalendarEventDetails("test",new Date(30,11,2017));
+        databaseReferenceTests.push().setValue(calendarEventDetails);
         databaseReferenceTests.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

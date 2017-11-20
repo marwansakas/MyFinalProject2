@@ -1,4 +1,6 @@
-package com.example.hp1.myfinalproject;
+package com.example.hp1.myfinalproject.JavaClasses;
+
+import com.example.hp1.myfinalproject.JavaClasses.Date;
 
 public class wazefe  {
 
