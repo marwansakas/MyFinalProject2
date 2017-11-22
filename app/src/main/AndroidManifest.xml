@@ -132,16 +132,21 @@
         <activity
             android:name=".Graphs.SinGraph"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Graphs.CosGraph"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Graphs.TanGraph"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Graphs.ParabolaGraph"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Graphs.Circle"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Graphs.Elipsa"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Graphs.CosGraph"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Graphs.TanGraph"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Graphs.ParabolaGraph"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Graphs.Circle"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Graphs.Elipsa"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -4,11 +4,9 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_line_graph"
-            android:icon="@drawable/line"
             android:title="Line Graph" />
         <item
             android:id="@+id/nav_parabol"
-            android:icon="@drawable/ic_menu_gallery"
             android:title="Parabola" />
     </group>
 
@@ -16,15 +14,12 @@
         <menu>
             <item
                 android:id="@+id/nav_sin"
-                android:icon="@drawable/ic_menu_slideshow"
                 android:title="Sin" />
             <item
                 android:id="@+id/nav_cos"
-                android:icon="@drawable/ic_menu_share"
                 android:title="Cos" />
             <item
                 android:id="@+id/nav_tan"
-                android:icon="@drawable/ic_menu_send"
                 android:title="Tan" />
         </menu>
     </item>
@@ -33,15 +28,12 @@
         <menu>
             <item
                 android:id="@+id/nav_parabola"
-                android:icon="@drawable/ic_menu_slideshow"
                 android:title="Parabola" />
             <item
                 android:id="@+id/nav_circle"
-                android:icon="@drawable/ic_menu_share"
                 android:title="Circle" />
             <item
                 android:id="@+id/nav_elipsa"
-                android:icon="@drawable/ic_menu_send"
                 android:title="Elipsa" />
         </menu>
     </item>

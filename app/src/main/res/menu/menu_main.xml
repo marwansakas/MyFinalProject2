@@ -5,7 +5,7 @@
     <item
         android:id="@+id/logOut"
         app:showAsAction="never"
-        android:title="Log Out"/>
+        android:title="Logout"/>
     <item
         android:id="@+id/calendar"
         android:title="Calendar"

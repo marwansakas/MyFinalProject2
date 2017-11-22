@@ -3,6 +3,8 @@ package com.example.hp1.myfinalproject.Graphs;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +16,11 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.hp1.myfinalproject.CalendarActivity;
+import com.example.hp1.myfinalproject.Login;
+import com.example.hp1.myfinalproject.MainActivity;
 import com.example.hp1.myfinalproject.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -27,11 +33,13 @@ public class LineGraph extends AppCompatActivity implements NavigationView.OnNav
     private final int GRAPHSIZE=50000;
     double y,x=-1000;
     EditText etA,etB;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_line_graph);
+        firebaseAuth= FirebaseAuth.getInstance();//to initialize firebaseAuth
 
         etA=(EditText)findViewById(R.id.etA);
         etB=(EditText)findViewById(R.id.etB);
@@ -139,5 +147,43 @@ public class LineGraph extends AppCompatActivity implements NavigationView.OnNav
             }
             graph.addSeries(series);
         }
+    }
+
+    /**
+     *
+     * @param menu the menu
+     * @return
+     * this function create the menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {//to create an options menu
+        super.onCreateOptionsMenu(menu);
+        MenuInflater menuInflater = getMenuInflater();//initialize menuInflater
+        menuInflater.inflate(R.menu.menu_main, menu);//to create the three dot menu
+
+        return super.onCreateOptionsMenu(menu);//to return if the result
+    }
+
+    /**
+     * if the user clicked logout then the user will be logged out of the application
+     * if he clicked calendar he will then be sent to calendar activity
+     * @param item thid=s parameter is the item that was clicked on
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)//to make the items for the options menu
+    {
+        switch (item.getItemId()) {
+            case R.id.logOut:
+                firebaseAuth.signOut();
+                startActivity(new Intent(LineGraph.this, Login.class));
+                finish();
+                return true;
+            case R.id.calendar:
+                startActivity(new Intent(LineGraph.this, CalendarActivity.class));
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);//return the items for the menu
     }
 }

@@ -2,10 +2,14 @@ package com.example.hp1.myfinalproject.Subjects;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,8 +17,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hp1.myfinalproject.CalendarActivity;
+import com.example.hp1.myfinalproject.Login;
+import com.example.hp1.myfinalproject.MainActivity;
 import com.example.hp1.myfinalproject.R;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Chemistry extends Activity implements AdapterView.OnItemSelectedListener{
 
@@ -33,6 +41,8 @@ public class Chemistry extends Activity implements AdapterView.OnItemSelectedLis
 			,"Ac","Th","Pa","U","Np","Pu","Am","Cm","Bk","Cf","Es","Fm","Md","No"
 			,"Lr","Rf","Db","Sg","Bh","Hs","Mt","Uun","Uuu","uub"};//an array filled with the element symbols
 	String[] chemicalInformation;
+
+	FirebaseAuth firebaseAuth;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +59,7 @@ public class Chemistry extends Activity implements AdapterView.OnItemSelectedLis
 		ArrayAdapter<String> spinneradapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, chemicalSymbols);//add the item to the spinner from String array chemicalSymbols
 		spinner.setAdapter(spinneradapter);//set the spinner adapter
 		spinner.setOnItemSelectedListener(this);//make spinner clickAable
+		firebaseAuth= FirebaseAuth.getInstance();//to initialize firebaseAuth
 	}
 
 	/**
@@ -80,5 +91,43 @@ public class Chemistry extends Activity implements AdapterView.OnItemSelectedLis
 	@Override
 	public void onNothingSelected(AdapterView<?> adapterView) {
 
+	}
+
+	/**
+	 *
+	 * @param menu the menu
+	 * @return
+	 * this function create the menu
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {//to create an options menu
+		super.onCreateOptionsMenu(menu);
+		MenuInflater menuInflater = getMenuInflater();//initialize menuInflater
+		menuInflater.inflate(R.menu.menu_main, menu);//to create the three dot menu
+
+		return super.onCreateOptionsMenu(menu);//to return if the result
+	}
+
+	/**
+	 * if the user clicked logout then the user will be logged out of the application
+	 * if he clicked calendar he will then be sent to calendar activity
+	 * @param item thid=s parameter is the item that was clicked on
+	 * @return
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)//to make the items for the options menu
+	{
+		switch (item.getItemId()) {
+			case R.id.logOut:
+				firebaseAuth.signOut();
+				startActivity(new Intent(Chemistry.this, Login.class));
+				finish();
+				return true;
+			case R.id.calendar:
+				startActivity(new Intent(Chemistry.this, CalendarActivity.class));
+				return true;
+
+		}
+		return super.onOptionsItemSelected(item);//return the items for the menu
 	}
 }

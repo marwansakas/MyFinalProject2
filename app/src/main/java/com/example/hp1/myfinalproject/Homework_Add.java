@@ -9,6 +9,9 @@ import java.util.Calendar;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -102,5 +105,43 @@ public class Homework_Add extends Activity implements OnClickListener {
     public void saveUserInformation() {
         wazefe wazefe = new wazefe(s.getSelectedItem().toString(), ettheDs.getText().toString(), new Date(selectDay, selectMonth, selectYear));//add all the information to the wazefe variable
         databaseReferenceHomework.child(firebaseUser.getUid()).push().setValue(wazefe);
+    }
+
+    /**
+     *
+     * @param menu the menu
+     * @return
+     * this function create the menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {//to create an options menu
+        super.onCreateOptionsMenu(menu);
+        MenuInflater menuInflater = getMenuInflater();//initialize menuInflater
+        menuInflater.inflate(R.menu.menu_main, menu);//to create the three dot menu
+
+        return super.onCreateOptionsMenu(menu);//to return if the result
+    }
+
+    /**
+     * if the user clicked logout then the user will be logged out of the application
+     * if he clicked calendar he will then be sent to calendar activity
+     * @param item thid=s parameter is the item that was clicked on
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)//to make the items for the options menu
+    {
+        switch (item.getItemId()) {
+            case R.id.logOut:
+                firebaseAuth.signOut();
+                startActivity(new Intent(Homework_Add.this, Login.class));
+                finish();
+                return true;
+            case R.id.calendar:
+                startActivity(new Intent(Homework_Add.this, CalendarActivity.class));
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);//return the items for the menu
     }
 }

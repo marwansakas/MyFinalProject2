@@ -110,6 +110,15 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
             case R.id.clear:
                 paintView.clear();//to clear the paintview
                 return true;
+            case R.id.logOut:
+                firebaseAuth.signOut();
+                startActivity(new Intent(Test_Activity.this, Login.class));
+                finish();
+                return true;
+            case R.id.calendar:
+                startActivity(new Intent(Test_Activity.this, CalendarActivity.class));
+                return true;
+
         }
         return super.onOptionsItemSelected(item);
     }

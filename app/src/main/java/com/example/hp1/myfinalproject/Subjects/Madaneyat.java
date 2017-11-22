@@ -3,18 +3,26 @@ package com.example.hp1.myfinalproject.Subjects;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.hp1.myfinalproject.CalendarActivity;
+import com.example.hp1.myfinalproject.Login;
 import com.example.hp1.myfinalproject.Madaneyat_Video;
+import com.example.hp1.myfinalproject.MainActivity;
 import com.example.hp1.myfinalproject.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Madaneyat extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     ListView lv1;
     ArrayAdapter<String> adapter;
+    FirebaseAuth firebaseAuth;
     String firstpart="android.resource://com.example.hp1.myfinalproject/";
     int[] videoPaths={R.raw.ale3lam_wa_elseyase_fe_israel,R.raw.alhokom_almahalle,R.raw.alkawmeye,
     R.raw.alsolta_alkada2eye,R.raw.alsolta_altanfezeye,R.raw.alsolta_altashre3eye,R.raw.dawlat_israel_walsha3b_alyahode_fe_alshetat,R.raw.demokrateye_ta3refat_tawajohat,
@@ -34,6 +42,7 @@ public class Madaneyat extends AppCompatActivity implements AdapterView.OnItemCl
         lv1=(ListView)findViewById(R.id.listView);//initialize lv1
         lv1.setOnItemClickListener(Madaneyat.this);//make lv1 clickable
         lv1.setAdapter(adapter);//set the adapter to lv1
+        firebaseAuth= FirebaseAuth.getInstance();//to initialize firebaseAuth
     }
 
     /**
@@ -48,5 +57,43 @@ public class Madaneyat extends AppCompatActivity implements AdapterView.OnItemCl
         Intent intent=new Intent(this,Madaneyat_Video.class);//initialize intent
         intent.putExtra("videoPath",firstpart+videoPaths[i]);//add the string path to intent
         startActivity(intent);//start activity
+    }
+
+    /**
+     *
+     * @param menu the menu
+     * @return
+     * this function create the menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {//to create an options menu
+        super.onCreateOptionsMenu(menu);
+        MenuInflater menuInflater = getMenuInflater();//initialize menuInflater
+        menuInflater.inflate(R.menu.menu_main, menu);//to create the three dot menu
+
+        return super.onCreateOptionsMenu(menu);//to return if the result
+    }
+
+    /**
+     * if the user clicked logout then the user will be logged out of the application
+     * if he clicked calendar he will then be sent to calendar activity
+     * @param item thid=s parameter is the item that was clicked on
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)//to make the items for the options menu
+    {
+        switch (item.getItemId()) {
+            case R.id.logOut:
+                firebaseAuth.signOut();
+                startActivity(new Intent(Madaneyat.this, Login.class));
+                finish();
+                return true;
+            case R.id.calendar:
+                startActivity(new Intent(Madaneyat.this, CalendarActivity.class));
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);//return the items for the menu
     }
 }

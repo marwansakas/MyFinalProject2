@@ -43,7 +43,7 @@ public class Custom_Volunteer extends ArrayAdapter<Rows>{
         Date date=getItem(position).getDate();//git the date
         int hours=getItem(position).getHours();//get the number of ours
         Bitmap bitmap;
-        bitmap=StringToBitMap(getItem(position).bmp);//convert String to bitmap
+        bitmap=StringToBitMap(getItem(position).getBmp());//convert String to bitmap
 
         tvPlace.setText(place+" ");//show Place
         tvAction.setText(Thingsdone+" ");//Show Action
