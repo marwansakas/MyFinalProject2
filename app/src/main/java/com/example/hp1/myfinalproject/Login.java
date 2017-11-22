@@ -3,6 +3,7 @@ package com.example.hp1.myfinalproject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -23,12 +24,13 @@ public class Login extends Activity implements OnClickListener {
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
     Intent intent;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
 
         btregister = (Button) findViewById(R.id.btregister);//to set what buttons they are by their id
         btlogin = (Button) findViewById(R.id.btlogin);
@@ -39,7 +41,12 @@ public class Login extends Activity implements OnClickListener {
         btregister.setOnClickListener(this);
 
         intent = new Intent(this, MainActivity.class);//initialize intent
-
+        pref = getSharedPreferences("mypref",MODE_PRIVATE);
+        String em=pref.getString("email",null);
+        String pwd=pref.getString("password",null);
+        etEmail.setText(em);
+        etpass.setText(pwd);
+        editor= pref.edit();
         progressDialog = new ProgressDialog(this);//initialize progressDialog
         firebaseAuth = FirebaseAuth.getInstance();//initialize firebaseAuth
         if(firebaseAuth.getCurrentUser()!=null){
@@ -72,6 +79,9 @@ public class Login extends Activity implements OnClickListener {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();//dismissing the progressDialog
                             if (task.isSuccessful())//if task is successful continue
+                                editor.putString("email",etEmail.getText().toString());
+                            editor.putString("password",etpass.getText().toString());
+                            editor.commit();
                                 startActivity(intent);//start MainActivity
                                 finish();
                         }
