@@ -25,7 +25,4 @@ public class Date {
 		return year;
 	}
 
-	public String convertToString(){
-		return year+"/"+month+"/"+day;
-	}
 }

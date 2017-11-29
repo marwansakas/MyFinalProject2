@@ -60,7 +60,7 @@ public class PaintView extends View {
     public void init(DisplayMetrics metrics){
         int height=metrics.heightPixels;//to get the heights height pixels
         int width=metrics.widthPixels;//to get the heights width pixels
-        mBitmap= Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888);//to createe bitmap
+        mBitmap= Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888);//to create bitmap
         mCanvas=new Canvas(mBitmap);//to set canvas drawing on mbitmap
 
         current_color=DEFAULT_COLOR;//to set the current_color as the DEFAULT_COLOR
@@ -80,10 +80,10 @@ public class PaintView extends View {
         mCanvas.drawColor(Background_color);//the color on witch to draw on canvas
         for(FingerPath fp : paths)
         {
-            mpaint.setColor(fp.color);
-            mpaint.setStrokeWidth(fp.strokewidth);
+            mpaint.setColor(fp.getColor());
+            mpaint.setStrokeWidth(fp.getStrokewidth());
             mpaint.setMaskFilter(null);
-            mCanvas.drawPath(fp.path,mpaint);
+            mCanvas.drawPath(fp.getPath(),mpaint);
 
         }
         canvas.drawBitmap(mBitmap,0,0,mBitmapPaint);//draw the bitmap from the beginning of the canvas

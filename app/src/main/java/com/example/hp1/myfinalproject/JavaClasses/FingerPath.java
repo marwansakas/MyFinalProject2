@@ -14,4 +14,16 @@ public class FingerPath {
         this.strokewidth = strokewidth;
         this.path = path;
     }
+
+    public int getColor() {
+        return color;
+    }
+
+    public int getStrokewidth() {
+        return strokewidth;
+    }
+
+    public Path getPath() {
+        return path;
+    }
 }
