@@ -16,16 +16,17 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:text="VEB School" />
 
-
-
-    <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/table_of_elements"
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="197dp" />
+        android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ScrollView>
+
+    </HorizontalScrollView>
 
 </LinearLayout>

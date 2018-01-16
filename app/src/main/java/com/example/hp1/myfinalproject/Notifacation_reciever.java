@@ -33,7 +33,7 @@ class Notifacation_reciever extends BroadcastReceiver{
         NotificationCompat.Builder builder=new NotificationCompat.Builder(context);//build the otificationCompatBuilder
 
         Notification notification=builder.setContentTitle("You Have HomeWork")//set the notification title
-                .setContentText("You Have HomeWork").setTicker("New Messege Alert!")//set the notification message
+                .setContentText("You Have HomeWork").setTicker("New Message Alert!")//set the notification message
                 .setAutoCancel(true)//set it as cancable notification
                 .setSmallIcon(R.drawable.torch)//set the icon for the notification
                 .setContentIntent(pendingIntent).build();//set where the notifiction leads you to

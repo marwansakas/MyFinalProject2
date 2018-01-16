@@ -37,9 +37,10 @@ import java.util.ArrayList;
 public class Profile extends AppCompatActivity implements View.OnClickListener{
 
     Button btsave;
-    private static final int CAMERA_REQUEST =123 ;
+    private static final int CAMERA_REQUEST =123;
+    private static final int PICK_IMAGE=100;
     ImageView imageView;
-    int PICK_IMAGE=100;
+
     Uri imageUri;
     byte[] dataBAOS;
     int check;

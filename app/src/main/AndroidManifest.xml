@@ -21,7 +21,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Volunteer"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".Tests"
             android:label="@string/title_activity_tests"
@@ -38,7 +39,8 @@
         <activity
             android:name=".HomeWork"
             android:label="@string/title_activity_homework__show"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".Subjects.Math"
             android:label="@string/title_activity_math"
@@ -147,6 +149,8 @@
         <activity
             android:name=".Graphs.Elipsa"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ChemInfo"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

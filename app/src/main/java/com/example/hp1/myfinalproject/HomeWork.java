@@ -8,6 +8,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class HomeWork extends Activity implements OnClickListener,AdapterView.OnItemLongClickListener{
@@ -33,27 +35,24 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 
 	ListView lvsubjects;
 	ArrayAdapter<wazefe> adapter;
-	ArrayList arrsubjects= new ArrayList();
-	Button btplus;
+	ArrayList<wazefe> arrsubjects= new ArrayList();
 	public static Activity homeworkActivity;
 	DatabaseReference databaseReferenceHomework,databaseReferenceSubHomework;
 	FirebaseUser firebaseUser;
 	FirebaseAuth firebaseAuth;
+	FloatingActionButton fab;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_homework);
-
-		btplus=(Button)findViewById(R.id.button1);//initialize btplus
+		fab=(FloatingActionButton)findViewById(R.id.fab);
 		lvsubjects=(ListView)findViewById(R.id.listView1);//initialize lvsubjects
-
-		btplus.setOnClickListener(this);//make btplus clickable
 		lvsubjects.setOnItemLongClickListener(this);//make lvsubjects clickable
-
 		homeworkActivity=this;//to set homeworkActivity
 		adapter=new CustomAdapter(this,arrsubjects);//initialize adapter
 		lvsubjects.setAdapter(adapter);
+		fab.setOnClickListener(this);
 
 		firebaseAuth=FirebaseAuth.getInstance();//to initialize firebaseAuth
 		firebaseUser= FirebaseAuth.getInstance().getCurrentUser();//initialize firebaseUser
@@ -74,9 +73,7 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	 */
 	@Override
 	public void onClick(View v) {
-		if(v==btplus)
 			startActivity(new Intent(this,Homework_Add.class));//go to Homework_ADd
-
 	}
 
 
@@ -92,17 +89,23 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	 */
 	@Override
 	public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
+		Query query=databaseReferenceSubHomework.orderByChild("details").equalTo(arrsubjects.get(position).getDetails());
+		query.addListenerForSingleValueEvent(new ValueEventListener() {
+			@Override
+			public void onDataChange(DataSnapshot dataSnapshot) {
+				for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()){
+						appleSnapshot.getRef().removeValue();
+						arrsubjects.clear();
+				}
 
-        databaseReferenceSubHomework.removeValue();//remove all homework from user's database
-        arrsubjects.remove(position);//to remove from arrsubjects
-        adapter.notifyDataSetChanged();//notify Data Set Changed
+			}
 
-        for(int i=0;i<arrsubjects.size();i++) {
-            databaseReferenceHomework.child(firebaseUser.getUid()).push().setValue(arrsubjects.get(i));//to add back all the removed homework that the user did not want to delete
-        }
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
 
-        arrsubjects.clear();//to clear arrsubjects becuase all the homework was added up there
-        adapter.notifyDataSetChanged();//notify data set changed
+			}
+		});
+
         return true;
 	}
 

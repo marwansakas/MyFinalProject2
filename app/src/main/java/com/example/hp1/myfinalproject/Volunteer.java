@@ -3,6 +3,7 @@ package com.example.hp1.myfinalproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,7 +28,7 @@ public class Volunteer extends Activity implements View.OnClickListener{
 	ListView lvolunteer;
 	ArrayList arr1=new ArrayList();
 	ArrayAdapter<Rows> adapter;
-	Button btAdd;
+	FloatingActionButton fab;
 	Rows rows;
 
 	DatabaseReference databaseReferenceVolunteer,databaseReferenceSubVolunteer;
@@ -40,13 +41,13 @@ public class Volunteer extends Activity implements View.OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_volunteer);
 
-		btAdd=(Button)findViewById(R.id.btAdd_Volenteer);//initialize btAdd
+		fab=(FloatingActionButton) findViewById(R.id.fab);//initialize btAdd
 		lvolunteer=(ListView)findViewById(R.id.LvVolenteers_done);//initialize lvolunteer
 
 		adapter=new Custom_Volunteer(this,arr1);//initialize adapter
 		lvolunteer.setAdapter(adapter);//set the adapter to lvolunteer
 
-		btAdd.setOnClickListener(this);//make button clickable
+		fab.setOnClickListener(this);//make button clickable
 
 		firebaseAuth=FirebaseAuth.getInstance();//initialze firebaseAuth
 		firebaseUser=firebaseAuth.getCurrentUser();//get hte current user from firebaseAuth
