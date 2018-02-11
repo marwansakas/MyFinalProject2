@@ -33,6 +33,11 @@ public class ChemView extends View
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Paint boxColor=new Paint();
+        String[] colors=getResources().getStringArray(R.array.element_colors);
+        int color=Color.parseColor(colors[num]);
+        boxColor.setColor(color);
+        canvas.drawPaint(boxColor);
         Paint paintSy = new Paint(),paintN=new Paint(),paintRect=new Paint();
         str=getResources().getStringArray(R.array.element_symbol);
         rect=new Rect(0,0,canvas.getWidth(),canvas.getHeight());
