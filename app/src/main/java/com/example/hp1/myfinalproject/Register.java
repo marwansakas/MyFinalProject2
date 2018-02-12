@@ -131,7 +131,7 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
         if (radioGroup == rgtakhasos) {//to check what he selected in the radioGroup rgtakhasos
             switch (i) {
                 case R.id.Media:
-                    TT = "Media";//to set TT as Media
+                    TT = "Medi";//to set TT as Media
                     break;
                 case R.id.Biology:
                     TT = "Biology";//to set TT as Biology
