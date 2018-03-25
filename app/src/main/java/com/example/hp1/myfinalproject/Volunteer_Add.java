@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.example.hp1.myfinalproject.JavaClasses.Date;
 import com.example.hp1.myfinalproject.JavaClasses.PaintView;
-import com.example.hp1.myfinalproject.JavaClasses.Rows;
+import com.example.hp1.myfinalproject.JavaClasses.VolunteerHours;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +34,7 @@ import static com.example.hp1.myfinalproject.Volunteer.volunteerActivity;
 import static java.lang.Integer.parseInt;
 
 
-public class Test_Activity extends AppCompatActivity implements View.OnClickListener {
+public class Volunteer_Add extends AppCompatActivity implements View.OnClickListener {
 
     private PaintView paintView;
     Button bt;
@@ -112,11 +112,11 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
                 return true;
             case R.id.logOut:
                 firebaseAuth.signOut();
-                startActivity(new Intent(Test_Activity.this, Login.class));
+                startActivity(new Intent(Volunteer_Add.this, Login.class));
                 finish();
                 return true;
             case R.id.calendar:
-                startActivity(new Intent(Test_Activity.this, CalendarActivity.class));
+                startActivity(new Intent(Volunteer_Add.this, CalendarActivity.class));
                 return true;
 
         }
@@ -160,8 +160,8 @@ public class Test_Activity extends AppCompatActivity implements View.OnClickList
      * save the information into the database
      */
     public void saveUserInformation(){
-        Rows rows=new Rows(strplace,stractivity,Integer.parseInt(strhours),new Date(day,month+1,year),BitMapToString(paintView.getmBitmap()));
-        databaseReferenceVolunteer.child(firebaseUser.getUid()).push().setValue(rows);
+        VolunteerHours volunteerHours =new VolunteerHours(strplace,stractivity,Integer.parseInt(strhours),new Date(day,month+1,year),BitMapToString(paintView.getmBitmap()));
+        databaseReferenceVolunteer.child(firebaseUser.getUid()).push().setValue(volunteerHours);
     }
 
     /**

@@ -107,6 +107,9 @@ public class Circle extends AppCompatActivity implements NavigationView.OnNaviga
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    /*
+     * if navigation drawer is opened close it else go to the last open activity
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -117,6 +120,11 @@ public class Circle extends AppCompatActivity implements NavigationView.OnNaviga
         }
     }
 
+    /**
+     * open navigation drawer and choose what activity to go to
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

@@ -13,19 +13,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hp1.myfinalproject.JavaClasses.Date;
-import com.example.hp1.myfinalproject.JavaClasses.Rows;
+import com.example.hp1.myfinalproject.JavaClasses.VolunteerHours;
 
 import java.util.ArrayList;
 
-public class Custom_Volunteer extends ArrayAdapter<Rows>{
+public class Custom_Volunteer extends ArrayAdapter<VolunteerHours>{
+
+    //this Class has been commented all over
 
     TextView tvPlace,tvAction,tvDate,tvHourss;
     ImageView imsigneture;
 
-    public Custom_Volunteer(Context context, ArrayList<Rows> RowsArrayList) {
-        super(context,R.layout.custom_volunteer ,RowsArrayList);
+    public Custom_Volunteer(Context context, ArrayList<VolunteerHours> volunteerHoursArrayList) {
+        super(context,R.layout.custom_volunteer , volunteerHoursArrayList);
     }
 
+    /**
+     * set all the received info in the right places
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

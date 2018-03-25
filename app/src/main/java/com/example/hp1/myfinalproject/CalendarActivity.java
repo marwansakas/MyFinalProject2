@@ -22,12 +22,11 @@ import java.util.*;
 
 public class CalendarActivity extends AppCompatActivity {
 
+    //this activity has been commented all over
+
     CompactCalendarView compactCalendar;
     private SimpleDateFormat dateFormatMonth=new SimpleDateFormat("MMMM - yyyy", Locale.getDefault());
 
-    ArrayList<Event> birthdays=new ArrayList<>();
-    ArrayList<Event> tests=new ArrayList<>();
-    ArrayList<Event> holidays=new ArrayList<>();
 
     DatabaseReference databaseReferenceCalendar,databaseReferenceTests;
 
@@ -61,6 +60,10 @@ public class CalendarActivity extends AppCompatActivity {
         CalendarEventDetails calendarEventDetails=new CalendarEventDetails("test",new Date(30,11,2017));
         databaseReferenceTests.push().setValue(calendarEventDetails);
         databaseReferenceTests.addValueEventListener(new ValueEventListener() {
+            /**
+             * gets the date and events from firebase database
+             * @param dataSnapshot
+             */
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshotTests:dataSnapshot.getChildren()){
@@ -78,6 +81,10 @@ public class CalendarActivity extends AppCompatActivity {
         });
 
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            /**
+             * shows all the events that are listed in that day as a toast
+             * @param dateClicked
+             */
             @Override
             public void onDayClick(java.util.Date dateClicked) {
 
@@ -89,6 +96,10 @@ public class CalendarActivity extends AppCompatActivity {
                 }
             }
 
+            /**
+             * enables the user to scroll between months
+             * @param firstDayOfNewMonth
+             */
             @Override
             public void onMonthScroll(java.util.Date firstDayOfNewMonth) {
                 actionBar.setTitle(dateFormatMonth.format(firstDayOfNewMonth));
@@ -98,6 +109,12 @@ public class CalendarActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * creates the event that is should be shown on the calendar
+     * @param color
+     * @param eventDetails
+     * @return
+     */
     public Event EventCreator(int color,CalendarEventDetails eventDetails){
         String myDate=eventDetails.returnDate()+" 00:00:00";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

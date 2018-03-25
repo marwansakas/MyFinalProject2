@@ -27,12 +27,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Explanation extends Activity implements AdapterView.OnItemClickListener{
 
+	//this activity has been commented all over
+
 	ListView lvsubjects;
 	ArrayAdapter<String> adapter;
 	ArrayList arrsubjects= new ArrayList<String>();
 	FirebaseAuth firebaseAuth;
-
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

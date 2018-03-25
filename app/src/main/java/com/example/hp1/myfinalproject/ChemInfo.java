@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 
 public class ChemInfo extends AppCompatActivity {
 
+    //this activity has been commented all over
+
     Toolbar tb;
     CollapsingToolbarLayout ctl;
     AppBarLayout appBarLayout;
@@ -45,26 +47,7 @@ public class ChemInfo extends AppCompatActivity {
             adapter.add(infos[i]+":"+"\n"+details[i][num]);
         ListView lv=(ListView)findViewById(R.id.lvKnowledge);
         lv.setAdapter(adapter);
-        //setListViewHeightBasedOnChildren(lv);
+
     }
 
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            // pre-condition
-            return;
-        }
-
-        int totalHeight = 0;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-    }
 }

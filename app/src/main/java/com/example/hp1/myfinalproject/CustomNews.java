@@ -16,12 +16,21 @@ import java.util.ArrayList;
 
 public class CustomNews extends ArrayAdapter<News> {
 
+    //this Class has been commented all over
+
     TextView tvTitle,tvFirst_Sentence;
 
     public CustomNews(@NonNull Context context, ArrayList<News> news) {
         super(context,R.layout.custom_news,news);
     }
 
+    /**
+     * set all the received info in the right places
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

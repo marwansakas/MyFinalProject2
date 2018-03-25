@@ -190,6 +190,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         alertdialog.show();
     }
 
+    /**
+     * this makes the image appear in the MainActivity
+     */
     public void saveInfo()
     {
         Intent i = new Intent(this, MainActivity.class);

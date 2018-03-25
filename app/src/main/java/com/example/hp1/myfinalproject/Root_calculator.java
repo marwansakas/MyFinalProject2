@@ -11,10 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.hp1.myfinalproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class root_calculator extends AppCompatActivity implements View.OnClickListener{
+public class Root_calculator extends AppCompatActivity implements View.OnClickListener{
 
     EditText etA,etB,etC;
     double result1,result2;
@@ -83,11 +82,11 @@ public class root_calculator extends AppCompatActivity implements View.OnClickLi
         switch (item.getItemId()) {
             case R.id.logOut:
                 firebaseAuth.signOut();
-                startActivity(new Intent(root_calculator.this, Login.class));
+                startActivity(new Intent(Root_calculator.this, Login.class));
                 finish();
                 return true;
             case R.id.calendar:
-                startActivity(new Intent(root_calculator.this, CalendarActivity.class));
+                startActivity(new Intent(Root_calculator.this, CalendarActivity.class));
                 return true;
 
         }

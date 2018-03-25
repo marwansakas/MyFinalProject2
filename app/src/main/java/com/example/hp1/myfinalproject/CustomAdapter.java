@@ -14,6 +14,8 @@ import com.example.hp1.myfinalproject.JavaClasses.wazefe;
 
 class CustomAdapter extends ArrayAdapter<wazefe>{
 
+	//this Class has been commented all over
+
 	TextView mawdo3,matlob,day;
 	ImageView im;
 	
@@ -24,6 +26,14 @@ class CustomAdapter extends ArrayAdapter<wazefe>{
 		super(context,R.layout.custom_row ,w);
 	}
 
+
+	/**
+	 * set all the received info in the right places
+	 * @param position
+	 * @param convertView
+	 * @param parent
+	 * @return
+	 */
 	@Override
 	public View getView(int position,View convertView,ViewGroup parent)
 	{

@@ -96,6 +96,9 @@ public class ParabolaGraph extends AppCompatActivity implements NavigationView.O
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    /*
+     * if navigation drawer is opened close it else go to the last open activity
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -106,6 +109,11 @@ public class ParabolaGraph extends AppCompatActivity implements NavigationView.O
         }
     }
 
+    /**
+     * open navigation drawer and choose what activity to go to
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -116,7 +124,8 @@ public class ParabolaGraph extends AppCompatActivity implements NavigationView.O
             startActivity(new Intent(this,LineGraph.class));
             finish();
         } else if (id == R.id.nav_parabol) {
-            Toast.makeText(getApplicationContext(),"You are here",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this,Parabola.class));
+            finish();
         } else if (id == R.id.nav_sin) {
             startActivity(new Intent(this,SinGraph.class));
             finish();
@@ -127,8 +136,7 @@ public class ParabolaGraph extends AppCompatActivity implements NavigationView.O
             startActivity(new Intent(this,TanGraph.class));
             finish();
         } else if (id == R.id.nav_parabola) {
-            startActivity(new Intent(this,ParabolaGraph.class));
-            finish();
+            Toast.makeText(getApplicationContext(),"You are here",Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.nav_circle) {
             startActivity(new Intent(this,Circle.class));

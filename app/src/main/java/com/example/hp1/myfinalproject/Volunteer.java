@@ -9,10 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.hp1.myfinalproject.JavaClasses.Rows;
+import com.example.hp1.myfinalproject.JavaClasses.VolunteerHours;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,9 +26,9 @@ import java.util.ArrayList;
 public class Volunteer extends Activity implements View.OnClickListener{
 	ListView lvolunteer;
 	ArrayList arr1=new ArrayList();
-	ArrayAdapter<Rows> adapter;
+	ArrayAdapter<VolunteerHours> adapter;
 	FloatingActionButton fab;
-	Rows rows;
+	VolunteerHours volunteerHours;
 
 	DatabaseReference databaseReferenceVolunteer,databaseReferenceSubVolunteer;
 	FirebaseAuth firebaseAuth;
@@ -68,8 +67,8 @@ public class Volunteer extends Activity implements View.OnClickListener{
 			public void onDataChange(DataSnapshot dataSnapshot) {
 				for(DataSnapshot volunteerDataSnapShot: dataSnapshot.getChildren())//add all the volunteers in the arraylist
 				{
-					rows=volunteerDataSnapShot.getValue(Rows.class);//get the  value
-					arr1.add(rows);//add the value to the array list
+					volunteerHours =volunteerDataSnapShot.getValue(VolunteerHours.class);//get the  value
+					arr1.add(volunteerHours);//add the value to the array list
 				}
 				adapter.notifyDataSetChanged();//notify Data Set Changed
 			}
@@ -82,12 +81,12 @@ public class Volunteer extends Activity implements View.OnClickListener{
 	}
 
 	/**
-	 * takes the user to Test_Activity
+	 * takes the user to Volunteer_Add
 	 * @param view the view that was clicked on
 	 */
 	@Override
 	public void onClick(View view) {
-		startActivity(new Intent(this, Test_Activity.class));//to go to TestActivity
+		startActivity(new Intent(this, Volunteer_Add.class));//to go to TestActivity
 	}
 
 	/**

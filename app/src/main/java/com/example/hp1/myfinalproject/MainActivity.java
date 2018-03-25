@@ -41,6 +41,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity implements OnClickListener,AdapterView.OnItemClickListener{
 
+	//this activity has been commented all over
+
 	Button btexplination,bttests,btvolenteer,bthomework;
 	ImageView imb;
 	Intent intent;
@@ -111,6 +113,11 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 		file_path=storageRef.child("Photos").child(firebaseUser.getUid());//to get the child of storageRef
 	}
 
+	/**
+	 * it saves the user's information if a new account was formed
+	 *
+	 * set the profile image
+	 */
     @Override
     protected void onStart() {
         super.onStart();
@@ -199,7 +206,7 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
     }
 
 	/**
-	 * this functio lets you go to the activity the user chose
+	 * this function lets you go to the activity the user chose
 	 * @param v the view that was clicked on
 	 */
 	@Override
@@ -255,11 +262,5 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 		i.putExtra("Artical",adapter.getItem(position).getArtical());
 		startActivity(i);
 	}
-	/*
-	public void shake(View v)
-  {
-    Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
-    findViewById(R.id.pw).startAnimation(shake);
-  }
-	*/
+
 }

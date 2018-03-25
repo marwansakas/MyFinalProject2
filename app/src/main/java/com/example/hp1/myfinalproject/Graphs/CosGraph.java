@@ -75,6 +75,9 @@ public class CosGraph extends AppCompatActivity implements NavigationView.OnNavi
         navigationView.setNavigationItemSelectedListener(CosGraph.this);
     }
 
+    /*
+     * if navigation drawer is opened close it else go to the last open activity
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -85,6 +88,11 @@ public class CosGraph extends AppCompatActivity implements NavigationView.OnNavi
         }
     }
 
+    /**
+     * open navigation drawer and choose what activity to go to
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

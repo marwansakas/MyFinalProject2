@@ -45,12 +45,12 @@ public class TanGraph extends AppCompatActivity implements NavigationView.OnNavi
 
         // set manual X bounds
         graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(-150);
-        graph.getViewport().setMaxY(150);
+        graph.getViewport().setMinY(-1);
+        graph.getViewport().setMaxY(1);
 
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(4);
-        graph.getViewport().setMaxX(80);
+        graph.getViewport().setMinX(-5);
+        graph.getViewport().setMaxX(5);
 
         // enable scaling and scrolling
         graph.getViewport().setScalable(true);
@@ -77,6 +77,9 @@ public class TanGraph extends AppCompatActivity implements NavigationView.OnNavi
         navigationView.setNavigationItemSelectedListener(TanGraph.this);
     }
 
+    /*
+     * if navigation drawer is opened close it else go to the last open activity
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -87,6 +90,11 @@ public class TanGraph extends AppCompatActivity implements NavigationView.OnNavi
         }
     }
 
+    /**
+     * open navigation drawer and choose what activity to go to
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

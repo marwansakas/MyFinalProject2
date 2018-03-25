@@ -31,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class HomeWork extends Activity implements OnClickListener,AdapterView.OnItemLongClickListener{
 
+	//this activity has been commented all over
+
 	public static final int NOTIFICATION_CODE=100;
 
 	ListView lvsubjects;

@@ -78,6 +78,10 @@ public class Homework_Add extends Activity implements OnClickListener {
         firebaseUser = firebaseAuth.getCurrentUser();//initialize firebaseUser by the firebaseAuth
     }
 
+    /**
+     * aloows the user to save the hoemwork information and set hte date on the calendar
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         if (v == mDisplayDate) {//if the user clicked on the textview mDisplayDate
@@ -102,6 +106,9 @@ public class Homework_Add extends Activity implements OnClickListener {
         }
     }
 
+    /**
+     * saves the homework info in firebas
+     */
     public void saveUserInformation() {
         wazefe wazefe = new wazefe(s.getSelectedItem().toString(), ettheDs.getText().toString(), new Date(selectDay, selectMonth, selectYear));//add all the information to the wazefe variable
         databaseReferenceHomework.child(firebaseUser.getUid()).push().setValue(wazefe);

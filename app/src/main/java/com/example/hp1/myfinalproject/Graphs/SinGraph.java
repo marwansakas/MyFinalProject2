@@ -75,6 +75,9 @@ public class SinGraph extends AppCompatActivity implements NavigationView.OnNavi
         navigationView.setNavigationItemSelectedListener(SinGraph.this);
     }
 
+    /*
+     * if navigation drawer is opened close it else go to the last open activity
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -85,6 +88,11 @@ public class SinGraph extends AppCompatActivity implements NavigationView.OnNavi
         }
     }
 
+    /**
+     * open navigation drawer and choose what activity to go to
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -101,7 +109,7 @@ public class SinGraph extends AppCompatActivity implements NavigationView.OnNavi
             Toast.makeText(getApplicationContext(),"You are here",Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_cos) {
-            startActivity(new Intent(this,SinGraph.class));
+            startActivity(new Intent(this,CosGraph.class));
             finish();
 
         } else if (id == R.id.nav_tan) {

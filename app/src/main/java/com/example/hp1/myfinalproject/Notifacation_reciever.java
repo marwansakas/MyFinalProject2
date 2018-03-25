@@ -19,6 +19,8 @@ import static com.example.hp1.myfinalproject.HomeWork.NOTIFICATION_CODE;
 
 class Notifacation_reciever extends BroadcastReceiver{
 
+    //this Class has been commented all over
+
     @Override
     public void onReceive(Context context, Intent intent) {
 

@@ -120,18 +120,20 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                 }
             }
 
-        //}
         else
             Toast.makeText(getApplicationContext(), "Please fill all the required information", Toast.LENGTH_SHORT).show();//to tell the user to fill all the required information
 
     }
 
+    /*
+     * allows the user to choose what subject he specialises in, nume of math points, number of english points
+     */
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
         if (radioGroup == rgtakhasos) {//to check what he selected in the radioGroup rgtakhasos
             switch (i) {
                 case R.id.Media:
-                    TT = "Medi";//to set TT as Media
+                    TT = "Media";//to set TT as Media
                     break;
                 case R.id.Biology:
                     TT = "Biology";//to set TT as Biology

@@ -17,7 +17,6 @@ public class InformationRegistered implements Serializable{
     private String EngPoints;
     private String MathPoints;
     private String Grade;
-    private boolean isAdmin;
 
     public InformationRegistered(){}
 
@@ -33,8 +32,22 @@ public class InformationRegistered implements Serializable{
         EngPoints = engPoints;
         MathPoints = mathPoints;
         Grade = grade;
-        this.isAdmin=false;
 
+    }
+
+    @Override
+    public String toString() {
+        return "InformationRegistered{" +
+                "_Id='" + _Id + '\'' +
+                ", FirstName='" + FirstName + '\'' +
+                ", LastName='" + LastName + '\'' +
+                ", Email='" + Email + '\'' +
+                ", PassWord='" + PassWord + '\'' +
+                ", Takhassos='" + Takhassos + '\'' +
+                ", EngPoints='" + EngPoints + '\'' +
+                ", MathPoints='" + MathPoints + '\'' +
+                ", Grade='" + Grade + '\'' +
+                '}';
     }
 
     public String getTakhassos() {
@@ -73,7 +86,6 @@ public class InformationRegistered implements Serializable{
         return Grade;
     }
 
-    public boolean getIsAdmin() { return isAdmin; }
 
 
 

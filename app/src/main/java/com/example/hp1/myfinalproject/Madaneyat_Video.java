@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Madaneyat_Video extends AppCompatActivity{
 
+    //this activity has been commented all over
+
     VideoView videoView;
     MediaController mediaController;
     Intent intent;

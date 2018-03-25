@@ -15,9 +15,8 @@ import android.widget.Toast;
 import com.example.hp1.myfinalproject.CalendarActivity;
 import com.example.hp1.myfinalproject.Graphs.LineGraph;
 import com.example.hp1.myfinalproject.Login;
-import com.example.hp1.myfinalproject.MainActivity;
 import com.example.hp1.myfinalproject.R;
-import com.example.hp1.myfinalproject.root_calculator;
+import com.example.hp1.myfinalproject.Root_calculator;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ public class Math extends Activity implements AdapterView.OnItemClickListener{
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 		if(i<2){
-			Intent intent[]={new Intent(this,root_calculator.class),new Intent(this,LineGraph.class)};
+			Intent intent[]={new Intent(this,Root_calculator.class),new Intent(this,LineGraph.class)};
         	startActivity(intent[i]);//go to intent
     	}
     	else
