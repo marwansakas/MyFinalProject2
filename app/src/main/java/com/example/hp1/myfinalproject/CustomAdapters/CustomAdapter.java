@@ -1,4 +1,4 @@
-package com.example.hp1.myfinalproject;
+package com.example.hp1.myfinalproject.CustomAdapters;
 
 import java.util.ArrayList;
 
@@ -11,8 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hp1.myfinalproject.JavaClasses.wazefe;
+import com.example.hp1.myfinalproject.R;
 
-class CustomAdapter extends ArrayAdapter<wazefe>{
+public class CustomAdapter extends ArrayAdapter<wazefe>{
 
 	//this Class has been commented all over
 

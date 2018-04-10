@@ -3,6 +3,7 @@ package com.example.hp1.myfinalproject.Subjects;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,11 +14,16 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.CalendarActivity;
+import com.example.hp1.myfinalproject.Explanation;
+import com.example.hp1.myfinalproject.Graphs.Circle;
 import com.example.hp1.myfinalproject.Graphs.LineGraph;
 import com.example.hp1.myfinalproject.Login;
 import com.example.hp1.myfinalproject.R;
 import com.example.hp1.myfinalproject.Root_calculator;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -39,7 +45,6 @@ public class Math extends Activity implements AdapterView.OnItemClickListener{
 		lvmathex.setOnItemClickListener(this);//make lvmathex clickable
 		adapter.add("Root Calculator");//add to the adapter Root Calculator
 		adapter.add("Graphs");//add to the adapter random
-		adapter.add("parabola");//add to the adapter parabola
 		adapter.add("tashaboh triangels");//add to the adapter tashaboh triangels
 		firebaseAuth= FirebaseAuth.getInstance();//to initialize firebaseAuth
 
@@ -51,6 +56,7 @@ public class Math extends Activity implements AdapterView.OnItemClickListener{
 		if(i<2){
 			Intent intent[]={new Intent(this,Root_calculator.class),new Intent(this,LineGraph.class)};
         	startActivity(intent[i]);//go to intent
+			finish();
     	}
     	else
 			Toast.makeText(getApplicationContext(),"Coming Soon",Toast.LENGTH_SHORT).show();
@@ -88,9 +94,32 @@ public class Math extends Activity implements AdapterView.OnItemClickListener{
 				return true;
 			case R.id.calendar:
 				startActivity(new Intent(Math.this, CalendarActivity.class));
+				finish();
 				return true;
+			case R.id.delete:
+				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+				user.delete()
+						.addOnCompleteListener(new OnCompleteListener<Void>() {
+							@Override
+							public void onComplete(@NonNull Task<Void> task) {
+								if (task.isSuccessful()) {
+									Toast.makeText(getApplicationContext(),"user was deleted",Toast.LENGTH_SHORT);
+								}
+							}
+						});
+				startActivity(new Intent(Math.this, Login.class));
+				finish();
 
 		}
 		return super.onOptionsItemSelected(item);//return the items for the menu
+	}
+
+	/**
+	 * go back to explinations page
+	 */
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		startActivity(new Intent(this, Explanation.class));
 	}
 }

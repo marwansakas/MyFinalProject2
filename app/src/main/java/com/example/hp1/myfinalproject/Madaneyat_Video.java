@@ -2,6 +2,7 @@ package com.example.hp1.myfinalproject;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -11,9 +12,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
+import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.example.hp1.myfinalproject.Graphs.Circle;
+import com.example.hp1.myfinalproject.Subjects.Madaneyat;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Madaneyat_Video extends AppCompatActivity{
 
@@ -72,9 +79,32 @@ public class Madaneyat_Video extends AppCompatActivity{
                 return true;
             case R.id.calendar:
                 startActivity(new Intent(Madaneyat_Video.this, CalendarActivity.class));
+                finish();
                 return true;
+            case R.id.delete:
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(),"user was deleted",Toast.LENGTH_SHORT);
+                                }
+                            }
+                        });
+                startActivity(new Intent(Madaneyat_Video.this, Login.class));
+                finish();
 
         }
         return super.onOptionsItemSelected(item);//return the items for the menu
+    }
+
+    /**
+     * go back to Madaneyat page
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, Madaneyat.class));
     }
 }

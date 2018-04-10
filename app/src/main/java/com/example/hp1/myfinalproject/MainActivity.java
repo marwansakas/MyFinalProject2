@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.hp1.myfinalproject.Graphs.Circle;
+import com.example.hp1.myfinalproject.CustomAdapters.CustomNews;
 import com.example.hp1.myfinalproject.JavaClasses.InformationRegistered;
 import com.example.hp1.myfinalproject.JavaClasses.News;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -186,6 +186,7 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 				return true;
 			case R.id.calendar:
 				startActivity(new Intent(MainActivity.this, CalendarActivity.class));
+				finish();
 				return true;
 			case R.id.delete:
 				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -230,7 +231,7 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 						Intent i=new Intent(this, Profile.class);
 						startActivity(i);
 					}
-
+		finish();
 	}
 
 	/**
@@ -242,7 +243,7 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
         Bundle bundle=intent.getExtras();//to get the bundle from Register
         InformationRegistered informationRegistered=(InformationRegistered)bundle.getSerializable("information Registered");//to convert the bundle into an InformationRegistered value
 
-		databaseReferenceRegister.child(firebaseUser.getUid()).setValue(informationRegistered);//to add the registered value to firebase database
+		databaseReferenceRegister.child("Students").child(firebaseUser.getUid()).setValue(informationRegistered);//to add the registered value to firebase database
         Uri uri=Uri.parse("android.resource://com.example.hp1.myfinalproject/"+R.drawable.nopicture);//to give the new user a first profile picture
 		firebaseMessage.subscribeToTopic(informationRegistered.getTakhassos());
 		file_path.putFile(uri);//to add his first profile pic to database storage

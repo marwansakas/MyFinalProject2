@@ -26,10 +26,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Register extends Activity implements OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     Button btsubmit;
-    String First, Last, EmailString, Pass, Grade, TT, engpoints, mathpoints, Id;
-    RadioGroup rgtakhasos, rgmath, rgeng;
-    EditText First_Name, Last_Name, Email, Password, safe, ID;
-    RadioButton rbtakhasos, rbmath, rbeng;
+    String First, Last, EmailString, Pass, Grade, TT, engpoints, mathpoints, Id,section;
+    RadioGroup rgtakhasos, rgmath, rgeng,rggrade,rgsection;
+    EditText First_Name, Last_Name, Email, Password, ID;
+    RadioButton rbtakhasos, rbmath, rbeng,rbgrade,rbsection;
     Intent intent;
 
     ProgressDialog progressDialog;
@@ -47,16 +47,20 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
         Last_Name = (EditText) findViewById(R.id.Last_Name);
         Email = (EditText) findViewById(R.id.Email);
         Password = (EditText) findViewById(R.id.Pass);
-        safe = (EditText) findViewById(R.id.Grade);
         ID = (EditText) findViewById(R.id.editText3);
 
         rgtakhasos = (RadioGroup) findViewById(R.id.radiogroup);
         rgmath = (RadioGroup) findViewById(R.id.mathpoints);
         rgeng = (RadioGroup) findViewById(R.id.englishpoints);
+        rggrade = (RadioGroup) findViewById(R.id.grade);
+        rgsection = (RadioGroup) findViewById(R.id.section);
 
         rbeng = (RadioButton) findViewById(rgeng.getCheckedRadioButtonId());
         rbmath = (RadioButton) findViewById(rgmath.getCheckedRadioButtonId());
         rbtakhasos = (RadioButton) findViewById(rgtakhasos.getCheckedRadioButtonId());
+        rbgrade = (RadioButton) findViewById(rggrade.getCheckedRadioButtonId());
+        rbsection = (RadioButton) findViewById(rgsection.getCheckedRadioButtonId());
+
 
         intent = new Intent(Register.this, MainActivity.class);
 
@@ -64,6 +68,8 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
         rgtakhasos.setOnCheckedChangeListener(this);
         rgmath.setOnCheckedChangeListener(this);
         rgeng.setOnCheckedChangeListener(this);
+        rggrade.setOnCheckedChangeListener(this);
+        rgsection.setOnCheckedChangeListener(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -85,14 +91,14 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                 && !(rgeng.getCheckedRadioButtonId() == -1)
                 && !(rgmath.getCheckedRadioButtonId() == -1)
                 && !(ID.getText().toString().equals(""))
-                && !(safe.getText().toString().equals("")))
+                && !(rggrade.getCheckedRadioButtonId() == -1)
+                && !(rgsection.getCheckedRadioButtonId() == -1))
         {
             Pass = Password.getText().toString();
             if(Pass.length()>=6){
             First = First_Name.getText().toString();
             Last = Last_Name.getText().toString();
             EmailString = Email.getText().toString();
-            Grade = safe.getText().toString();
             Id = ID.getText().toString();
 
                 progressDialog.setMessage("Registering user...");
@@ -105,7 +111,7 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                                     progressDialog.dismiss();
                                     Intent intent = new Intent(Register.this, MainActivity.class);
                                     Bundle bundle = new Bundle();
-                                    InformationRegistered informationRegistered = new InformationRegistered(Id, First, Last, EmailString, Pass, TT, engpoints, mathpoints, Grade);
+                                    InformationRegistered informationRegistered = new InformationRegistered(Id, First, Last, EmailString, Pass, TT, engpoints, mathpoints, Grade,section);
                                     bundle.putSerializable("information Registered",informationRegistered);
                                     intent.putExtras(bundle);
                                     intent.putExtra("checking for user",true);
@@ -170,5 +176,47 @@ public class Register extends Activity implements OnClickListener, RadioGroup.On
                     mathpoints = "5";//to set mathpoints as 4
             }
         }
+        else
+        if (radioGroup == rggrade) {//to check what he selected in the radioGroup rgtakhasos
+            switch (i) {
+                case R.id.grade9:
+                    Grade = "9";//to set TT as Media
+                    break;
+                case R.id.grade10:
+                    Grade = "10";//to set TT as Biology
+                    break;
+                case R.id.grade11:
+                    Grade = "11";//to set TT as Chemistry
+                    break;
+                case R.id.grade12:
+                    Grade = "12";//to set TT as Computer Science
+                    break;
+                default:
+                    Grade = "None";
+                    break;
+            }}
+            else
+            if (radioGroup == rgsection) {//to check what he selected in the radioGroup rgtakhasos
+                switch (i) {
+                    case R.id.sectionA:
+                        section = "A";//to set TT as Media
+                        break;
+                    case R.id.sectionB:
+                        section = "B";//to set TT as Media
+                        break;
+                    case R.id.sectionC:
+                        section = "C";//to set TT as Media
+                        break;
+                    case R.id.sectionD:
+                        section = "D";//to set TT as Media
+                        break;
+                    case R.id.sectionH:
+                        section = "H";//to set TT as Media
+                        break;
+                    default:
+                        section = "X";
+                        break;
+                }
+            }
+        }
     }
-}

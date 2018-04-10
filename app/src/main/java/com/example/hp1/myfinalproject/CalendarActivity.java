@@ -1,5 +1,6 @@
 package com.example.hp1.myfinalproject;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -110,6 +111,15 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     /**
+     * go back to MainActivity page
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
+    /**
      * creates the event that is should be shown on the calendar
      * @param color
      * @param eventDetails
@@ -129,4 +139,6 @@ public class CalendarActivity extends AppCompatActivity {
         Event ev1=new Event(color,millis,eventDetails.getDetails());
         return ev1;
     }
+
+
 }

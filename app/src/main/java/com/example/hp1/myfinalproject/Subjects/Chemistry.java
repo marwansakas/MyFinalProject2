@@ -3,6 +3,8 @@ package com.example.hp1.myfinalproject.Subjects;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
@@ -14,15 +16,21 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.CalendarActivity;
 import com.example.hp1.myfinalproject.ChemInfo;
+import com.example.hp1.myfinalproject.Explanation;
+import com.example.hp1.myfinalproject.Graphs.Circle;
 import com.example.hp1.myfinalproject.JavaClasses.ChemView;
 import com.example.hp1.myfinalproject.Login;
 import com.example.hp1.myfinalproject.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class Chemistry extends Activity implements View.OnClickListener{
+public class Chemistry extends AppCompatActivity implements View.OnClickListener{
 
 	TextView tvVEB;
 	TableRow tr;
@@ -90,7 +98,21 @@ public class Chemistry extends Activity implements View.OnClickListener{
 				return true;
 			case R.id.calendar:
 				startActivity(new Intent(Chemistry.this, CalendarActivity.class));
+				finish();
 				return true;
+			case R.id.delete:
+				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+				user.delete()
+						.addOnCompleteListener(new OnCompleteListener<Void>() {
+							@Override
+							public void onComplete(@NonNull Task<Void> task) {
+								if (task.isSuccessful()) {
+									Toast.makeText(getApplicationContext(),"user was deleted",Toast.LENGTH_SHORT);
+								}
+							}
+						});
+				startActivity(new Intent(Chemistry.this, Login.class));
+				finish();
 
 		}
 		return super.onOptionsItemSelected(item);//return the items for the menu
@@ -179,5 +201,15 @@ public class Chemistry extends Activity implements View.OnClickListener{
 			if(view.getId()==i)
 				intent.putExtra("num",i);
 		startActivity(intent);
+		finish();
 	}
+	/**
+	 * go back to explinations page
+	 */
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		startActivity(new Intent(this, Explanation.class));
+	}
+
 }

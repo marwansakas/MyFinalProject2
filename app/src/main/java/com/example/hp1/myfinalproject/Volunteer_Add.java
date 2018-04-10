@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -18,10 +19,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.hp1.myfinalproject.Graphs.Circle;
 import com.example.hp1.myfinalproject.JavaClasses.Date;
 import com.example.hp1.myfinalproject.JavaClasses.PaintView;
 import com.example.hp1.myfinalproject.JavaClasses.VolunteerHours;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -118,6 +123,19 @@ public class Volunteer_Add extends AppCompatActivity implements View.OnClickList
             case R.id.calendar:
                 startActivity(new Intent(Volunteer_Add.this, CalendarActivity.class));
                 return true;
+            case R.id.delete:
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(),"user was deleted",Toast.LENGTH_SHORT);
+                                }
+                            }
+                        });
+                startActivity(new Intent(Volunteer_Add.this, Login.class));
+                finish();
 
         }
         return super.onOptionsItemSelected(item);
@@ -147,13 +165,21 @@ public class Volunteer_Add extends AppCompatActivity implements View.OnClickList
             strhours=ethours.getText().toString();//to get ethours text
 
             if (!stractivity.equals("") && !strplace.equals("")&&!strhours.equals("")&&!tvDate.getText().toString().equals("Date: ??/??/??")) {//to check that all the requarments are full
-                volunteerActivity.finish();
                 saveUserInformation();
                 Intent i = new Intent(this, Volunteer.class);//to set the i variable
                 startActivity(i);//to start activity
                 finish();//to finish this activity
             }
         }
+    }
+
+    /**
+     * go back to Volunteer page
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, Volunteer.class));
     }
 
     /**

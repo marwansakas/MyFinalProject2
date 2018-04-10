@@ -12,8 +12,7 @@
     <ListView
         android:id="@+id/LvVolenteers_done"
         android:layout_width="match_parent"
-        android:layout_height="236dp"
-        android:layout_weight="0.91"></ListView>
+        android:layout_height="433dp"></ListView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

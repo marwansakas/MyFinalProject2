@@ -13,7 +13,7 @@
         android:layout_gravity="left|center_vertical"
         android:layout_marginBottom="70dp"
         android:layout_row="0"
-        android:text="Email::"
+        android:text="Email:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView

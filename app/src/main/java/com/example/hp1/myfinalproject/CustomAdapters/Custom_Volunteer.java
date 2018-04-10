@@ -1,4 +1,4 @@
-package com.example.hp1.myfinalproject;
+package com.example.hp1.myfinalproject.CustomAdapters;
 
 
 import android.content.Context;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.hp1.myfinalproject.JavaClasses.Date;
 import com.example.hp1.myfinalproject.JavaClasses.VolunteerHours;
+import com.example.hp1.myfinalproject.R;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ public class Custom_Volunteer extends ArrayAdapter<VolunteerHours>{
     ImageView imsigneture;
 
     public Custom_Volunteer(Context context, ArrayList<VolunteerHours> volunteerHoursArrayList) {
-        super(context,R.layout.custom_volunteer , volunteerHoursArrayList);
+        super(context, R.layout.custom_volunteer , volunteerHoursArrayList);
     }
 
     /**

@@ -69,8 +69,7 @@
             android:name=".Subjects.Chemistry"
             android:label="@string/title_activity_chemistry"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" >
-
+            android:theme="@style/Theme.AppCompat">
         </activity>
         <activity
             android:name=".Subjects.History"

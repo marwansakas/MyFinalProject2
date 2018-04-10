@@ -8,7 +8,9 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,10 +18,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.hp1.myfinalproject.CustomAdapters.CustomAdapter;
+import com.example.hp1.myfinalproject.Graphs.Circle;
 import com.example.hp1.myfinalproject.JavaClasses.wazefe;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class HomeWork extends Activity implements OnClickListener,AdapterView.OnItemLongClickListener{
+public class HomeWork extends AppCompatActivity implements OnClickListener,AdapterView.OnItemLongClickListener{
 
 	//this activity has been commented all over
 
@@ -75,7 +81,8 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 	 */
 	@Override
 	public void onClick(View v) {
-			startActivity(new Intent(this,Homework_Add.class));//go to Homework_ADd
+		startActivity(new Intent(this,Homework_Add.class));//go to Homework_Add
+		finish();
 	}
 
 
@@ -184,9 +191,32 @@ public class HomeWork extends Activity implements OnClickListener,AdapterView.On
 				return true;
 			case R.id.calendar:
 				startActivity(new Intent(HomeWork.this, CalendarActivity.class));
+				finish();
 				return true;
+			case R.id.delete:
+				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+				user.delete()
+						.addOnCompleteListener(new OnCompleteListener<Void>() {
+							@Override
+							public void onComplete(@NonNull Task<Void> task) {
+								if (task.isSuccessful()) {
+									Toast.makeText(getApplicationContext(),"user was deleted",Toast.LENGTH_SHORT);
+								}
+							}
+						});
+				startActivity(new Intent(HomeWork.this, Login.class));
+				finish();
 
 		}
 		return super.onOptionsItemSelected(item);//return the items for the menu
+	}
+
+	/**
+	 * go back to MainActivity page
+	 */
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		startActivity(new Intent(this, MainActivity.class));
 	}
 }

@@ -3,11 +3,17 @@ package com.example.hp1.myfinalproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.hp1.myfinalproject.Graphs.Circle;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Tests extends Activity {
 
@@ -52,9 +58,32 @@ public class Tests extends Activity {
 				return true;
 			case R.id.calendar:
 				startActivity(new Intent(Tests.this, CalendarActivity.class));
+				finish();
 				return true;
+			case R.id.delete:
+				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+				user.delete()
+						.addOnCompleteListener(new OnCompleteListener<Void>() {
+							@Override
+							public void onComplete(@NonNull Task<Void> task) {
+								if (task.isSuccessful()) {
+									Toast.makeText(getApplicationContext(),"user was deleted",Toast.LENGTH_SHORT);
+								}
+							}
+						});
+				startActivity(new Intent(Tests.this, Login.class));
+				finish();
 
 		}
 		return super.onOptionsItemSelected(item);//return the items for the menu
+	}
+
+	/**
+	 * go back to MainActivity page
+	 */
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		startActivity(new Intent(this, MainActivity.class));
 	}
 }

@@ -9,6 +9,9 @@ import java.io.Serializable;
 public class InformationRegistered implements Serializable{
 
     private String _Id;
+
+
+
     private String FirstName;
     private String LastName;
     private String Email;
@@ -17,12 +20,13 @@ public class InformationRegistered implements Serializable{
     private String EngPoints;
     private String MathPoints;
     private String Grade;
+    private String Section;
 
     public InformationRegistered(){}
 
 
 
-    public InformationRegistered(String _id, String firstName, String lastName, String email, String passWord, String takhassos, String engPoints, String mathPoints, String grade) {
+    public InformationRegistered(String _id, String firstName, String lastName, String email, String passWord, String takhassos, String engPoints, String mathPoints, String grade,String section) {
         _Id = _id;
         FirstName = firstName;
         LastName = lastName;
@@ -32,8 +36,12 @@ public class InformationRegistered implements Serializable{
         EngPoints = engPoints;
         MathPoints = mathPoints;
         Grade = grade;
+        Section = section;
+
 
     }
+
+
 
     @Override
     public String toString() {
@@ -46,8 +54,9 @@ public class InformationRegistered implements Serializable{
                 ", Takhassos='" + Takhassos + '\'' +
                 ", EngPoints='" + EngPoints + '\'' +
                 ", MathPoints='" + MathPoints + '\'' +
-                ", Grade='" + Grade + '\'' +
+                ", Grade='" + Grade +" "+Section +'\''+
                 '}';
+
     }
 
     public String getTakhassos() {
@@ -82,11 +91,45 @@ public class InformationRegistered implements Serializable{
         return MathPoints;
     }
 
-    public String getGrade() {
-        return Grade;
+    public String getGrade() { return Grade; }
+
+    public String getSection() { return Section; }
+
+    public void set_Id(String _Id) {
+        this._Id = _Id;
     }
 
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
+    }
 
+    public void setLastName(String lastName) {
+        LastName = lastName;
+    }
 
+    public void setEmail(String email) {
+        Email = email;
+    }
 
+    public void setPassWord(String passWord) {
+        PassWord = passWord;
+    }
+
+    public void setTakhassos(String takhassos) {
+        Takhassos = takhassos;
+    }
+
+    public void setEngPoints(String engPoints) {
+        EngPoints = engPoints;
+    }
+
+    public void setMathPoints(String mathPoints) {
+        MathPoints = mathPoints;
+    }
+
+    public void setGrade(String grade) {
+        Grade = grade;
+    }
+
+    public void setSection(String section) { Section = section; }
 }

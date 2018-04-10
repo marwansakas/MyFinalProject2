@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,10 +18,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.hp1.myfinalproject.Graphs.Circle;
 import com.example.hp1.myfinalproject.JavaClasses.InformationRegistered;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +37,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Profile extends AppCompatActivity implements View.OnClickListener{
@@ -43,7 +49,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
     Uri imageUri;
     byte[] dataBAOS;
-    int check;
 
     ListView lvInfo;
     ArrayList arrayInfo=new ArrayList();
@@ -81,7 +86,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
             }
         });
 
-        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations").child(firebaseUser.getUid());
+        databaseReferenceProfile= FirebaseDatabase.getInstance().getReference("Registrations").child("Students").child(firebaseUser.getUid());
         firebaseAuth=FirebaseAuth.getInstance();//to initialize firebaseAuth
     }
 
@@ -243,9 +248,33 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                 return true;
             case R.id.calendar:
                 startActivity(new Intent(Profile.this, CalendarActivity.class));
+                finish();
                 return true;
+            case R.id.delete:
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(),"user was deleted",Toast.LENGTH_SHORT);
+                                }
+                            }
+                        });
+                startActivity(new Intent(Profile.this, Login.class));
+                finish();
 
         }
         return super.onOptionsItemSelected(item);//return the items for the menu
     }
+
+    /**
+     * go back to MainActivity page
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
 }

@@ -49,16 +49,13 @@ public class Login extends Activity implements OnClickListener {
         editor= pref.edit();
         progressDialog = new ProgressDialog(this);//initialize progressDialog
         firebaseAuth = FirebaseAuth.getInstance();//initialize firebaseAuth
-        if(firebaseAuth.getCurrentUser()!=null){
-            startActivity(new Intent(this,MainActivity.class));
-            finish();
-        }
     }
 
     @Override
     public void onClick(View v) {
         if (v == btregister) {
             startActivity(new Intent(this, Register.class));//to start activity Register
+            finish();
         } else {
             Login();
            }
@@ -77,12 +74,16 @@ public class Login extends Activity implements OnClickListener {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();//dismissing the progressDialog
-                            if (task.isSuccessful())//if task is successful continue
+                            if (task.isSuccessful()){//if task is successful continue
                                 editor.putString("email",etEmail.getText().toString());
-                            editor.putString("password",etpass.getText().toString());
-                            editor.commit();
+                                editor.putString("password",etpass.getText().toString());
+                                editor.commit();
                                 startActivity(intent);//start MainActivity
-                                finish();
+                                finish();}
+                                else{
+                                progressDialog.dismiss();//dismissing the progressDialog
+                                Toast.makeText(getApplicationContext(),"Wrong Email Or PassWord",Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
         }

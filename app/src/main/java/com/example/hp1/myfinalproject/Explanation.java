@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,7 +13,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.hp1.myfinalproject.Graphs.Circle;
 import com.example.hp1.myfinalproject.Subjects.Arabic;
 import com.example.hp1.myfinalproject.Subjects.Biology;
 import com.example.hp1.myfinalproject.Subjects.Chemistry;
@@ -23,7 +26,10 @@ import com.example.hp1.myfinalproject.Subjects.History;
 import com.example.hp1.myfinalproject.Subjects.Madaneyat;
 import com.example.hp1.myfinalproject.Subjects.Math;
 import com.example.hp1.myfinalproject.Subjects.Sports;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Explanation extends Activity implements AdapterView.OnItemClickListener{
 
@@ -80,6 +86,7 @@ public class Explanation extends Activity implements AdapterView.OnItemClickList
 				new Intent(this,Sports.class),
 				new Intent(this,Madaneyat.class)};//all the activities that the user can go to from Explinations
 		startActivity(i[position]);//to go to what ever activity the user chose
+		finish();
 	}
 
 	/**
@@ -114,9 +121,33 @@ public class Explanation extends Activity implements AdapterView.OnItemClickList
 				return true;
 			case R.id.calendar:
 				startActivity(new Intent(Explanation.this, CalendarActivity.class));
+				finish();
 				return true;
+			case R.id.delete:
+				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+				user.delete()
+						.addOnCompleteListener(new OnCompleteListener<Void>() {
+							@Override
+							public void onComplete(@NonNull Task<Void> task) {
+								if (task.isSuccessful()) {
+									Toast.makeText(getApplicationContext(),"user was deleted",Toast.LENGTH_SHORT);
+								}
+							}
+						});
+				startActivity(new Intent(Explanation.this, Login.class));
+				finish();
 
 		}
 		return super.onOptionsItemSelected(item);//return the items for the menu
 	}
+
+	/**
+	 * go back to MainActivity page
+	 */
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		startActivity(new Intent(this, MainActivity.class));
+	}
+
 }

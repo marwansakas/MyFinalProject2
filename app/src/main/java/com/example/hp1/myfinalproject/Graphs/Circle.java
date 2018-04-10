@@ -195,6 +195,7 @@ public class Circle extends AppCompatActivity implements NavigationView.OnNaviga
                 return true;
             case R.id.calendar:
                 startActivity(new Intent(Circle.this, CalendarActivity.class));
+                finish();
                 return true;
             case R.id.delete:
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -214,4 +215,6 @@ public class Circle extends AppCompatActivity implements NavigationView.OnNaviga
         }
         return super.onOptionsItemSelected(item);//return the items for the menu
     }
+
+
 }

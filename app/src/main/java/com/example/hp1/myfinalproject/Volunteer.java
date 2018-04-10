@@ -3,15 +3,22 @@ package com.example.hp1.myfinalproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.hp1.myfinalproject.CustomAdapters.Custom_Volunteer;
+import com.example.hp1.myfinalproject.Graphs.Circle;
 import com.example.hp1.myfinalproject.JavaClasses.VolunteerHours;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class Volunteer extends Activity implements View.OnClickListener{
+public class Volunteer extends AppCompatActivity implements View.OnClickListener{
 	ListView lvolunteer;
 	ArrayList arr1=new ArrayList();
 	ArrayAdapter<VolunteerHours> adapter;
@@ -87,6 +94,7 @@ public class Volunteer extends Activity implements View.OnClickListener{
 	@Override
 	public void onClick(View view) {
 		startActivity(new Intent(this, Volunteer_Add.class));//to go to TestActivity
+		finish();
 	}
 
 	/**
@@ -121,10 +129,33 @@ public class Volunteer extends Activity implements View.OnClickListener{
 				return true;
 			case R.id.calendar:
 				startActivity(new Intent(Volunteer.this, CalendarActivity.class));
+				finish();
 				return true;
+			case R.id.delete:
+				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+				user.delete()
+						.addOnCompleteListener(new OnCompleteListener<Void>() {
+							@Override
+							public void onComplete(@NonNull Task<Void> task) {
+								if (task.isSuccessful()) {
+									Toast.makeText(getApplicationContext(),"user was deleted",Toast.LENGTH_SHORT);
+								}
+							}
+						});
+				startActivity(new Intent(Volunteer.this, Login.class));
+				finish();
 
 		}
 		return super.onOptionsItemSelected(item);//return the items for the menu
+	}
+
+	/**
+	 * go back to MainActivity page
+	 */
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		startActivity(new Intent(this, MainActivity.class));
 	}
 }
 

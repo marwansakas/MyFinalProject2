@@ -1,6 +1,7 @@
 package com.example.hp1.myfinalproject.Subjects;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,12 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.CalendarActivity;
+import com.example.hp1.myfinalproject.Explanation;
+import com.example.hp1.myfinalproject.Graphs.Circle;
 import com.example.hp1.myfinalproject.Login;
 import com.example.hp1.myfinalproject.MainActivity;
 import com.example.hp1.myfinalproject.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Sports extends AppCompatActivity implements View.OnClickListener{
 
@@ -101,8 +108,29 @@ public class Sports extends AppCompatActivity implements View.OnClickListener{
             case R.id.calendar:
                 startActivity(new Intent(Sports.this, CalendarActivity.class));
                 return true;
+            case R.id.delete:
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(),"user was deleted",Toast.LENGTH_SHORT);
+                                }
+                            }
+                        });
+                startActivity(new Intent(Sports.this, Login.class));
+                finish();
 
         }
         return super.onOptionsItemSelected(item);//return the items for the menu
+    }
+    /**
+     * go back to explinations page
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, Explanation.class));
     }
 }

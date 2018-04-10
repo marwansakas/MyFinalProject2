@@ -12,6 +12,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 
+import com.example.hp1.myfinalproject.Subjects.Chemistry;
+
 
 public class ChemInfo extends AppCompatActivity {
 
@@ -48,6 +50,15 @@ public class ChemInfo extends AppCompatActivity {
         ListView lv=(ListView)findViewById(R.id.lvKnowledge);
         lv.setAdapter(adapter);
 
+    }
+
+    /**
+     * go back to Chemistry page
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, Chemistry.class));
     }
 
 }

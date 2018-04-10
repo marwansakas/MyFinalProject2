@@ -17,7 +17,7 @@ import static com.example.hp1.myfinalproject.HomeWork.NOTIFICATION_CODE;
 
 
 
-class Notifacation_reciever extends BroadcastReceiver{
+public class Notifacation_reciever extends BroadcastReceiver{
 
     //this Class has been commented all over
 
