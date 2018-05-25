@@ -120,9 +120,6 @@ public class Volunteer_Add extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(Volunteer_Add.this, Login.class));
                 finish();
                 return true;
-            case R.id.calendar:
-                startActivity(new Intent(Volunteer_Add.this, CalendarActivity.class));
-                return true;
             case R.id.delete:
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 user.delete()

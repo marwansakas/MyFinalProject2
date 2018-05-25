@@ -173,7 +173,7 @@ public class ParabolaGraph extends AppCompatActivity implements NavigationView.O
 
     /**
      * if the user clicked logout then the user will be logged out of the application
-     * if he clicked calendar he will then be sent to calendar activity
+     * if he chooses delete his account will be deleted
      * @param item thid=s parameter is the item that was clicked on
      * @return
      */
@@ -184,10 +184,6 @@ public class ParabolaGraph extends AppCompatActivity implements NavigationView.O
             case R.id.logOut:
                 firebaseAuth.signOut();
                 startActivity(new Intent(ParabolaGraph.this, Login.class));
-                finish();
-                return true;
-            case R.id.calendar:
-                startActivity(new Intent(ParabolaGraph.this, CalendarActivity.class));
                 finish();
                 return true;
             case R.id.delete:
@@ -203,6 +199,7 @@ public class ParabolaGraph extends AppCompatActivity implements NavigationView.O
                         });
                 startActivity(new Intent(ParabolaGraph.this, Login.class));
                 finish();
+                return true;
 
         }
         return super.onOptionsItemSelected(item);//return the items for the menu

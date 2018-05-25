@@ -6,12 +6,12 @@ import android.graphics.Path;
 public class FingerPath {
 
     public int color;
-    public int strokewidth;
+    public int strokeWidth;
     public Path path;
 
-    public FingerPath(int color, int strokewidth, Path path) {
+    public FingerPath(int color, int strokeWidth, Path path) {
         this.color = color;
-        this.strokewidth = strokewidth;
+        this.strokeWidth = strokeWidth;
         this.path = path;
     }
 
@@ -19,8 +19,8 @@ public class FingerPath {
         return color;
     }
 
-    public int getStrokewidth() {
-        return strokewidth;
+    public int getStrokeWidth() {
+        return strokeWidth;
     }
 
     public Path getPath() {

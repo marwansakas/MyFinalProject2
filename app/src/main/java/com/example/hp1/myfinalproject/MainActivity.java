@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.hp1.myfinalproject.CustomAdapters.CustomNews;
+import com.example.hp1.myfinalproject.Graphs.Circle;
 import com.example.hp1.myfinalproject.JavaClasses.InformationRegistered;
 import com.example.hp1.myfinalproject.JavaClasses.News;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -65,7 +66,7 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 		setContentView(R.layout.activity_main);
 
 		btexplination=(Button)findViewById(R.id.btexplinations);//initialize the button
-		bttests=(Button)findViewById(R.id.bttests);//initialize the button
+		bttests=(Button)findViewById(R.id.btcalendar);//initialize the button
 		btvolenteer=(Button)findViewById(R.id.btvolenteer);//initialize the button
 		bthomework=(Button)findViewById(R.id.bthomework);//initialize the button
 		imb=(ImageView) findViewById(R.id.imvProfPic);//initialize the ImageView
@@ -171,21 +172,17 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 
 	/**
 	 * if the user clicked logout then the user will be logged out of the application
-	 * if he clicked calendar he will then be sent to calendar activity
+	 * if he chooses delete his account will be deleted
 	 * @param item thid=s parameter is the item that was clicked on
 	 * @return
 	 */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)//to make the items for the options menu
-    {
-        switch (item.getItemId()) {
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)//to make the items for the options menu
+	{
+		switch (item.getItemId()) {
 			case R.id.logOut:
 				firebaseAuth.signOut();
 				startActivity(new Intent(MainActivity.this, Login.class));
-				finish();
-				return true;
-			case R.id.calendar:
-				startActivity(new Intent(MainActivity.this, CalendarActivity.class));
 				finish();
 				return true;
 			case R.id.delete:
@@ -202,9 +199,10 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 				startActivity(new Intent(MainActivity.this, Login.class));
 				finish();
 				return true;
+
 		}
 		return super.onOptionsItemSelected(item);//return the items for the menu
-    }
+	}
 
 	/**
 	 * this function lets you go to the activity the user chose
@@ -216,7 +214,7 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 		    startActivity(new Intent(this,Explanation.class));
 		else
 			if(v==bttests)
-				startActivity(new Intent(this,Tests.class));
+				startActivity(new Intent(this,CalendarActivity.class));
 			else
 				if(v==btvolenteer) {
 					Intent i = new Intent(this, Volunteer.class);

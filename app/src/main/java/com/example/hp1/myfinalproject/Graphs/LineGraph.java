@@ -178,7 +178,7 @@ public class LineGraph extends AppCompatActivity implements NavigationView.OnNav
 
     /**
      * if the user clicked logout then the user will be logged out of the application
-     * if he clicked calendar he will then be sent to calendar activity
+     * if he chooses delete his account will be deleted
      * @param item thid=s parameter is the item that was clicked on
      * @return
      */
@@ -189,10 +189,6 @@ public class LineGraph extends AppCompatActivity implements NavigationView.OnNav
             case R.id.logOut:
                 firebaseAuth.signOut();
                 startActivity(new Intent(LineGraph.this, Login.class));
-                finish();
-                return true;
-            case R.id.calendar:
-                startActivity(new Intent(LineGraph.this, CalendarActivity.class));
                 finish();
                 return true;
             case R.id.delete:
@@ -208,6 +204,7 @@ public class LineGraph extends AppCompatActivity implements NavigationView.OnNav
                         });
                 startActivity(new Intent(LineGraph.this, Login.class));
                 finish();
+                return true;
 
         }
         return super.onOptionsItemSelected(item);//return the items for the menu

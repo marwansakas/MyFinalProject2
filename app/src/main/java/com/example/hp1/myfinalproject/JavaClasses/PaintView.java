@@ -81,7 +81,7 @@ public class PaintView extends View {
         for(FingerPath fp : paths)
         {
             mpaint.setColor(fp.getColor());
-            mpaint.setStrokeWidth(fp.getStrokewidth());
+            mpaint.setStrokeWidth(fp.getStrokeWidth());
             mpaint.setMaskFilter(null);
             mCanvas.drawPath(fp.getPath(),mpaint);
 

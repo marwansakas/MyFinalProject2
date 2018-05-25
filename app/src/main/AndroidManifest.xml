@@ -9,7 +9,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/bettertorch"
+        android:icon="@mipmap/aocoltorch"
         android:label="@string/app_name"
         android:supportsRtl="true">
         <activity
@@ -23,10 +23,6 @@
             android:name=".Volunteer"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat" />
-        <activity
-            android:name=".Tests"
-            android:label="@string/title_activity_tests"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".Register"
             android:label="@string/title_activity_register"

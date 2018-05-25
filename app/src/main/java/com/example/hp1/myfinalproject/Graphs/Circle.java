@@ -180,7 +180,7 @@ public class Circle extends AppCompatActivity implements NavigationView.OnNaviga
 
     /**
      * if the user clicked logout then the user will be logged out of the application
-     * if he clicked calendar he will then be sent to calendar activity
+     * if he chooses delete his account will be deleted
      * @param item thid=s parameter is the item that was clicked on
      * @return
      */
@@ -191,10 +191,6 @@ public class Circle extends AppCompatActivity implements NavigationView.OnNaviga
             case R.id.logOut:
                 firebaseAuth.signOut();
                 startActivity(new Intent(Circle.this, Login.class));
-                finish();
-                return true;
-            case R.id.calendar:
-                startActivity(new Intent(Circle.this, CalendarActivity.class));
                 finish();
                 return true;
             case R.id.delete:

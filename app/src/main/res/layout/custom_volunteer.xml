@@ -34,7 +34,8 @@
                 android:layout_toEndOf="@+id/imageView3"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
             <TextView
                 android:id="@+id/tvplace"
@@ -44,7 +45,8 @@
                 android:layout_toEndOf="@+id/imageView3"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                android:textColor="@color/common_google_signin_btn_text_dark_default"/>
 
             <TextView
                 android:id="@+id/tvhours"
@@ -54,7 +56,8 @@
                 android:layout_toEndOf="@+id/tvAction"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                android:textColor="@color/common_google_signin_btn_text_dark_default"/>
         </LinearLayout>
 
         <TextView
@@ -64,7 +67,8 @@
             android:layout_alignBottom="@+id/tvplace"
             android:layout_toEndOf="@+id/tvplace"
             android:text="TextView"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"/>
 
     </LinearLayout>
 

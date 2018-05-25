@@ -2,15 +2,23 @@ package com.example.hp1.myfinalproject;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hp1.myfinalproject.Graphs.Circle;
 import com.example.hp1.myfinalproject.JavaClasses.*;
 import com.example.hp1.myfinalproject.JavaClasses.Date;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,14 +35,16 @@ public class CalendarActivity extends AppCompatActivity {
 
     CompactCalendarView compactCalendar;
     private SimpleDateFormat dateFormatMonth=new SimpleDateFormat("MMMM - yyyy", Locale.getDefault());
-
-
     DatabaseReference databaseReferenceCalendar,databaseReferenceTests;
+    TextView tvDetails;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        tvDetails=(TextView)findViewById(R.id.tvDetails);
 
         final ActionBar actionBar=getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
@@ -93,7 +103,7 @@ public class CalendarActivity extends AppCompatActivity {
 
                 if(events.size()>0)
                 {
-                    Toast.makeText(getApplicationContext(),events.get(0).getData().toString(),Toast.LENGTH_SHORT).show();
+                    tvDetails.setText(events.get(0).getData().toString());
                 }
             }
 
@@ -106,8 +116,43 @@ public class CalendarActivity extends AppCompatActivity {
                 actionBar.setTitle(dateFormatMonth.format(firstDayOfNewMonth));
             }
 
-
         });
+
+        firebaseAuth= FirebaseAuth.getInstance();//to initialize firebaseAuth
+    }
+
+    /**
+     * if the user clicked logout then the user will be logged out of the application
+     * if he chooses delete his account will be deleted
+     * @param item thid=s parameter is the item that was clicked on
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)//to make the items for the options menu
+    {
+        switch (item.getItemId()) {
+            case R.id.logOut:
+                firebaseAuth.signOut();
+                startActivity(new Intent(CalendarActivity.this, Login.class));
+                finish();
+                return true;
+            case R.id.delete:
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(),"user was deleted",Toast.LENGTH_SHORT);
+                                }
+                            }
+                        });
+                startActivity(new Intent(CalendarActivity.this, Login.class));
+                finish();
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);//return the items for the menu
     }
 
     /**

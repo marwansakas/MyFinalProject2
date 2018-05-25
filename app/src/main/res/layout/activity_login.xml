@@ -7,6 +7,13 @@
     android:background="@mipmap/bettertorch"
     tools:context="com.example.hp1.myfinalproject.Login">
 
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="50dp"
+        android:src="@mipmap/aocoltorch" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_column="0"
@@ -14,7 +21,8 @@
         android:layout_marginBottom="70dp"
         android:layout_row="0"
         android:text="Email:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -22,7 +30,8 @@
         android:layout_gravity="left|center_vertical"
         android:layout_row="0"    
         android:text="Password:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"/>
 
     <EditText
         android:id="@+id/etpass"
@@ -32,7 +41,8 @@
         android:layout_row="0"
         android:ems="10"
         android:inputType="textPassword"
-        android:hint="password">
+        android:hint="password"
+        android:textColor="@color/common_google_signin_btn_text_dark_default">
 
         <requestFocus />
     </EditText>
@@ -45,7 +55,8 @@
         android:layout_marginBottom="70dp"
         android:layout_row="0"
         android:ems="10"
-        android:hint="Email" />
+        android:hint="Email"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"/>
 
     <Button
         android:id="@+id/btlogin"

@@ -48,7 +48,7 @@ public class Biology extends Activity {
 
 	/**
 	 * if the user clicked logout then the user will be logged out of the application
-	 * if he clicked calendar he will then be sent to calendar activity
+	 * if he chooses delete his account will be deleted
 	 * @param item thid=s parameter is the item that was clicked on
 	 * @return
 	 */
@@ -59,10 +59,6 @@ public class Biology extends Activity {
 			case R.id.logOut:
 				firebaseAuth.signOut();
 				startActivity(new Intent(Biology.this, Login.class));
-				finish();
-				return true;
-			case R.id.calendar:
-				startActivity(new Intent(Biology.this, CalendarActivity.class));
 				finish();
 				return true;
 			case R.id.delete:
@@ -78,6 +74,7 @@ public class Biology extends Activity {
 						});
 				startActivity(new Intent(Biology.this, Login.class));
 				finish();
+				return true;
 
 		}
 		return super.onOptionsItemSelected(item);//return the items for the menu
