@@ -16,9 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.CalendarActivity;
+import com.example.hp1.myfinalproject.Explanation;
 import com.example.hp1.myfinalproject.Login;
 import com.example.hp1.myfinalproject.MainActivity;
 import com.example.hp1.myfinalproject.R;
@@ -30,12 +32,16 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import org.w3c.dom.Text;
+
 public class Parabola extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     EditText etA,etB,etC;
     GraphView graph;
     private final int GRAPHSIZE=50000;
     double y,x=-1000;
+    double result1,result2;
+    TextView tvX,tvY;
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -49,6 +55,8 @@ public class Parabola extends AppCompatActivity implements NavigationView.OnNavi
         etA=(EditText)findViewById(R.id.etA);
         etB=(EditText)findViewById(R.id.etB);
         etC=(EditText)findViewById(R.id.etC);
+        tvX=(TextView)findViewById(R.id.tvX);
+        tvY=(TextView)findViewById(R.id.tvY);
         graph = (GraphView) findViewById(R.id.graph);
 
         // set manual X bounds
@@ -79,7 +87,19 @@ public class Parabola extends AppCompatActivity implements NavigationView.OnNavi
                     Toast.makeText(getApplicationContext(),"Please fill all the requird information",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    double a=Double.parseDouble(stA),b=Double.parseDouble(stB),c=Double.parseDouble(stC);
+                    double a=Double.parseDouble(etA.getText().toString()),b=Double.parseDouble(etB.getText().toString()),c=Double.parseDouble(etC.getText().toString());//add the value to a,b and c
+                    double delta=b*b-4*a*c;//set the delta value
+                    if (delta>0) {//to see if delta is bigger than 0
+                        result1 = (-b + Math.sqrt(delta)) / (2 * a);//get the first result
+                        result2 = (-b - Math.sqrt(delta)) / (2 * a);////get the second result
+                        tvX.setText("X1=" + result1 + "\nX2= " + result2);//show the answer
+                    }else
+                    if (delta==0)//to see if delta equals to 0
+                    {
+                        result1 = (-b + Math.sqrt(delta)) / (2 * a);//get the result
+                        tvX.setText("X=" + result1);//show the answer
+                    }
+                    tvY.setText("Y="+c);
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
                     for(int i=0;i<GRAPHSIZE;i++)
                     {
@@ -112,6 +132,7 @@ public class Parabola extends AppCompatActivity implements NavigationView.OnNavi
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            startActivity(new Intent(this, Explanation.class));
         }
     }
 

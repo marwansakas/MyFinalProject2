@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@mipmap/bettertorch"
+    android:background="@mipmap/background"
     tools:context="com.example.hp1.myfinalproject.Subjects.Sports"
     android:weightSum="1">
 
@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="kg"
+            android:textColorHint="@color/white"
             android:inputType="numberDecimal" />
 
         <EditText
@@ -32,6 +33,7 @@
             android:layout_marginLeft="65dp"
             android:ems="10"
             android:hint="m"
+            android:textColorHint="@color/white"
             android:inputType="numberDecimal" />
     </LinearLayout>
 
@@ -47,6 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="BMI=???"
+        android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <Button

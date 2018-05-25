@@ -37,7 +37,7 @@ public class Notifacation_reciever extends BroadcastReceiver{
         Notification notification=builder.setContentTitle("You Have HomeWork")//set the notification title
                 .setContentText("You Have HomeWork").setTicker("New Message Alert!")//set the notification message
                 .setAutoCancel(true)//set it as cancable notification
-                .setSmallIcon(R.drawable.torch)//set the icon for the notification
+                .setSmallIcon(R.mipmap.aocoltorch)//set the icon for the notification
                 .setContentIntent(pendingIntent).build();//set where the notifiction leads you to
 
         NotificationManager notificationManager=(NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);

@@ -56,7 +56,6 @@ public class Math extends Activity implements AdapterView.OnItemClickListener{
 		if(i<2){
 			Intent intent[]={new Intent(this,Root_calculator.class),new Intent(this,LineGraph.class)};
         	startActivity(intent[i]);//go to intent
-			finish();
     	}
     	else
 			Toast.makeText(getApplicationContext(),"Coming Soon",Toast.LENGTH_SHORT).show();

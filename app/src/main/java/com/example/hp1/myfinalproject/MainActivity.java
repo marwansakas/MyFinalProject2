@@ -210,26 +210,30 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 	 */
 	@Override
 	public void onClick(View v) {
-		if(v==btexplination)
-		    startActivity(new Intent(this,Explanation.class));
-		else
-			if(v==bttests)
-				startActivity(new Intent(this,CalendarActivity.class));
-			else
+		if(v==btexplination) {
+			startActivity(new Intent(this, Explanation.class));
+			finish();
+		}else
+			if(v==bttests) {
+				startActivity(new Intent(this, CalendarActivity.class));
+				finish();
+			}else
 				if(v==btvolenteer) {
 					Intent i = new Intent(this, Volunteer.class);
 					startActivity(i);
+					finish();
 				}
 				else
 					if(v==bthomework){
 						Intent i=new Intent(this,HomeWork.class);
 						startActivity(i);
+						finish();
                     }
 					else {
+						finish();
 						Intent i=new Intent(this, Profile.class);
 						startActivity(i);
 					}
-		finish();
 	}
 
 	/**
@@ -260,6 +264,7 @@ public class MainActivity extends Activity implements OnClickListener,AdapterVie
 		i.putExtra("Title",adapter.getItem(position).getTitle());
 		i.putExtra("Artical",adapter.getItem(position).getArtical());
 		startActivity(i);
+		finish();
 	}
 
 }

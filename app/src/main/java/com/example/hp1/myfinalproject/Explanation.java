@@ -14,13 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hp1.myfinalproject.CustomAdapters.CustomGrid;
-import com.example.hp1.myfinalproject.Graphs.Circle;
+import com.example.hp1.myfinalproject.Graphs.LineGraph;
 import com.example.hp1.myfinalproject.Subjects.Arabic;
 import com.example.hp1.myfinalproject.Subjects.Biology;
 import com.example.hp1.myfinalproject.Subjects.Chemistry;
@@ -29,7 +27,6 @@ import com.example.hp1.myfinalproject.Subjects.English;
 import com.example.hp1.myfinalproject.Subjects.Hebrew;
 import com.example.hp1.myfinalproject.Subjects.History;
 import com.example.hp1.myfinalproject.Subjects.Madaneyat;
-import com.example.hp1.myfinalproject.Subjects.Math;
 import com.example.hp1.myfinalproject.Subjects.Sports;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,22 +40,12 @@ public class Explanation extends Activity implements AdapterView.OnItemClickList
 	ArrayList arrsubjects= new ArrayList<String>();
 	FirebaseAuth firebaseAuth;
 
-	/*int[] images={R.drawable.math,R.drawable.arabic,R.drawable.english,R.drawable.coding,R.drawable.hebrew,R.drawable.bio,R.drawable.chemistry,R.drawable.history,R.drawable.sports,R.drawable.madaneyat};
-	String[] subjects={"MAth","Arabic","English","Computer Science","Hebrew","Biology","Chemistry","History","Sports","Madaneyat"};
-	GridView gridView;
-	CustomGrid customGrid;
-*/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_explination);
 		lvsubjects=(ListView)findViewById(R.id.lvexplinasions);//initialize lvsubjects
 
-		/*gridView=(GridView)findViewById(R.id.gridView);
-		customGrid=new CustomGrid(this,images,subjects);
-		gridView.setAdapter(customGrid);
-		gridView.setOnItemClickListener(this);
-*/
 		adapter=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,arrsubjects){
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent)
@@ -75,7 +62,7 @@ public class Explanation extends Activity implements AdapterView.OnItemClickList
 				// Generate ListView Item using TextView
 				return view;
 			}
-	};;//initialize adapter
+		};//initialize adapter
 		lvsubjects.setOnItemClickListener(this);//make lvsubjects clickable
 		lvsubjects.setAdapter(adapter);//set adapter to lvsubjects
 
@@ -104,7 +91,7 @@ public class Explanation extends Activity implements AdapterView.OnItemClickList
 	 */
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-		Intent[] i={new Intent(this,Math.class),
+		Intent[] i={new Intent(this,LineGraph.class),
 				new Intent(this,Arabic.class),
 				new Intent(this,English.class),
 				new Intent(this,Computer_Sience.class),

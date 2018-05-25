@@ -17,33 +17,66 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etA"
-            android:layout_width="140dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="a"
-            android:inputType="numberDecimal" />
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etB"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="b"
-            android:inputType="numberDecimal" />
+            <EditText
+                android:id="@+id/etA"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="a"
+                android:inputType="numberDecimal" />
 
-        <EditText
-            android:id="@+id/etC"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="c"
-            android:inputType="numberDecimal" />
+            <EditText
+                android:id="@+id/etB"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="b"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/etC"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="c"
+                android:inputType="numberDecimal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvX"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="5dp"
+                android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:id="@+id/tvY"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="70dp"
+                android:gravity="right"
+                android:padding="5dp"
+                android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        </LinearLayout>
 
     </LinearLayout>
 

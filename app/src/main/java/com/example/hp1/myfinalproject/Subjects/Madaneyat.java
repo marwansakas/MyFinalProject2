@@ -1,6 +1,7 @@
 package com.example.hp1.myfinalproject.Subjects;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,10 +9,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.CalendarActivity;
@@ -46,7 +49,22 @@ public class Madaneyat extends AppCompatActivity implements AdapterView.OnItemCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_madaneyat);
-        adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,videoName);//initialize adapter
+        adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,videoName){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent)
+            {
+                // Get the Item from ListView
+                View view = super.getView(position, convertView, parent);
+
+                // Initialize a TextView for ListView each Item
+                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                // Set the text color of TextView (ListView Item)
+                tv.setTextColor(Color.WHITE);
+
+                // Generate ListView Item using TextView
+                return view;
+            }};//initialize adapter
         lv1=(ListView)findViewById(R.id.listView);//initialize lv1
         lv1.setOnItemClickListener(Madaneyat.this);//make lv1 clickable
         lv1.setAdapter(adapter);//set the adapter to lv1

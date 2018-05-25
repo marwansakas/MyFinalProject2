@@ -61,7 +61,8 @@ public class Homework_Add extends Activity implements OnClickListener {
         btadd = (Button) findViewById(R.id.btAdd);//give the button an id
         s = (Spinner) findViewById(R.id.spinner1);//give the spinner an id
 
-        ArrayAdapter<String> spinneradapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arraySpinner);//initialize the array adapter
+        ArrayAdapter<String> spinneradapter = new ArrayAdapter<String>(this, R.layout.spinner_item, arraySpinner);//initialize the array adapter
+        spinneradapter.setDropDownViewResource(R.layout.spinner_menu);
         s.setAdapter(spinneradapter);//set the adapter to the spinner
 
         btadd.setOnClickListener(this);//make the button clickable

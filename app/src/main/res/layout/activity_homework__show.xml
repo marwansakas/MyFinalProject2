@@ -4,22 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@mipmap/bettertorch"
+    android:background="@mipmap/background"
     tools:context="com.example.hp1.myfinalproject.Homework_Add" >
 <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="159dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="details"
-            android:inputType="textMultiLine" >
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="159dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="details"
+        android:inputType="textMultiLine"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white">
 
-            <requestFocus />
-        </EditText>
+        <requestFocus />
+    </EditText>
 
         <Spinner
             android:id="@+id/spinner1"
@@ -34,6 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Date: ??/??/??"
+        android:textColor="@color/white"
         android:textSize="30sp" />
 
     <LinearLayout

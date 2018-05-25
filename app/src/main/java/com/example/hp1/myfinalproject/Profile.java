@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -14,10 +15,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -67,7 +70,22 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         imageView = (ImageView) findViewById(R.id.imageView);
         btsave=(Button)findViewById(R.id.btsave);
         lvInfo=(ListView)findViewById(R.id.lvProInfo);
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayInfo);
+        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arrayInfo){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent)
+            {
+                // Get the Item from ListView
+                View view = super.getView(position, convertView, parent);
+
+                // Initialize a TextView for ListView each Item
+                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                // Set the text color of TextView (ListView Item)
+                tv.setTextColor(Color.WHITE);
+
+                // Generate ListView Item using TextView
+                return view;
+            }};
         lvInfo.setAdapter(adapter);
 
         btsave.setOnClickListener(this);

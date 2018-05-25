@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.CalendarActivity;
+import com.example.hp1.myfinalproject.Explanation;
 import com.example.hp1.myfinalproject.Login;
 import com.example.hp1.myfinalproject.MainActivity;
 import com.example.hp1.myfinalproject.R;
@@ -116,6 +117,7 @@ public class Elipsa extends AppCompatActivity implements NavigationView.OnNaviga
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            startActivity(new Intent(this, Explanation.class));
         }
     }
 

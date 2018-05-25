@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.CustomAdapters.CustomAdapter;
@@ -98,6 +100,8 @@ public class HomeWork extends AppCompatActivity implements OnClickListener,Adapt
 	 */
 	@Override
 	public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
+		TextView textView = (TextView) parent.getChildAt(0);
+		textView.setTextColor(Color.WHITE);
 		Query query=databaseReferenceSubHomework.orderByChild("details").equalTo(arrsubjects.get(position).getDetails());
 		query.addListenerForSingleValueEvent(new ValueEventListener() {
 			@Override

@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hp1.myfinalproject.Graphs.Circle;
 import com.example.hp1.myfinalproject.JavaClasses.Date;
 import com.example.hp1.myfinalproject.JavaClasses.PaintView;
 import com.example.hp1.myfinalproject.JavaClasses.VolunteerHours;
@@ -35,7 +34,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
-import static com.example.hp1.myfinalproject.Volunteer.volunteerActivity;
 import static java.lang.Integer.parseInt;
 
 
@@ -56,7 +54,7 @@ public class Volunteer_Add extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_);
+        setContentView(R.layout.activity_volunteer_add_);
         bt = (Button) findViewById(R.id.btsend);
         etplace = (EditText) findViewById(R.id.etplace);
         etactivity = (EditText) findViewById(R.id.etactivity);
