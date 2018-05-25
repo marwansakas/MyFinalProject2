@@ -24,8 +24,6 @@ public class Login extends Activity implements OnClickListener {
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
     Intent intent;
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +38,15 @@ public class Login extends Activity implements OnClickListener {
         btlogin.setOnClickListener(this);//to make the button clickable
         btregister.setOnClickListener(this);
 
+
         intent = new Intent(this, MainActivity.class);//initialize intent
-        pref = getSharedPreferences("mypref",MODE_PRIVATE);
-        String em=pref.getString("email",null);
-        String pwd=pref.getString("password",null);
-        etEmail.setText(em);
-        etpass.setText(pwd);
-        editor= pref.edit();
         progressDialog = new ProgressDialog(this);//initialize progressDialog
         firebaseAuth = FirebaseAuth.getInstance();//initialize firebaseAuth
+
+        if(firebaseAuth.getCurrentUser()!=null) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
     }
 
     @Override
@@ -75,9 +73,6 @@ public class Login extends Activity implements OnClickListener {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();//dismissing the progressDialog
                             if (task.isSuccessful()){//if task is successful continue
-                                editor.putString("email",etEmail.getText().toString());
-                                editor.putString("password",etpass.getText().toString());
-                                editor.commit();
                                 startActivity(intent);//start MainActivity
                                 finish();}
                                 else{
