@@ -1,6 +1,7 @@
 package com.example.hp1.myfinalproject;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hp1.myfinalproject.Graphs.Circle;
@@ -50,7 +52,23 @@ public class ChemInfo extends AppCompatActivity {
 
         appBarLayout.setBackgroundResource(getResources().getIdentifier(symbol.toLowerCase(),"mipmap",getPackageName()));
 
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent)
+            {
+                // Get the Item from ListView
+                View view = super.getView(position, convertView, parent);
+
+                // Initialize a TextView for ListView each Item
+                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                // Set the text color of TextView (ListView Item)
+                tv.setTextColor(Color.WHITE);
+
+                // Generate ListView Item using TextView
+                return view;
+            }
+        };//initialize adapter
 
         String[] infos=getResources().getStringArray(R.array.info);
         String[][] details={getResources().getStringArray(R.array.element_name_eng),getResources().getStringArray(R.array.element_name_latin),getResources().getStringArray(R.array.year),getResources().getStringArray(R.array.CAS_Number)};

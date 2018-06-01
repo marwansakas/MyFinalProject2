@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     layout_height=""
+    android:background="@mipmap/background"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <android.support.design.widget.AppBarLayout
